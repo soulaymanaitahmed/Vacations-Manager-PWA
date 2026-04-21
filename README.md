@@ -29,10 +29,6 @@ More features are planned and will be added in future updates.
 
 This project is still under development. Please note that it is not ready for production use and is not available for public use.
 
-## Contact
-
-If you need the database schema, contact-me: soulayman.dev@gmail.com
-
 ## License
 
 <p style="color:red">This project is not open for public use. All rights are reserved.</p>
