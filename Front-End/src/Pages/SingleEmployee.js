@@ -223,7 +223,7 @@ function SingleEmployee(props) {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setCongExist(
-          "Une période existe déjà pour cet employé. Veuillez choisir une autre date."
+          "Une période existe déjà pour cet employé. Veuillez choisir une autre date.",
         );
       }
       console.error("Error inserting conge record:", error);
@@ -396,7 +396,7 @@ function SingleEmployee(props) {
         const maxEndDate = new Date(currentYear, 11, 31);
         const adjustedDuration = Math.max(
           0,
-          Math.floor((maxEndDate - start) / (1000 * 60 * 60 * 24)) + 1
+          Math.floor((maxEndDate - start) / (1000 * 60 * 60 * 24)) + 1,
         );
         end = new Date(start);
         end.setDate(start.getDate() + Math.min(duration - 1, adjustedDuration));
@@ -494,7 +494,8 @@ function SingleEmployee(props) {
   useEffect(() => {
     const today = new Date().toISOString();
     const shouldSetNoMore = congsAll.some(
-      (cong) => cong.end_at >= today && cong.cancel !== 2 && cong.decision === 5
+      (cong) =>
+        cong.end_at >= today && cong.cancel !== 2 && cong.decision === 5,
     );
     if (shouldSetNoMore) {
       setNoMore(true);
@@ -1147,7 +1148,7 @@ function SingleEmployee(props) {
                   {String(
                     sold.find((y) => y.year === year3)
                       ? 22 - sold.find((y) => y.year === year3).sold
-                      : 22
+                      : 22,
                   ).padStart(2, "0")}
                 </button>
                 <button
@@ -1281,40 +1282,40 @@ function SingleEmployee(props) {
                           singleConj.type === 1
                             ? "vv1"
                             : singleConj.type === 2
-                            ? "vv2"
-                            : singleConj.type === 3
-                            ? "vv3"
-                            : singleConj.type === 11
-                            ? "vv4"
-                            : singleConj.type === 12
-                            ? "vv5"
-                            : singleConj.type === 13
-                            ? "vv6"
-                            : singleConj.type === 21
-                            ? "vv7"
-                            : singleConj.type === 22
-                            ? "vv8"
-                            : "vv10"
+                              ? "vv2"
+                              : singleConj.type === 3
+                                ? "vv3"
+                                : singleConj.type === 11
+                                  ? "vv4"
+                                  : singleConj.type === 12
+                                    ? "vv5"
+                                    : singleConj.type === 13
+                                      ? "vv6"
+                                      : singleConj.type === 21
+                                        ? "vv7"
+                                        : singleConj.type === 22
+                                          ? "vv8"
+                                          : "vv10"
                         }
                         id="vv10"
                       >
                         {singleConj.type === 1
                           ? "Annuel"
                           : singleConj.type === 2
-                          ? "Exceptionnel"
-                          : singleConj.type === 3
-                          ? "Autorisation d'absence"
-                          : singleConj.type === 11
-                          ? "Congé de Maladie C"
-                          : singleConj.type === 12
-                          ? "Congé de Maladie M"
-                          : singleConj.type === 13
-                          ? "Congé de Maladie L"
-                          : singleConj.type === 21
-                          ? "Congé de Maternité"
-                          : singleConj.type === 22
-                          ? "Congé de Paternité"
-                          : "Else"}
+                            ? "Exceptionnel"
+                            : singleConj.type === 3
+                              ? "Autorisation d'absence"
+                              : singleConj.type === 11
+                                ? "Congé de Maladie C"
+                                : singleConj.type === 12
+                                  ? "Congé de Maladie M"
+                                  : singleConj.type === 13
+                                    ? "Congé de Maladie L"
+                                    : singleConj.type === 21
+                                      ? "Congé de Maternité"
+                                      : singleConj.type === 22
+                                        ? "Congé de Paternité"
+                                        : "Else"}
                       </span>
                     </span>
                     {!singleConj.justification &&
@@ -1327,15 +1328,15 @@ function SingleEmployee(props) {
                           singleConj.justification === 1
                             ? "hhj7"
                             : singleConj.justification === 0
-                            ? "hhj8"
-                            : null
+                              ? "hhj8"
+                              : null
                         }
                       >
                         {singleConj.justification === 1
                           ? "Justifier"
                           : singleConj.justification === 0
-                          ? "Non justifier"
-                          : null}
+                            ? "Non justifier"
+                            : null}
                       </span>
                     ) : null}
                     {singleConj.type === 1 ? (
@@ -1345,15 +1346,15 @@ function SingleEmployee(props) {
                           singleConj.quitter === 1
                             ? "hhj7"
                             : singleConj.quitter === 0
-                            ? "hhj8"
-                            : null
+                              ? "hhj8"
+                              : null
                         }
                       >
                         {singleConj.quitter === 1
                           ? "Avec autorisation de quitter le territoire"
                           : singleConj.quitter === 0
-                          ? "Sans autorisation de quitter le territoire"
-                          : null}
+                            ? "Sans autorisation de quitter le territoire"
+                            : null}
                       </span>
                     ) : null}
                   </div>
@@ -1498,8 +1499,8 @@ function SingleEmployee(props) {
                   c.cancel === 2
                     ? { borderBottom: "2px solid #d35848ca" }
                     : new Date(c.end_at) >= new Date() && c.decision === 5
-                    ? { border: "2px solid #2ac225ca" }
-                    : null
+                      ? { border: "2px solid #2ac225ca" }
+                      : null
                 }
               >
                 <div
@@ -1518,39 +1519,39 @@ function SingleEmployee(props) {
                       c.cancel === 2
                         ? "nn100"
                         : c.decision === 0 && c.cancel !== 2
-                        ? "nn11"
-                        : c.decision === 1 && c.cancel !== 2
-                        ? "nn22"
-                        : c.decision === 2 && c.cancel !== 2
-                        ? "nn33"
-                        : c.decision === 3 && c.cancel !== 2
-                        ? "nn44"
-                        : c.decision === 4 && c.cancel !== 2
-                        ? "nn55"
-                        : c.decision === 5 && c.cancel !== 2
-                        ? "nn66"
-                        : c.decision > 20 && c.cancel !== 2
-                        ? "nn20"
-                        : null
+                          ? "nn11"
+                          : c.decision === 1 && c.cancel !== 2
+                            ? "nn22"
+                            : c.decision === 2 && c.cancel !== 2
+                              ? "nn33"
+                              : c.decision === 3 && c.cancel !== 2
+                                ? "nn44"
+                                : c.decision === 4 && c.cancel !== 2
+                                  ? "nn55"
+                                  : c.decision === 5 && c.cancel !== 2
+                                    ? "nn66"
+                                    : c.decision > 20 && c.cancel !== 2
+                                      ? "nn20"
+                                      : null
                     }
                   >
                     {c.cancel === 2
                       ? "Annuler"
                       : c.decision === 0 && c.cancel !== 2
-                      ? "En attente"
-                      : c.decision === 1 && c.cancel !== 2
-                      ? "Bureau d'ordre"
-                      : c.decision === 2 && c.cancel !== 2
-                      ? "Chef archaic"
-                      : c.decision === 3 && c.cancel !== 2
-                      ? "Le délégué"
-                      : c.decision === 4 && c.cancel !== 2
-                      ? "RH"
-                      : c.decision === 5 && c.cancel !== 2
-                      ? "Valider"
-                      : c.decision > 20 && c.cancel !== 2
-                      ? "Rejeter"
-                      : c.decision}
+                        ? "En attente"
+                        : c.decision === 1 && c.cancel !== 2
+                          ? "Bureau d'ordre"
+                          : c.decision === 2 && c.cancel !== 2
+                            ? "Chef archaic"
+                            : c.decision === 3 && c.cancel !== 2
+                              ? "Le délégué"
+                              : c.decision === 4 && c.cancel !== 2
+                                ? "RH"
+                                : c.decision === 5 && c.cancel !== 2
+                                  ? "Valider"
+                                  : c.decision > 20 && c.cancel !== 2
+                                    ? "Rejeter"
+                                    : c.decision}
                   </span>
                 </div>
                 <div className="suv-div44" id="S13">
@@ -1559,40 +1560,40 @@ function SingleEmployee(props) {
                       c.type === 1
                         ? "vv1"
                         : c.type === 2
-                        ? "vv2"
-                        : c.type === 3
-                        ? "vv3"
-                        : c.type === 11
-                        ? "vv4"
-                        : c.type === 12
-                        ? "vv5"
-                        : c.type === 13
-                        ? "vv6"
-                        : c.type === 21
-                        ? "vv7"
-                        : c.type === 22
-                        ? "vv8"
-                        : "vv10"
+                          ? "vv2"
+                          : c.type === 3
+                            ? "vv3"
+                            : c.type === 11
+                              ? "vv4"
+                              : c.type === 12
+                                ? "vv5"
+                                : c.type === 13
+                                  ? "vv6"
+                                  : c.type === 21
+                                    ? "vv7"
+                                    : c.type === 22
+                                      ? "vv8"
+                                      : "vv10"
                     }
                     id="vv10"
                   >
                     {c.type === 1
                       ? "Annuel"
                       : c.type === 2
-                      ? "Exceptionnel"
-                      : c.type === 3
-                      ? "Autorisation d'absence"
-                      : c.type === 11
-                      ? "Congé de Maladie C"
-                      : c.type === 12
-                      ? "Congé de Maladie M"
-                      : c.type === 13
-                      ? "Congé de Maladie L"
-                      : c.type === 21
-                      ? "Congé de Maternité"
-                      : c.type === 22
-                      ? "Congé de Paternité"
-                      : "Else"}
+                        ? "Exceptionnel"
+                        : c.type === 3
+                          ? "Autorisation d'absence"
+                          : c.type === 11
+                            ? "Congé de Maladie C"
+                            : c.type === 12
+                              ? "Congé de Maladie M"
+                              : c.type === 13
+                                ? "Congé de Maladie L"
+                                : c.type === 21
+                                  ? "Congé de Maternité"
+                                  : c.type === 22
+                                    ? "Congé de Paternité"
+                                    : "Else"}
                   </span>
                 </div>
                 <div className="suv-div44" id="S14">
