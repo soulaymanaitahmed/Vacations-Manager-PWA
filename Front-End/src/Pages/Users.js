@@ -44,8 +44,8 @@ function Users() {
         (user) =>
           user.username.toLowerCase().includes(term) ||
           user.nom.toLowerCase().includes(term) ||
-          user.prenom.toLowerCase().includes(term)
-      )
+          user.prenom.toLowerCase().includes(term),
+      ),
     );
   }, [searchTerm, users]);
 
@@ -277,16 +277,16 @@ function Users() {
                     {us.type === 1
                       ? "Bureau d'ordre"
                       : us.type === 2
-                      ? "Chef archaic"
-                      : us.type === 3
-                      ? "Le délégué"
-                      : us.type === 4
-                      ? "RH"
-                      : us.type === 20
-                      ? "Admin"
-                      : us.type === 0
-                      ? "Invité"
-                      : us.type}
+                        ? "Chef archaic"
+                        : us.type === 3
+                          ? "Le délégué"
+                          : us.type === 4
+                            ? "RH"
+                            : us.type === 20
+                              ? "Admin"
+                              : us.type === 0
+                                ? "Invité"
+                                : us.type}
                   </span>
                 </div>
               </div>

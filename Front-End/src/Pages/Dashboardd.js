@@ -40,7 +40,7 @@ function Dashboardd(props) {
   const fetchOutEmployees = async () => {
     try {
       const response = await axios.get(
-        `${baseURL}/filteredVacationsByDecision`
+        `${baseURL}/filteredVacationsByDecision`,
       );
       setOutEpl(response.data);
     } catch (error) {
@@ -55,11 +55,11 @@ function Dashboardd(props) {
 
   useEffect(() => {
     const selectableRequests = requests.filter(
-      (r) => r.decision === tpp && r.cancel !== 2
+      (r) => r.decision === tpp && r.cancel !== 2,
     );
     setSelectAll(
       selectedIds.length === selectableRequests.length &&
-        selectableRequests.length > 0
+        selectableRequests.length > 0,
     );
   }, [selectedIds, requests, tpp]);
 
@@ -80,19 +80,19 @@ function Dashboardd(props) {
       printRefs.current.index = index;
       handlePrint();
     },
-    [handlePrint]
+    [handlePrint],
   );
 
   const handleCheckboxChange = (id) => {
     setSelectedIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((selectedId) => selectedId !== id)
-        : [...prevIds, id]
+        : [...prevIds, id],
     );
   };
   const handleSelectAll = () => {
     const selectableRequests = requests.filter(
-      (r) => r.decision === tpp && r.cancel !== 2
+      (r) => r.decision === tpp && r.cancel !== 2,
     );
     if (selectAll) {
       setSelectedIds([]);
