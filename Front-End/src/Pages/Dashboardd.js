@@ -6,6 +6,10 @@ import "../Style/dashboard.css";
 
 import { VscInspect } from "react-icons/vsc";
 
+import { MdMarkEmailUnread } from "react-icons/md";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { FaCalendarCheck } from "react-icons/fa6";
+
 import { baseURL } from "../config";
 
 function Dashboardd(props) {
@@ -17,7 +21,12 @@ function Dashboardd(props) {
   const [selectedIds, setSelectedIds] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [expand, setExpand] = useState(false);
-  const [stats, setStats] = useState({ totalEmployees: 0, currentlyOnVacation: 0, vacationDetails: [], pendingRequests: 0 });
+  const [stats, setStats] = useState({
+    totalEmployees: 0,
+    currentlyOnVacation: 0,
+    vacationDetails: [],
+    pendingRequests: 0,
+  });
 
   const typeLabels = {
     1: "Annuel",
@@ -147,14 +156,18 @@ function Dashboardd(props) {
     <div className="dashboard">
       <div className="stats-cards-container">
         <div className="stat-card pending-card">
-          <div className="stat-icon pending-icon"></div>
+          <div className="stat-icon pending-icon">
+            <MdMarkEmailUnread />
+          </div>
           <div className="stat-info">
             <div className="stat-card-title">Demandes en attente</div>
             <div className="stat-card-value">{stats.pendingRequests}</div>
           </div>
         </div>
         <div className="stat-card team-card">
-          <div className="stat-icon team-icon"></div>
+          <div className="stat-icon team-icon">
+            <BsFillPeopleFill />
+          </div>
           <div className="stat-info">
             <div className="stat-card-title">Total Personnel</div>
             <div className="stat-card-value">{stats.totalEmployees}</div>
@@ -162,7 +175,9 @@ function Dashboardd(props) {
         </div>
         <div className="stat-card vacation-card">
           <div className="vacation-card-header">
-            <div className="stat-icon vacation-icon"></div>
+            <div className="stat-icon vacation-icon">
+              <FaCalendarCheck />
+            </div>
             <div className="stat-info">
               <div className="stat-card-title">En vacances actuellement</div>
               <div className="stat-card-value">{stats.currentlyOnVacation}</div>
@@ -179,15 +194,23 @@ function Dashboardd(props) {
                 <div className="mini-tb">
                   {stats.vacationDetails.map((v, i) => (
                     <div key={i} className="mini-tr">
-                      <div className="m-td-name">{v.prenom} {v.nom}</div>
-                      <div className="m-td-corp"><span className="mini-corp-pill">{v.corp_name}</span></div>
-                      <div className="m-td-date">{formatDate(v.start_at)} ➔ {formatDate(v.end_at)}</div>
+                      <div className="m-td-name">
+                        {v.prenom} {v.nom}
+                      </div>
+                      <div className="m-td-corp">
+                        <span className="mini-corp-pill">{v.corp_name}</span>
+                      </div>
+                      <div className="m-td-date">
+                        {formatDate(v.start_at)} ➔ {formatDate(v.end_at)}
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             ) : (
-              <p className="no-vacation-text">Aucun employé n'est en vacances actuellement.</p>
+              <p className="no-vacation-text">
+                Aucun employé n'est en vacances actuellement.
+              </p>
             )}
           </div>
         </div>
@@ -222,7 +245,10 @@ function Dashboardd(props) {
             requests.map((r, index) => {
               const isChecked = selectedIds.includes(r.id);
               return (
-                <div key={r.id} className={`dash-table-row ${isChecked ? 'selected' : ''}`}>
+                <div
+                  key={r.id}
+                  className={`dash-table-row ${isChecked ? "selected" : ""}`}
+                >
                   <div className="td-cell td-checkbox">
                     {r.cancel === 2 ? (
                       <span className="badge badge-cancelled">Annuler</span>
@@ -250,17 +276,23 @@ function Dashboardd(props) {
                     )}
                   </div>
                   <div className="td-cell td-name">
-                    <div className="employee-name">{r.prenom} {r.nom}</div>
+                    <div className="employee-name">
+                      {r.prenom} {r.nom}
+                    </div>
                   </div>
                   <div className="td-cell td-type">
-                    <span className="type-pill">{typeLabels[r.type] || "Type"}</span>
+                    <span className="type-pill">
+                      {typeLabels[r.type] || "Type"}
+                    </span>
                   </div>
-                  <div className="td-cell td-duration"><strong>{r.total_duration}</strong> Jours</div>
+                  <div className="td-cell td-duration">
+                    <strong>{r.total_duration}</strong> Jours
+                  </div>
                   <div className="td-cell td-date">
                     {formatDate(r.start_at)} ➔ {formatDate(r.end_at)}
                   </div>
                   <div className="td-cell td-action">
-                    <button 
+                    <button
                       className="inspect-btn"
                       onClick={() => {
                         const oo = r.per_id * 45657;
