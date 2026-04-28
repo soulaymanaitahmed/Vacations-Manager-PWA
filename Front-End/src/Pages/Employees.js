@@ -77,17 +77,15 @@ function Employees() {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const filtered = employeesall.filter((employee) => {
       return (
-        employee.type_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-        employee.formation_sanitaire
-          .toLowerCase()
-          .includes(lowerCaseSearchTerm) ||
-        employee.corp_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-        employee.grade_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-        employee.cin.toLowerCase().includes(lowerCaseSearchTerm) ||
-        employee.phone.toLowerCase().includes(lowerCaseSearchTerm) ||
-        employee.ppr.toLowerCase().includes(lowerCaseSearchTerm) ||
-        employee.prenom.toLowerCase().includes(lowerCaseSearchTerm) ||
-        employee.nom.toLowerCase().includes(lowerCaseSearchTerm)
+        String(employee.type_name || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.formation_sanitaire || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.corp_name || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.grade_name || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.cin || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.phone || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.ppr || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.prenom || "").toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(employee.nom || "").toLowerCase().includes(lowerCaseSearchTerm)
       );
     });
     setFilteredEmployees(filtered);
