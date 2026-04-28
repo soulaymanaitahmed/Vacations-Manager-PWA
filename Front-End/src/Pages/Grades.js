@@ -196,7 +196,7 @@ function Grades() {
               onChange={(e) => setCorpSelect(e.target.value)}
               required
             >
-              <option>Select Corp</option>
+              <option>Sélectionner un corps</option>
               {corps.map((cr) => {
                 return (
                   <option key={cr.id} value={cr.id}>
@@ -256,7 +256,7 @@ function Grades() {
                     }}
                   >
                     <FiEdit className="ft1" />
-                    Edit
+                    Modifier
                   </button>
                 ) : (
                   <button
@@ -363,7 +363,7 @@ function Grades() {
                       }
                     >
                       <FiEdit className="ft1" />
-                      Edit
+                      Modifier
                     </button>
                   ) : (
                     <button

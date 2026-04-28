@@ -541,7 +541,7 @@ function SingleEmployee(props) {
           <input
             type="text"
             id="servh1255"
-            placeholder="Search"
+            placeholder="Rechercher"
             className="searcher1"
             value={"Sélectionner l'année"}
             disabled
@@ -569,7 +569,7 @@ function SingleEmployee(props) {
               setAddVc2(true);
             }}
           >
-            Ajouter sold Annuel
+            Ajouter solde Annuel
           </button>
         ) : null}
         <button
@@ -611,7 +611,7 @@ function SingleEmployee(props) {
             <div className="card-nbr44" id="kkbyr444">
               {abs}
             </div>
-            <p className="stat-year">Aut d'absence</p>
+            <p className="stat-year">Autorisation d'absence</p>
           </div>
           {sold.map((y) => (
             <div className="stats-card" key={y.year}>
@@ -1059,7 +1059,7 @@ function SingleEmployee(props) {
                       type="submit"
                       disabled={total < 1 || total > maxi}
                     >
-                      Submit
+                      Valider
                     </button>
                   </div>
                   {congExist ? (
@@ -1184,7 +1184,7 @@ function SingleEmployee(props) {
               {conf ? (
                 <div className="confirm88">
                   <div className="conf-card-99">
-                    <p className="conf-text5">Are you sure?</p>
+                    <p className="conf-text5">Êtes-vous sûr ?</p>
                     <div className="conf-btn-77">
                       <button
                         className="cbtn5 conf99"
@@ -1315,7 +1315,7 @@ function SingleEmployee(props) {
                                       ? "Congé de Maternité"
                                       : singleConj.type === 22
                                         ? "Congé de Paternité"
-                                        : "Else"}
+                                        : "Autre"}
                       </span>
                     </span>
                     {!singleConj.justification &&
@@ -1460,10 +1460,10 @@ function SingleEmployee(props) {
           ) : null}
           <div className="kknh55" id="booldy">
             <div className="suv-div44" id="S11">
-              ID
+              N°
             </div>
             <div className="suv-div44" id="S12">
-              Decision
+              Décision
             </div>
             <div className="suv-div44" id="S13">
               Type
@@ -1593,7 +1593,7 @@ function SingleEmployee(props) {
                                   ? "Congé de Maternité"
                                   : c.type === 22
                                     ? "Congé de Paternité"
-                                    : "Else"}
+                                    : "Autre"}
                   </span>
                 </div>
                 <div className="suv-div44" id="S14">

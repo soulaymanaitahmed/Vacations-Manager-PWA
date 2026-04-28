@@ -149,13 +149,13 @@ function Users() {
       {conf == true && user ? (
         <div className="confirm88">
           <div className="conf-card-99">
-            <p className="conf-text5">Are you sure?</p>
+            <p className="conf-text5">Êtes-vous sûr ?</p>
             <div className="conf-btn-77">
               <button
                 className="cbtn5 conf99"
                 onClick={() => handleDeleteUser(user.id)}
               >
-                Delete
+                Supprimer
               </button>
               <button className="cbtn5 cancel99" onClick={() => setConf(false)}>
                 Annuler
@@ -171,7 +171,7 @@ function Users() {
           <input
             type="text"
             id="servh12"
-            placeholder="Search"
+            placeholder="Rechercher"
             className="searcher1"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -257,7 +257,7 @@ function Users() {
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Username :
+                    Nom d'utilisateur :
                   </span>
                   <span
                     className="nn2"
@@ -271,7 +271,7 @@ function Users() {
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Privileges :
+                    Privilèges :
                   </span>
                   <span className="nn3">
                     {us.type === 1
@@ -350,7 +350,7 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
-                Username
+                Nom d'utilisateur
               </label>
             </div>
             <div className="input-lab">
@@ -374,11 +374,11 @@ function Users() {
                 }}
               />
               <label htmlFor="password" className="add-lab">
-                Password
+                Mot de passe
               </label>
             </div>
             <div className="add-selection">
-              <input className="select-lab" value="Privileges" id="hhkvcn" />
+              <input className="select-lab" value="Privilèges" id="hhkvcn" />
               <select
                 name="type"
                 className="privl"
@@ -457,7 +457,7 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
-                Username
+                Nom d'utilisateur
               </label>
             </div>
             <div className="input-lab">
@@ -481,11 +481,11 @@ function Users() {
                 }}
               />
               <label htmlFor="password" className="add-lab">
-                Password
+                Mot de passe
               </label>
             </div>
             <div className="add-selection">
-              <input className="select-lab" value="Privileges" id="hhkvcn" />
+              <input className="select-lab" value="Privilèges" id="hhkvcn" />
               <select
                 name="type"
                 className="privl"
