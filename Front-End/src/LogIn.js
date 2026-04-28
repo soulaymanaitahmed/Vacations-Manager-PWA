@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { SlSettings } from "react-icons/sl";
 import { BsPersonCircle } from "react-icons/bs";
-import { MdVisibility } from "react-icons/md";
-import { MdVisibilityOff } from "react-icons/md";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { FaArrowLeft } from "react-icons/fa";
 
 import Cookies from "js-cookie";
 import axios from "axios";
 
 import "./Style/login.css";
 import logo1 from "./Images/deleg-logo.png";
+import sideIllustration from "./Images/vacation_login_illustration.png";
 
 import { baseURL } from "./config";
 import { InstallAppButton } from "./pwaInstall";
@@ -64,112 +65,141 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-wrapper">
       <div className="pwa-install-login-wrap">
         <InstallAppButton variant="login" />
       </div>
-      <div className="section77">
-        <div className="logo77">
-          <img className="logoimg77" alt="Logo IMG" src={logo1} width="80px" />
-          <span className="bbrjdndt77">Login Page</span>
-        </div>
-        {choi === 0 ? (
-          <div className="choi77">
-            <div
-              className="sec11"
-              onClick={() => {
-                setChoi(1);
-              }}
-            >
-              <SlSettings className="llkoi77" id="kknurf77" />
-              <span className="kkopki77" id="kknurf77">
-                Administration
-              </span>
-            </div>
-            <div
-              className="sec11"
-              onClick={() => {
-                setChoi(2);
-              }}
-            >
-              <BsPersonCircle className="llkoi77" id="kknurf78" />
-              <span className="kkopki77" id="kknurf78">
-                Personnels
-              </span>
-            </div>
+
+      <div className="login-card">
+        {/* Left Side: Illustration */}
+        <div className="login-illustration">
+          <img
+            src={sideIllustration}
+            alt="Illustration des congés"
+            loading="lazy"
+          />
+          <div className="illustration-overlay">
+            <h2>
+              Bienvenue sur
+              <br />
+              Gestion des Congés
+            </h2>
+            <p>Simplifiez la planification de vos congés et la gestion du personnel.</p>
           </div>
-        ) : null}
-        {choi !== 0 ? (
-          <form className="nnjvserg77" onSubmit={handleSubmit}>
-            <h3 className="nndkgdgdi77">
-              <span className="back77" onClick={() => setChoi(0)}>
-                ◀
-              </span>
-              {choi === 1
-                ? "Espace des administrateurs"
-                : choi === 2
-                  ? "Espace du personnel"
-                  : null}
-            </h3>
-            <div className="inputs77">
-              <label className="lab77">
-                {choi === 1 ? "Username" : choi === 2 ? "PPR" : null}
-              </label>
-              <input
-                className="inp77"
-                type="text"
-                minLength={4}
-                maxLength={16}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
+        </div>
+
+        {/* Right Side: Form Content */}
+        <div className="login-form-side">
+          <div className="login-header">
+            <img className="login-logo" alt="Logo" src={logo1} />
+            <h1 className="login-title">Se connecter</h1>
+            <p className="login-subtitle">
+              Veuillez sélectionner votre portail pour continuer
+            </p>
+          </div>
+
+          {choi === 0 ? (
+            <div className="portal-selection">
+              <button
+                className="portal-btn admin-btn"
+                onClick={() => setChoi(1)}
+              >
+                <div className="portal-icon">
+                  <SlSettings />
+                </div>
+                <span>Administration</span>
+                <p>Gérer les demandes et les paramètres</p>
+              </button>
+
+              <button
+                className="portal-btn personnel-btn"
+                onClick={() => setChoi(2)}
+              >
+                <div className="portal-icon">
+                  <BsPersonCircle />
+                </div>
+                <span>Personnel</span>
+                <p>Accédez à votre espace personnel</p>
+              </button>
             </div>
-            <div className="inputs77">
-              <label className="lab77">Mot de passe</label>
-              <div className="jjhoue77">
-                {pass ? (
-                  <MdVisibilityOff
-                    className="vis88999"
-                    onClick={() => setPass(!pass)}
-                  />
-                ) : (
-                  <MdVisibility
-                    className="vis88999"
-                    onClick={() => setPass(!pass)}
-                  />
-                )}
+          ) : (
+            <form className="login-form" onSubmit={handleSubmit}>
+              <div className="form-back-header">
+                <button
+                  type="button"
+                  className="back-btn"
+                  onClick={() => setChoi(0)}
+                >
+                  <FaArrowLeft /> Retour
+                </button>
+                <span className="portal-indicator">
+                  {choi === 1 ? "Portail Administrateur" : "Portail Personnel"}
+                </span>
+              </div>
+
+              <div className="input-group">
+                <label>{choi === 1 ? "Nom d'utilisateur" : "PPR"}</label>
                 <input
-                  className="inp77"
-                  type={pass ? "text" : "password"}
+                  type="text"
                   minLength={4}
                   maxLength={16}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder={`Entrez votre ${choi === 1 ? "nom d'utilisateur" : "PPR"}`}
+                  required
                 />
               </div>
-            </div>
-            <div className="inputs778">
-              <input
-                type="checkbox"
-                id="rememberMe77"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <label htmlFor="rememberMe77" className="llourbt77">
-                Se souvenir de moi (30 Jours)
-              </label>
-            </div>
-            {alr ? (
-              <span className="alr">
-                {choi === 1 ? "Username" : choi === 2 ? "PPR" : null} ou mot de
-                passe incorrect !
-              </span>
-            ) : null}
-            <div className="log77">
-              <button className="login77">Login</button>
-            </div>
-          </form>
-        ) : null}
+
+              <div className="input-group">
+                <label>Mot de passe</label>
+                <div className="password-input-wrapper">
+                  <input
+                    type={pass ? "text" : "password"}
+                    minLength={4}
+                    maxLength={16}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Entrez votre mot de passe"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="toggle-password"
+                    onClick={() => setPass(!pass)}
+                  >
+                    {pass ? <MdVisibilityOff /> : <MdVisibility />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="remember-me-group">
+                <label className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                  />
+                  <span className="checkmark"></span>
+                  Se souvenir de moi (30 Jours)
+                </label>
+              </div>
+
+              {alr && (
+                <div className="error-message">
+                  {choi === 1 ? "Nom d'utilisateur" : "PPR"} ou mot de passe incorrect !
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="submit-btn"
+                disabled={!username || !password}
+              >
+                Se connecter
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );

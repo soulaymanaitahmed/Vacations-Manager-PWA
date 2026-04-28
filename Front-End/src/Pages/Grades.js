@@ -28,6 +28,7 @@ function Grades() {
   const [gradeExist, setGradeExist] = useState(false);
   const [gradeEdit, setGradeEdit] = useState(false);
   const [gradeEdited, setGradeEdited] = useState("false");
+  const [confirmDelete, setConfirmDelete] = useState({ show: false, id: null, type: "" });
 
   useEffect(() => {
     fetchCorps();
@@ -136,6 +137,31 @@ function Grades() {
 
   return (
     <>
+      {confirmDelete.show && (
+        <div className="confirm88">
+          <div className="conf-card-99">
+            <p className="conf-text5">Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+            <div className="conf-btn-77">
+              <button
+                className="cbtn5 cancel99"
+                onClick={() => setConfirmDelete({ show: false, id: null, type: "" })}
+              >
+                Annuler
+              </button>
+              <button
+                className="cbtn5 conf99"
+                onClick={() => {
+                  if (confirmDelete.type === "grade") deleteGrade(confirmDelete.id);
+                  if (confirmDelete.type === "corp") deleteCorp(confirmDelete.id);
+                  setConfirmDelete({ show: false, id: null, type: "" });
+                }}
+              >
+                Confirmer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="user-list-header">
         <h3 className="user-header">Grades</h3>
       </div>
@@ -258,7 +284,7 @@ function Grades() {
                   <button
                     className="grade-all-btn"
                     id="delete11"
-                    onDoubleClick={() => deleteGrade(item.id)}
+                    onClick={() => setConfirmDelete({ show: true, id: item.id, type: "grade" })}
                   >
                     <AiFillDelete className="ft1" />
                     Supprimer
@@ -366,9 +392,7 @@ function Grades() {
                     <button
                       className="grade-all-btn"
                       id="delete11"
-                      onDoubleClick={() => {
-                        deleteCorp(item.id);
-                      }}
+                      onClick={() => setConfirmDelete({ show: true, id: item.id, type: "corp" })}
                       disabled={
                         item.corp_nbr === 1 ||
                         item.corp_nbr === 2 ||

@@ -30,6 +30,7 @@ function FormationSanitaire() {
   const [typeExist, setTypeExist] = useState(false);
   const [typeEdit, setTypeEdit] = useState(false);
   const [typeEdited, setTypeEdited] = useState("false");
+  const [confirmDelete, setConfirmDelete] = useState({ show: false, id: null, type: "" });
 
   useEffect(() => {
     fetchFormationsSanitaires();
@@ -143,6 +144,31 @@ function FormationSanitaire() {
 
   return (
     <>
+      {confirmDelete.show && (
+        <div className="confirm88">
+          <div className="conf-card-99">
+            <p className="conf-text5">Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+            <div className="conf-btn-77">
+              <button
+                className="cbtn5 cancel99"
+                onClick={() => setConfirmDelete({ show: false, id: null, type: "" })}
+              >
+                Annuler
+              </button>
+              <button
+                className="cbtn5 conf99"
+                onClick={() => {
+                  if (confirmDelete.type === "type") deleteType(confirmDelete.id);
+                  if (confirmDelete.type === "fs") deleteFormationSanitaire(confirmDelete.id);
+                  setConfirmDelete({ show: false, id: null, type: "" });
+                }}
+              >
+                Confirmer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="user-list-header">
         <h3 className="user-header">Formation Sanitaires</h3>
       </div>
@@ -269,7 +295,7 @@ function FormationSanitaire() {
                   <button
                     className="grade-all-btn"
                     id="delete11"
-                    onDoubleClick={() => deleteType(item.id)}
+                    onClick={() => setConfirmDelete({ show: true, id: item.id, type: "type" })}
                   >
                     <AiFillDelete className="ft1" />
                     Supprimer
@@ -380,9 +406,7 @@ function FormationSanitaire() {
                     <button
                       className="grade-all-btn"
                       id="delete11"
-                      onDoubleClick={() => {
-                        deleteFormationSanitaire(item.id);
-                      }}
+                      onClick={() => setConfirmDelete({ show: true, id: item.id, type: "fs" })}
                       disabled={
                         item.formation_sanitaire_nbr === 1 ||
                         item.formation_sanitaire_nbr === 2 ||
