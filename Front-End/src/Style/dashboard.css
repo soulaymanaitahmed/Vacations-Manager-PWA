@@ -1,198 +1,451 @@
+/* Dashboard container */
 .dashboard {
   width: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  gap: 30px;
+  padding: 20px 0;
+  font-family: "Varela", sans-serif;
 }
-.dash-stats {
+
+/* Stats Cards */
+.stats-cards-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
   width: 100%;
-  height: 80px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 15px;
 }
-.dash-card77 {
-  width: fit-content;
-  height: 100%;
-  box-sizing: border-box;
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 24px;
   display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card.pending-card {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.stat-card.team-card {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.stat-card.vacation-card {
+  grid-column: 2;
+  grid-row: 1 / span 2;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #fff;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-.tit-dash1 {
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  color: #114f79;
-}
-.tit-dash2 {
-  width: 80px;
-  height: 25px;
-  background-color: #8d38e8d1;
-  color: #fff;
-  border-radius: 5px;
-  padding-top: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.dash-actions {
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 15px;
-  padding: 1%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-bottom: 80px;
-  position: relative;
-  background-color: #f9f9f9;
-}
-.dash-aout {
-  width: 30%;
-  background-color: #fff;
-  border-radius: 15px;
-  box-sizing: border-box;
-  padding: 1%;
-}
-.dash-names {
-  width: 100%;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.dsh876 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid silver;
-}
-.dsh8764 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid #114f79;
-}
-.dsh11 {
-  width: 10%;
-  gap: 5px;
-}
-.dsh12 {
-  width: 20%;
-}
-.dsh13 {
-  width: 18%;
-}
-.dsh14 {
-  width: 15%;
-}
-.dsh15 {
-  width: 15%;
-}
-.dsh16 {
-  width: 15%;
-}
-.dsh17 {
-  width: 7%;
-  border: none;
-}
-.childs44 {
-  font-size: 0.95rem;
-  color: #114f79;
-  border: 1px solid #114f79;
-  border-radius: 3px;
-}
-.actions-btn {
-  width: 100%;
-  height: 30px;
-  display: flex;
-  justify-content: flex-start;
-  position: absolute;
-  bottom: 15px;
+  align-items: stretch;
   gap: 20px;
 }
-.ddh-btn {
-  width: 150px;
-  height: 30px;
+
+.vacation-card-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.vacation-list-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* mini table */
+.mini-dash-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   font-size: 0.85rem;
-  letter-spacing: 1px;
-  border-radius: 3px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
 }
-.ddh-btn:disabled {
-  cursor: default;
+
+.mini-th {
+  display: flex;
+  padding: 10px 15px;
+  background-color: #f1f5f9;
+  font-weight: 600;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
 }
-.valdsh1 {
-  width: 250px;
-  border: none;
-  background-color: #399918;
-  color: #fff;
-}
-.valdsh1:disabled {
-  background-color: #3899189b;
-}
-.valdsh2 {
-  border: 2px solid silver;
-}
-.hd5468 {
-  color: #093450;
-  font-weight: bold;
-  border-bottom: 1px solid #093450;
-}
-.val-dsh55 {
-  color: #399918;
-}
-.val-dsh555 {
-  color: #c41e1e;
-  cursor: pointer;
-}
-.nodata {
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-  color: #2f9712;
-}
-.go-to44 {
-  font-size: 1.5rem;
-  color: #510970;
-  cursor: pointer;
-}
-.kkfdyj665 {
-  color: #c41e1e;
-}
-.req-list990 {
-  width: 100%;
+
+.mini-tb {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-height: 190px;
+  max-height: 140px;
   overflow-y: auto;
-  overflow-x: hidden;
-  padding: 5px;
 }
-.req-list9900 {
-  width: 100%;
+
+.mini-tr {
+  display: flex;
+  padding: 10px 15px;
+  border-bottom: 1px solid #f1f5f9;
+  align-items: center;
+}
+
+.mini-tr:last-child {
+  border-bottom: none;
+}
+
+.m-th-name, .m-td-name { width: 35%; font-weight: 500; color: #1e293b; }
+.m-th-corp, .m-td-corp { width: 30%; }
+.m-th-date, .m-td-date { width: 35%; color: #475569; }
+
+.mini-corp-pill {
+  background-color: #e2e8f0;
+  color: #334155;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.no-vacation-text {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-top: auto;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.pending-icon {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.vacation-icon {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.team-icon {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.stat-info {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  justify-content: center;
 }
-.expand44 {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 35px;
-  height: 35px;
-  font-size: 1.3rem;
+
+.stat-card-title {
+  font-size: 0.9rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.stat-card-value {
+  font-size: 2rem;
+  color: #0f172a;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Modern Dashboard Table */
+.modern-dash-table {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dash-table-header {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.dash-table-body {
+  display: flex;
+  flex-direction: column;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.dash-table-body.expand {
+  max-height: none;
+}
+
+.dash-table-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+.dash-table-row:hover {
+  background-color: #f8fafc;
+}
+
+.dash-table-row.selected {
+  background-color: #eff6ff;
+}
+
+/* Cells */
+.th-cell, .td-cell {
+  display: flex;
+  align-items: center;
+}
+
+.th-checkbox, .td-checkbox { width: 10%; }
+.th-name, .td-name { width: 25%; }
+.th-type, .td-type { width: 15%; }
+.th-duration, .td-duration { width: 15%; }
+.th-date, .td-date { width: 25%; }
+.th-action, .td-action { width: 10%; justify-content: center; }
+
+/* Status Badges */
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-pending {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.badge-validated {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.badge-rejected {
+  background-color: #fee2e2;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.badge-rejected:hover { background-color: #fca5a5; }
+
+.badge-cancelled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+/* Typography & Layout */
+.employee-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.type-pill {
+  background-color: #f1f5f9;
+  color: #334155;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.td-duration strong {
+  color: #0f172a;
+}
+.td-duration {
+  color: #64748b;
+}
+
+.td-date {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.inspect-btn {
+  background: none;
   border: none;
+  color: #6366f1;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: #093450;
-  color: #fff;
+}
+
+.inspect-btn:hover {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  transform: scale(1.1);
+}
+
+/* Footer & Actions */
+.dash-table-footer {
+  padding: 20px;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bulk-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-reject, .btn-validate {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-reject {
+  background-color: #ffffff;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+.btn-reject:hover:not(:disabled) {
+  background-color: #fef2f2;
+}
+
+.btn-validate {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.btn-validate:hover:not(:disabled) {
+  background-color: #059669;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.btn-reject:disabled, .btn-validate:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-expand {
+  background-color: #e2e8f0;
+  color: #475569;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-expand:hover {
+  background-color: #cbd5e1;
+  color: #1e293b;
+}
+
+.no-data-state {
+  padding: 60px 20px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Modern Checkbox */
+.modern-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+  height: 20px;
+  width: 20px;
+}
+
+.modern-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.modern-checkbox:hover input ~ .checkmark {
+  background-color: #cbd5e1;
+}
+
+.modern-checkbox input:checked ~ .checkmark {
+  background-color: #3b82f6;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.modern-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.modern-checkbox .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
