@@ -230,7 +230,7 @@ function Settings(props) {
           </div>
           <div className="h099 mr088">
             <div className="lb099">
-              <label>Directeur / Délégué(e) gender</label>
+              <label>Directeur / Délégué(e) genre</label>
               <select
                 type="text"
                 className="inp099"

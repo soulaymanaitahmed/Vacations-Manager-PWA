@@ -163,7 +163,7 @@ function Grades() {
         </div>
       )}
       <div className="user-list-header">
-        <h3 className="user-header">Grades</h3>
+        <h3 className="user-header">Notes</h3>
       </div>
       <br />
       <hr />
@@ -175,7 +175,7 @@ function Grades() {
       <br />
       <div className="user-show1">
         <div className="grade-list">
-          <h3>Grades</h3>
+          <h3>Notes</h3>
           <form className="grade-add" onSubmit={sendGrade}>
             <input
               type="text"
