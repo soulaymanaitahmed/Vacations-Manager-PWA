@@ -351,7 +351,7 @@ function Employees() {
           <input
             type="text"
             id="servh12"
-            placeholder="Search"
+            placeholder="Rechercher"
             className="searcher1"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -459,7 +459,7 @@ function Employees() {
                   }}
                   required
                 >
-                  <option value={""}>Select formation sanitaire</option>
+                  <option value={""}>Sélectionner une formation sanitaire</option>
                   {fSanitaireAll.map((cr) => {
                     return (
                       <option key={cr.id} value={cr.id}>
@@ -483,7 +483,7 @@ function Employees() {
                   required
                   disabled={affec ? false : true}
                 >
-                  <option>Select type</option>
+                  <option>Sélectionner un type</option>
                   {types
                     .filter((cr) => cr.fs_id.toString() === affec.toString())
                     .map((cr) => {
@@ -585,7 +585,7 @@ function Employees() {
                   }}
                   required
                 >
-                  <option value={""}>Select corp</option>
+                  <option value={""}>Sélectionner un corps</option>
                   {corps.map((cr) => {
                     return (
                       <option key={cr.id} value={cr.id}>
@@ -609,7 +609,7 @@ function Employees() {
                   required
                   disabled={corpSel ? false : true}
                 >
-                  <option>Select grade</option>
+                  <option>Sélectionner un grade</option>
                   {GradeAll.filter(
                     (cr) => cr.corp_id.toString() === corpSel.toString()
                   ).map((cr) => {
@@ -692,7 +692,7 @@ function Employees() {
                         ? "Méd"
                         : peron.corp_nbr === 3
                         ? "Para"
-                        : "Unknown"}
+                        : "Inconnu"}
                     </div>
                     <button
                       className="edint-per"
@@ -737,7 +737,7 @@ function Employees() {
                       <h5 className="ppr66">PPR: {peron.ppr}</h5>
                     </div>
                     <button onClick={onPrintClick} className="edint-5">
-                      Attestation de Travail
+                      Attestation de travail
                     </button>
                     <div style={{ display: "none" }}>
                       <PrintComponent3
@@ -1029,7 +1029,7 @@ function Employees() {
                       className="llpm1"
                       id="kklo5"
                     >
-                      Edit
+                      Modifier
                     </button>
                   )}
                   {peronEditor ? (

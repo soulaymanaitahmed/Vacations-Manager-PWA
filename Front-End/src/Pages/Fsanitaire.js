@@ -203,7 +203,7 @@ function FormationSanitaire() {
               onChange={(e) => setFormationSanitaireSelect(e.target.value)}
               required
             >
-              <option>Select Formation Sanitaire</option>
+              <option>Sélectionner une formation sanitaire</option>
               {formationsSanitaires.map((fs) => {
                 return (
                   <option key={fs.id} value={fs.id}>
@@ -267,7 +267,7 @@ function FormationSanitaire() {
                     }}
                   >
                     <FiEdit className="ft1" />
-                    Edit
+                    Modifier
                   </button>
                 ) : (
                   <button
@@ -306,12 +306,12 @@ function FormationSanitaire() {
           </div>
         </div>
         <div className="corps-list">
-          <h3>Formation Sanitaire</h3>
+          <h3>Formations sanitaires</h3>
           <form className="grade-add" onSubmit={sendFormationSanitaire}>
             <input
               type="text"
               className="grade-input"
-              placeholder="Formation Sanitaires"
+              placeholder="Formation sanitaire"
               minLength={2}
               maxLength={50}
               required
@@ -377,7 +377,7 @@ function FormationSanitaire() {
                       }
                     >
                       <FiEdit className="ft1" />
-                      Edit
+                      Modifier
                     </button>
                   ) : (
                     <button

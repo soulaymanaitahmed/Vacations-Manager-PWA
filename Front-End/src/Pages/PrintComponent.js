@@ -67,7 +67,7 @@ const PrintComponent = React.forwardRef(({ data }, ref) => {
       </div>
       <br />
       <h3 className="des-print">
-        <span className="n-con66">N° {data.id}</span>Decision
+        <span className="n-con66">N° {data.id}</span>Décision
       </h3>
       <br />
       <br />
@@ -93,17 +93,17 @@ const PrintComponent = React.forwardRef(({ data }, ref) => {
           : data.type === 22
           ? "Congé de Paternité"
           : null}{" "}
-        <b> {typeLabels[data.type] || "Else"}</b>
+        <b> {typeLabels[data.type] || "Autre"}</b>
         <br /> présentée par l'intéressé (é) le:{" "}
         <b className="datedem551">{formatDate(data.demand_date)}</b>
       </p>
       <br />
       <br />
-      <h3 className="des-print">Decide</h3>
+      <h3 className="des-print">Décide</h3>
       <br />
       <br />
       <p className="dahir">
-        Article unique : Un Congé {typeLabels[data.type] || "Else"} de{" "}
+        Article unique : Un Congé {typeLabels[data.type] || "Autre"} de{" "}
         <span className="adlgkj6">
           {formatMonthInFrench(data.start_at)} ({data.total_duration})
         </span>{" "}

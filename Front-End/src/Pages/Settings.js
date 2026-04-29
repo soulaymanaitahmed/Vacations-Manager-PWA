@@ -124,7 +124,7 @@ function Settings(props) {
                 className="act-o099 ed334"
                 onClick={() => setEditor(true)}
               >
-                <BiEdit /> Edit
+                <BiEdit /> Modifier
               </button>
             )}
           </span>
@@ -149,7 +149,7 @@ function Settings(props) {
             )}
           </div>
           <div className="lb099">
-            <label>Password</label>
+            <label>Mot de passe</label>
             {editor ? (
               <input
                 type={pass ? "text" : "password"}
@@ -201,7 +201,7 @@ function Settings(props) {
                   className="act-o099 ed334"
                   onClick={() => setEditor2(true)}
                 >
-                  <BiEdit /> Edit
+                  <BiEdit /> Modifier
                 </button>
               )}
             </span>
@@ -239,8 +239,8 @@ function Settings(props) {
                 onChange={(e) => setGen(e.target.value)}
                 id="lb099"
               >
-                <option value={1}>Male</option>
-                <option value={2}>Female</option>
+                <option value={1}>Masculin</option>
+                <option value={2}>Féminin</option>
               </select>
             </div>
             <div className="lb099"></div>
