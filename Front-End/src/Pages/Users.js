@@ -155,7 +155,7 @@ function Users() {
                 className="cbtn5 conf99"
                 onClick={() => handleDeleteUser(user.id)}
               >
-                Delete
+                Supprimer
               </button>
               <button className="cbtn5 cancel99" onClick={() => setConf(false)}>
                 Annuler
@@ -257,7 +257,7 @@ function Users() {
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Username :
+                    Nom d'utilisateur :
                   </span>
                   <span
                     className="nn2"
@@ -350,7 +350,7 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
-                Username
+                 Nom d'utilisateur 
               </label>
             </div>
             <div className="input-lab">
@@ -374,7 +374,7 @@ function Users() {
                 }}
               />
               <label htmlFor="password" className="add-lab">
-                Password
+                Mot de passe
               </label>
             </div>
             <div className="add-selection">
@@ -457,7 +457,7 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
-                Username
+                 Nom d'utilisateur 
               </label>
             </div>
             <div className="input-lab">
@@ -481,7 +481,7 @@ function Users() {
                 }}
               />
               <label htmlFor="password" className="add-lab">
-                Password
+                Mot de passe
               </label>
             </div>
             <div className="add-selection">
