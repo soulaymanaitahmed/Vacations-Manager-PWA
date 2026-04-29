@@ -58,7 +58,7 @@ const PrintComponent3 = React.forwardRef(({ data }, ref) => {
       <br />
       <br />
       <br />
-      <h3 className="des-print">Attestation de Travail</h3>
+      <h3 className="des-print">Attestation de travail</h3>
       <br />
       <br />
       <br />
@@ -103,7 +103,7 @@ const PrintComponent3 = React.forwardRef(({ data }, ref) => {
       </p>
       <br />
       <p className="dahir">
-        La présence attestation est délivrée à l'intéressé
+        La présente attestation est délivrée à l'intéressé
         {data.gander === 0 ? "e" : null} sur sa demande pour servir et valoir ce
         que de droit.
       </p>

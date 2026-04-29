@@ -251,7 +251,52 @@ app.put("/changeDecision", (req, res) => {
       console.error("Error updating decision:", err);
       return res.status(500).json({ error: "Internal server error" });
     }
-    res.status(200).json({ message: "Decision updated successfully" });
+  });
+});
+
+app.get("/dashboard/stats", (req, res) => {
+  const type = parseInt(req.query.type, 10);
+  const decisionValue = type - 1;
+  const today = new Date().toISOString().split("T")[0];
+
+  const queries = {
+    totalEmployees: `SELECT COUNT(*) AS count FROM personnels`,
+    pendingRequests: `SELECT COUNT(*) AS count FROM conges WHERE decision = ? AND cancel != 2`
+  };
+
+  const currentlyOnVacationQuery = `
+    SELECT 
+      conges.start_at, conges.end_at,
+      personnels.nom, personnels.prenom,
+      corps.corp AS corp_name,
+      corps.corp_nbr
+    FROM conges
+    JOIN personnels ON conges.personnel_id = personnels.id
+    JOIN grades ON personnels.grade = grades.id
+    JOIN corps ON grades.corp_id = corps.id
+    WHERE conges.decision = 5 
+      AND conges.start_at <= ? 
+      AND conges.end_at >= ? 
+      AND conges.cancel != 2
+  `;
+
+  db.query(queries.totalEmployees, (err, empRes) => {
+    if (err) return res.status(500).json({ error: "Database error" });
+    
+    db.query(currentlyOnVacationQuery, [today, today], (err, vacRes) => {
+      if (err) return res.status(500).json({ error: "Database error" });
+      
+      db.query(queries.pendingRequests, [decisionValue], (err, reqRes) => {
+        if (err) return res.status(500).json({ error: "Database error" });
+        
+        res.status(200).json({
+          totalEmployees: empRes[0].count,
+          currentlyOnVacation: vacRes.length,
+          vacationDetails: vacRes,
+          pendingRequests: reqRes[0].count
+        });
+      });
+    });
   });
 });
 

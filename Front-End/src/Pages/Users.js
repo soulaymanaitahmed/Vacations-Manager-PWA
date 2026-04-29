@@ -44,8 +44,8 @@ function Users() {
         (user) =>
           user.username.toLowerCase().includes(term) ||
           user.nom.toLowerCase().includes(term) ||
-          user.prenom.toLowerCase().includes(term)
-      )
+          user.prenom.toLowerCase().includes(term),
+      ),
     );
   }, [searchTerm, users]);
 
@@ -149,7 +149,7 @@ function Users() {
       {conf == true && user ? (
         <div className="confirm88">
           <div className="conf-card-99">
-            <p className="conf-text5">Are you sure?</p>
+            <p className="conf-text5">Êtes-vous sûr ?</p>
             <div className="conf-btn-77">
               <button
                 className="cbtn5 conf99"
@@ -171,7 +171,7 @@ function Users() {
           <input
             type="text"
             id="servh12"
-            placeholder="Search"
+            placeholder="Rechercher"
             className="searcher1"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -271,22 +271,22 @@ function Users() {
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Privileges :
+                    Privilèges :
                   </span>
                   <span className="nn3">
                     {us.type === 1
                       ? "Bureau d'ordre"
                       : us.type === 2
-                      ? "Chef archaic"
-                      : us.type === 3
-                      ? "Le délégué"
-                      : us.type === 4
-                      ? "RH"
-                      : us.type === 20
-                      ? "Admin"
-                      : us.type === 0
-                      ? "Invité"
-                      : us.type}
+                        ? "Chef archaic"
+                        : us.type === 3
+                          ? "Le délégué"
+                          : us.type === 4
+                            ? "RH"
+                            : us.type === 20
+                              ? "Admin"
+                              : us.type === 0
+                                ? "Invité"
+                                : us.type}
                   </span>
                 </div>
               </div>
@@ -350,7 +350,9 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
+
                  Nom d'utilisateur 
+
               </label>
             </div>
             <div className="input-lab">
@@ -378,7 +380,7 @@ function Users() {
               </label>
             </div>
             <div className="add-selection">
-              <input className="select-lab" value="Privileges" id="hhkvcn" />
+              <input className="select-lab" value="Privilèges" id="hhkvcn" />
               <select
                 name="type"
                 className="privl"
@@ -457,7 +459,10 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
+
                  Nom d'utilisateur 
+
+
               </label>
             </div>
             <div className="input-lab">
@@ -485,7 +490,7 @@ function Users() {
               </label>
             </div>
             <div className="add-selection">
-              <input className="select-lab" value="Privileges" id="hhkvcn" />
+              <input className="select-lab" value="Privilèges" id="hhkvcn" />
               <select
                 name="type"
                 className="privl"

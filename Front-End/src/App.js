@@ -80,7 +80,7 @@ function App() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
   }
 
   if (userInfo) {
@@ -218,7 +218,7 @@ function App() {
           )}
         </div>
         <div className="main-container">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div>Chargement...</div>}>
             <Routes>
               <Route
                 path="/dashboard"

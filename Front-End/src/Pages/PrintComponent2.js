@@ -58,7 +58,7 @@ const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
       <br />
       <span className="n-con661">N° {data.id}</span>
       <h3 className="des-print" id="hhjk88">
-        Demande en vue de bénéficier d'un congé Administratif
+        Demande en vue de bénéficier d'un congé administratif
       </h3>
       <br />
       <p className="dahir" id="silvergray">

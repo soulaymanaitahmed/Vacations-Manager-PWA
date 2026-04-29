@@ -6,6 +6,10 @@ import "../Style/dashboard.css";
 
 import { VscInspect } from "react-icons/vsc";
 
+import { MdMarkEmailUnread } from "react-icons/md";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { FaCalendarCheck } from "react-icons/fa6";
+
 import { baseURL } from "../config";
 
 function Dashboardd(props) {
@@ -17,6 +21,12 @@ function Dashboardd(props) {
   const [selectedIds, setSelectedIds] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [stats, setStats] = useState({
+    totalEmployees: 0,
+    currentlyOnVacation: 0,
+    vacationDetails: [],
+    pendingRequests: 0,
+  });
 
   const typeLabels = {
     1: "Annuel",
@@ -40,7 +50,7 @@ function Dashboardd(props) {
   const fetchOutEmployees = async () => {
     try {
       const response = await axios.get(
-        `${baseURL}/filteredVacationsByDecision`
+        `${baseURL}/filteredVacationsByDecision`,
       );
       setOutEpl(response.data);
     } catch (error) {
@@ -48,18 +58,30 @@ function Dashboardd(props) {
     }
   };
 
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/dashboard/stats`, {
+        params: { type: tpp },
+      });
+      setStats(response.data);
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
+  };
+
   useEffect(() => {
     fetchRequests();
     fetchOutEmployees();
+    fetchStats();
   }, []);
 
   useEffect(() => {
     const selectableRequests = requests.filter(
-      (r) => r.decision === tpp && r.cancel !== 2
+      (r) => r.decision === tpp && r.cancel !== 2,
     );
     setSelectAll(
       selectedIds.length === selectableRequests.length &&
-        selectableRequests.length > 0
+        selectableRequests.length > 0,
     );
   }, [selectedIds, requests, tpp]);
 
@@ -80,19 +102,19 @@ function Dashboardd(props) {
       printRefs.current.index = index;
       handlePrint();
     },
-    [handlePrint]
+    [handlePrint],
   );
 
   const handleCheckboxChange = (id) => {
     setSelectedIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((selectedId) => selectedId !== id)
-        : [...prevIds, id]
+        : [...prevIds, id],
     );
   };
   const handleSelectAll = () => {
     const selectableRequests = requests.filter(
-      (r) => r.decision === tpp && r.cancel !== 2
+      (r) => r.decision === tpp && r.cancel !== 2,
     );
     if (selectAll) {
       setSelectedIds([]);
@@ -108,6 +130,7 @@ function Dashboardd(props) {
         acc: des,
       });
       fetchRequests();
+      fetchStats();
       setSelectedIds([]);
       setSelectAll(false);
     } catch (error) {
@@ -121,6 +144,7 @@ function Dashboardd(props) {
         type: tpp,
       });
       fetchRequests();
+      fetchStats();
       setSelectedIds([]);
       setSelectAll(false);
     } catch (error) {
@@ -130,111 +154,185 @@ function Dashboardd(props) {
 
   return (
     <div className="dashboard">
-      <div className="dash-actions">
-        <div className="dash-names hd5468">
-          <span className="dsh8764 dsh11">
-            <input
-              id="selectAllCheckbox"
-              type="checkbox"
-              checked={selectAll}
-              onChange={handleSelectAll}
-            />
-          </span>
-          <span className="dsh8764 dsh12">Nom</span>
-          <span className="dsh8764 dsh13">Type</span>
-          <span className="dsh8764 dsh14">Durée</span>
-          <span className="dsh8764 dsh15">Du</span>
-          <span className="dsh8764 dsh16">Au</span>
-          <span className="dsh8764 dsh17">Link</span>
-        </div>
-        <div className={expand ? "req-list9900" : "req-list990"}>
-          {requests.map((r, index) => {
-            const isChecked = selectedIds.includes(r.id);
-            return (
-              <div key={r.id} className="dash-names childs44">
-                <span className="dsh8764 dsh11">
-                  {r.cancel === 2 ? (
-                    <p className="kkfdyj665">Annuler</p>
-                  ) : r.decision >= tpp && r.decision < 10 ? (
-                    <span className="val-dsh55">✔</span>
-                  ) : r.decision >= 20 ? (
-                    <span
-                      className="val-dsh555"
-                      onClick={() => changeDecision(r.id)}
-                    >
-                      ✖
-                    </span>
-                  ) : r.decision === gg ? (
-                    <input
-                      id={`checkbox-${r.id}`}
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => handleCheckboxChange(r.id)}
-                    />
-                  ) : (
-                    "--"
-                  )}
-                </span>
-                <span className="dsh8764 dsh12">
-                  {r.prenom + " - " + r.nom}
-                </span>
-                <span className="dsh8764 dsh13">
-                  {typeLabels[r.type] || "Else"}
-                </span>
-                <span className="dsh8764 dsh14">{r.total_duration}</span>
-                <span className="dsh8764 dsh15">{formatDate(r.start_at)}</span>
-                <span className="dsh8764 dsh16">{formatDate(r.end_at)}</span>
-                <span className="dsh8764 dsh17">
-                  <VscInspect
-                    className="go-to44"
-                    onClick={() => {
-                      const oo = r.per_id * 45657;
-                      window.location.href = `/personnels/${oo}`;
-                    }}
-                  />
-                  {/* {r.decision === 5 ? (
-                  <>
-                    <button onClick={() => onPrintClick(index)}>Print</button>
-                    <div style={{ display: "none" }}>
-                      <PrintComponent
-                        ref={(el) => (printRefs.current[index] = el)}
-                        data={r}
-                      />
-                    </div>
-                  </>
-                ) : null} */}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        {requests.length > 0 ? (
-          <div className="actions-btn">
-            <button
-              className="ddh-btn valdsh2"
-              onClick={() => updateSelectedRequests(0)}
-              disabled={selectedIds.length === 0}
-            >
-              Rejeter
-            </button>
-            <button
-              className="ddh-btn valdsh1"
-              onClick={() => updateSelectedRequests(1)}
-              disabled={selectedIds.length === 0}
-            >
-              Valider
-            </button>
+      <div className="stats-cards-container">
+        <div className="stat-card pending-card">
+          <div className="stat-icon pending-icon">
+            <MdMarkEmailUnread />
           </div>
-        ) : (
-          <p className="nodata">
-            Il n'y a aucune demande pour vous en ce moment.
-          </p>
+          <div className="stat-info">
+            <div className="stat-card-title">Demandes en attente</div>
+            <div className="stat-card-value">{stats.pendingRequests}</div>
+          </div>
+        </div>
+        <div className="stat-card team-card">
+          <div className="stat-icon team-icon">
+            <BsFillPeopleFill />
+          </div>
+          <div className="stat-info">
+            <div className="stat-card-title">Total Personnel</div>
+            <div className="stat-card-value">{stats.totalEmployees}</div>
+          </div>
+        </div>
+        <div className="stat-card vacation-card">
+          <div className="vacation-card-header">
+            <div className="stat-icon vacation-icon">
+              <FaCalendarCheck />
+            </div>
+            <div className="stat-info">
+              <div className="stat-card-title">En vacances actuellement</div>
+              <div className="stat-card-value">{stats.currentlyOnVacation}</div>
+            </div>
+          </div>
+          <div className="vacation-list-container">
+            {stats.vacationDetails && stats.vacationDetails.length > 0 ? (
+              <div className="mini-dash-table">
+                <div className="mini-th">
+                  <div className="m-th-name">Nom complet</div>
+                  <div className="m-th-corp">Corps</div>
+                  <div className="m-th-date">Période</div>
+                </div>
+                <div className="mini-tb">
+                  {stats.vacationDetails.map((v, i) => (
+                    <div key={i} className="mini-tr">
+                      <div className="m-td-name">
+                        {v.prenom} {v.nom}
+                      </div>
+                      <div className="m-td-corp">
+                        <span className="mini-corp-pill">{v.corp_name}</span>
+                      </div>
+                      <div className="m-td-date">
+                        {formatDate(v.start_at)} ➔ {formatDate(v.end_at)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p className="no-vacation-text">
+                Aucun employé n'est en vacances actuellement.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="modern-dash-table">
+        <div className="dash-table-header">
+          <div className="th-cell th-checkbox">
+            <label className="modern-checkbox">
+              <input
+                id="selectAllCheckbox"
+                type="checkbox"
+                checked={selectAll}
+                onChange={handleSelectAll}
+              />
+              <span className="checkmark"></span>
+            </label>
+          </div>
+          <div className="th-cell th-name">Nom Complet</div>
+          <div className="th-cell th-type">Type</div>
+          <div className="th-cell th-duration">Durée</div>
+          <div className="th-cell th-date">Période</div>
+          <div className="th-cell th-action">Consulter</div>
+        </div>
+
+        <div className={expand ? "dash-table-body expand" : "dash-table-body"}>
+          {requests.length === 0 ? (
+            <div className="no-data-state">
+              Il n'y a aucune demande pour vous en ce moment.
+            </div>
+          ) : (
+            requests.map((r, index) => {
+              const isChecked = selectedIds.includes(r.id);
+              return (
+                <div
+                  key={r.id}
+                  className={`dash-table-row ${isChecked ? "selected" : ""}`}
+                >
+                  <div className="td-cell td-checkbox">
+                    {r.cancel === 2 ? (
+                      <span className="badge badge-cancelled">Annuler</span>
+                    ) : r.decision >= tpp && r.decision < 10 ? (
+                      <span className="badge badge-validated">✔ Validé</span>
+                    ) : r.decision >= 20 ? (
+                      <span
+                        className="badge badge-rejected"
+                        onClick={() => changeDecision(r.id)}
+                        title="Réinitialiser la décision"
+                      >
+                        ✖ Rejeté
+                      </span>
+                    ) : r.decision === gg ? (
+                      <label className="modern-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => handleCheckboxChange(r.id)}
+                        />
+                        <span className="checkmark"></span>
+                      </label>
+                    ) : (
+                      <span className="badge badge-pending">--</span>
+                    )}
+                  </div>
+                  <div className="td-cell td-name">
+                    <div className="employee-name">
+                      {r.prenom} {r.nom}
+                    </div>
+                  </div>
+                  <div className="td-cell td-type">
+                    <span className="type-pill">
+                      {typeLabels[r.type] || "Type"}
+                    </span>
+                  </div>
+                  <div className="td-cell td-duration">
+                    <strong>{r.total_duration}</strong> Jours
+                  </div>
+                  <div className="td-cell td-date">
+                    {formatDate(r.start_at)} ➔ {formatDate(r.end_at)}
+                  </div>
+                  <div className="td-cell td-action">
+                    <button
+                      className="inspect-btn"
+                      onClick={() => {
+                        const oo = r.per_id * 45657;
+                        window.location.href = `/personnels/${oo}`;
+                      }}
+                    >
+                      <VscInspect />
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {requests.length > 0 && (
+          <div className="dash-table-footer">
+            <div className="bulk-actions">
+              <button
+                className="btn-reject"
+                onClick={() => updateSelectedRequests(0)}
+                disabled={selectedIds.length === 0}
+              >
+                Rejeter Sélections
+              </button>
+              <button
+                className="btn-validate"
+                onClick={() => updateSelectedRequests(1)}
+                disabled={selectedIds.length === 0}
+              >
+                Valider Sélections
+              </button>
+            </div>
+            {requests.length > 5 && (
+              <button onClick={() => setExpand(!expand)} className="btn-expand">
+                {expand ? "Réduire la liste" : "Voir plus de demandes"}
+              </button>
+            )}
+          </div>
         )}
-        {requests && requests.length > 5 ? (
-          <button onClick={() => setExpand(!expand)} className="expand44">
-            {expand ? "≙" : "≚"}
-          </button>
-        ) : null}
       </div>
     </div>
   );

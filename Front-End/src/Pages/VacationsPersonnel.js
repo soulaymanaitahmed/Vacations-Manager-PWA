@@ -121,7 +121,7 @@ const VacationsPersonnel = () => {
           <input
             type="text"
             id="servh1255"
-            placeholder="Search"
+            placeholder="Rechercher"
             className="searcher1"
             value={"Sélectionner l'année"}
             disabled

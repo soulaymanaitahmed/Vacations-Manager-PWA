@@ -27,7 +27,7 @@ More features are planned and will be added in future updates.
 
 ## Status
 
-This project is still under development. Please note that it is not ready for production use and is not available for public use.
+This project is still under development, Please note that it is not ready for production use and is not available for public use.
 
 ## License
 
