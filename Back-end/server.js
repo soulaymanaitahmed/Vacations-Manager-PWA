@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
+    "GET, POST, PUT, PATCH, DELETE",
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
@@ -253,7 +253,6 @@ app.put("/changeDecision", (req, res) => {
     }
   });
 });
-
 app.get("/dashboard/stats", (req, res) => {
   const type = parseInt(req.query.type, 10);
   const decisionValue = type - 1;
@@ -261,7 +260,7 @@ app.get("/dashboard/stats", (req, res) => {
 
   const queries = {
     totalEmployees: `SELECT COUNT(*) AS count FROM personnels`,
-    pendingRequests: `SELECT COUNT(*) AS count FROM conges WHERE decision = ? AND cancel != 2`
+    pendingRequests: `SELECT COUNT(*) AS count FROM conges WHERE decision = ? AND cancel != 2`,
   };
 
   const currentlyOnVacationQuery = `
@@ -282,18 +281,18 @@ app.get("/dashboard/stats", (req, res) => {
 
   db.query(queries.totalEmployees, (err, empRes) => {
     if (err) return res.status(500).json({ error: "Database error" });
-    
+
     db.query(currentlyOnVacationQuery, [today, today], (err, vacRes) => {
       if (err) return res.status(500).json({ error: "Database error" });
-      
+
       db.query(queries.pendingRequests, [decisionValue], (err, reqRes) => {
         if (err) return res.status(500).json({ error: "Database error" });
-        
+
         res.status(200).json({
           totalEmployees: empRes[0].count,
           currentlyOnVacation: vacRes.length,
           vacationDetails: vacRes,
-          pendingRequests: reqRes[0].count
+          pendingRequests: reqRes[0].count,
         });
       });
     });
@@ -366,7 +365,7 @@ app.post("/add-conge", (req, res) => {
         }
         res.send("Conge record inserted successfully");
       });
-    }
+    },
   );
 });
 app.post("/add-sold", (req, res) => {
@@ -520,7 +519,7 @@ app.post("/vac", (req, res) => {
       }
       console.log("Holiday created successfully");
       res.status(201).json({ message: "Holiday created successfully" });
-    }
+    },
   );
 });
 app.put("/vac/:id", (req, res) => {
@@ -546,7 +545,7 @@ app.put("/vac/:id", (req, res) => {
       }
       console.log("Holiday updated successfully");
       res.status(200).json({ message: "Holiday updated successfully" });
-    }
+    },
   );
 });
 app.delete("/vac/:id", (req, res) => {
@@ -634,9 +633,9 @@ app.post("/employees", (req, res) => {
           return res
             .status(201)
             .json({ message: "Employee created successfully" });
-        }
+        },
       );
-    }
+    },
   );
 });
 app.get("/employees", (req, res) => {
@@ -940,7 +939,7 @@ app.post("/formations-sanitaires", (req, res) => {
         res
           .status(201)
           .json({ message: "Formation sanitaire created successfully" });
-      }
+      },
     );
   });
 });
@@ -979,7 +978,7 @@ app.put("/formations-sanitaires/:id", (req, res) => {
       res
         .status(200)
         .json({ message: "Formation sanitaire updated successfully" });
-    }
+    },
   );
 });
 app.delete("/formations-sanitaires/:id", (req, res) => {
@@ -1002,7 +1001,7 @@ app.delete("/formations-sanitaires/:id", (req, res) => {
       res
         .status(200)
         .json({ message: "Formation sanitaire deleted successfully" });
-    }
+    },
   );
 });
 
@@ -1237,7 +1236,7 @@ app.post("/users", (req, res) => {
       }
       console.log("User created successfully");
       res.status(201).json({ message: "User created successfully" });
-    }
+    },
   );
 });
 app.put("/users/:id", (req, res) => {
@@ -1263,7 +1262,7 @@ app.put("/users/:id", (req, res) => {
       }
       console.log("User updated successfully");
       res.status(200).json({ message: "User updated successfully" });
-    }
+    },
   );
 });
 app.delete("/users/:id", (req, res) => {
@@ -1318,7 +1317,7 @@ app.put("/settings", (req, res) => {
         return;
       }
       res.status(200).send("Settings updated successfully.");
-    }
+    },
   );
 });
 
