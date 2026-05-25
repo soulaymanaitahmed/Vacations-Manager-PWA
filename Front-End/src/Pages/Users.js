@@ -9,6 +9,7 @@ import axios from "axios";
 import "../Style/users.css";
 
 import { baseURL } from "../config";
+import {useTranslation} from "react-i18next";
 
 function Users() {
   const [addUser, setAddUser] = useState(false);
@@ -143,35 +144,35 @@ function Users() {
     setPassword("");
     setType("client");
   };
+  const {t,i18n}=useTranslation('translation' , {keyPrefix:'Users'})
 
   return (
     <div className="users-cont">
       {conf == true && user ? (
         <div className="confirm88">
           <div className="conf-card-99">
-            <p className="conf-text5">Êtes-vous sûr ?</p>
+            <p className="conf-text5">{t("Êtes-vous sûr ?")}</p>
             <div className="conf-btn-77">
               <button
                 className="cbtn5 conf99"
                 onClick={() => handleDeleteUser(user.id)}
               >
-                Supprimer
+                {t("Supprimer")}
               </button>
               <button className="cbtn5 cancel99" onClick={() => setConf(false)}>
-                Annuler
-              </button>
+                {t("Annuler")}</button>
             </div>
           </div>
         </div>
       ) : null}
       <div className="user-list-header">
-        <h3 className="user-header">Utilisateurs</h3>
+        <h3 className="user-header">{t("Utilisateurs")}</h3>
         <div className="searcher">
           <IoSearchCircle className="search-icon" />
           <input
             type="text"
             id="servh12"
-            placeholder="Rechercher"
+            placeholder={t("Rechercher")}
             className="searcher1"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -183,13 +184,13 @@ function Users() {
             onChange={(e) => setFilter1(e.target.value)}
             required
           >
-            <option value={"*"}>Tous</option>
-            <option value={0}>Invité</option>
-            <option value={1}>Bureau d'ordre</option>
-            <option value={2}>Chef archaic</option>
-            <option value={3}>Le délégué</option>
-            <option value={4}>RH</option>
-            <option value={20}>Admin</option>
+            <option value={"*"}>{t("Tous")}</option>
+            <option value={0}>{t("Invité")}</option>
+            <option value={1}>{t("Bureau d'ordre")}</option>
+            <option value={2}>{t("Chef archaic")}</option>
+            <option value={3}>{t("Le délégué")}</option>
+            <option value={4}>{t("RH")}</option>
+            <option value={20}>{t("Admin")}</option>
           </select>
         </div>
         <button
@@ -205,7 +206,7 @@ function Users() {
             setType("client");
           }}
         >
-          Ajouter un utilisateur <MdPersonAdd className="add-icon" />
+          {t("Ajouter un utilisateur")} <MdPersonAdd className="add-icon" />
         </button>
       </div>
       <br />
@@ -223,13 +224,14 @@ function Users() {
                   setUser(us);
                   setAddUser(false);
                 }}
+                dir={(i18n.language==='ar' ? 'rtl' : 'ltr')}
               >
                 <div className="user-card-infos">
                   <span
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Prenom :
+                    {t('Prénom')} :
                   </span>
                   <span
                     className="nn2"
@@ -243,7 +245,7 @@ function Users() {
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Nom :
+                    {t('Nom')} :
                   </span>
                   <span
                     className="nn2"
@@ -257,7 +259,7 @@ function Users() {
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Nom d'utilisateur :
+                    {t("Nom d'utilisateur")} :
                   </span>
                   <span
                     className="nn2"
@@ -271,21 +273,21 @@ function Users() {
                     className="nn1"
                     id={us.username === user?.username ? "active-card1" : ""}
                   >
-                    Privilèges :
+                    {t("Privilèges")} :
                   </span>
                   <span className="nn3">
                     {us.type === 1
-                      ? "Bureau d'ordre"
+                      ? t("Bureau d'ordre")
                       : us.type === 2
-                        ? "Chef archaic"
+                        ? t("Chef archaic")
                         : us.type === 3
-                          ? "Le délégué"
+                          ? t("Le délégué")
                           : us.type === 4
-                            ? "RH"
+                            ? t("RH")
                             : us.type === 20
-                              ? "Admin"
+                              ? t("Admin")
                               : us.type === 0
-                                ? "Invité"
+                                ? t("Invité")
                                 : us.type}
                   </span>
                 </div>
@@ -295,7 +297,7 @@ function Users() {
         </div>
         {addUser ? (
           <form className="add-user fade-in" onSubmit={handleSubmit}>
-            <h3 className="add-hea">Nouvel Utilisateur</h3>
+            <h3 className="add-hea">{t("Nouvel Utilisateur")}</h3>
             <div className="input-lab">
               <input
                 required
@@ -311,7 +313,7 @@ function Users() {
                 }}
               />
               <label htmlFor="prenom" className="add-lab">
-                Prénom
+                {t('Prénom')}
               </label>
             </div>
             <div className="input-lab">
@@ -329,11 +331,11 @@ function Users() {
                 }}
               />
               <label htmlFor="nom" className="add-lab">
-                Nom
+                {t('Nom')} 
               </label>
             </div>
             {usernameExists && (
-              <span className="alr">Ce nom d'utilisateur existe déjà</span>
+              <span className="alr">{t("Ce Nom d'utilisateur existe déjà")}</span>
             )}
             <div className="input-lab">
               <input
@@ -350,7 +352,9 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
-                Nom d'utilisateur
+
+                 {t("Nom d'utilisateur")} 
+
               </label>
             </div>
             <div className="input-lab">
@@ -374,11 +378,11 @@ function Users() {
                 }}
               />
               <label htmlFor="password" className="add-lab">
-                Mot de passe
+                {t("Mot de passe")}
               </label>
             </div>
             <div className="add-selection">
-              <input className="select-lab" value="Privilèges" id="hhkvcn" />
+              <input className="select-lab" value={t("Privilèges")}id="hhkvcn" />
               <select
                 name="type"
                 className="privl"
@@ -386,20 +390,19 @@ function Users() {
                 onChange={(e) => setType(e.target.value)}
                 required
               >
-                <option value={0}>Invité</option>
-                <option value={1}>Bureau d'ordre</option>
-                <option value={2}>Chef archaic</option>
-                <option value={3}>Le délégué</option>
-                <option value={4}>RH</option>
-                <option value={20}>Admin</option>
+                <option value={0}>{t("Invité")}</option>
+                <option value={1}>{t("Bureau d'ordre")}</option>
+                <option value={2}>{t("Chef archaic")}</option>
+                <option value={3}>{t("Le délégué")}</option>
+                <option value={4}>{t("RH")}</option>
+                <option value={20}>{t("Admin")}</option>
               </select>
             </div>
             <div className="add-actions">
               <button onClick={Annuler} className="add-btn-user2">
-                Annuler
-              </button>
+                {t("Annuler")}</button>
               <button className="add-btn-user" type="submit">
-                Ajouter
+                {t("Ajouter")}
               </button>
             </div>
           </form>
@@ -421,7 +424,7 @@ function Users() {
                 }}
               />
               <label htmlFor="prenom" className="add-lab">
-                Prénom
+                {t('Prénom')}
               </label>
             </div>
             <div className="input-lab">
@@ -439,7 +442,7 @@ function Users() {
                 }}
               />
               <label htmlFor="nom" className="add-lab">
-                Nom
+               {t('Nom')} 
               </label>
             </div>
             <div className="input-lab">
@@ -457,7 +460,10 @@ function Users() {
                 }}
               />
               <label htmlFor="username" className="add-lab">
-                Nom d'utilisateur
+
+                 {t("Nom d'utilisateur")} 
+
+
               </label>
             </div>
             <div className="input-lab">
@@ -481,11 +487,11 @@ function Users() {
                 }}
               />
               <label htmlFor="password" className="add-lab">
-                Mot de passe
+                {t("Mot de passe")}
               </label>
             </div>
             <div className="add-selection">
-              <input className="select-lab" value="Privilèges" id="hhkvcn" />
+              <input className="select-lab" value={t("Privilèges")} id="hhkvcn" />
               <select
                 name="type"
                 className="privl"
@@ -493,18 +499,17 @@ function Users() {
                 onChange={(e) => setType(e.target.value)}
                 required
               >
-                <option value={0}>Invité</option>
-                <option value={1}>Bureau d'ordre</option>
-                <option value={2}>Chef archaic</option>
-                <option value={3}>Le délégué</option>
-                <option value={4}>RH</option>
-                <option value={20}>Admin</option>
+                <option value={0}>{t("Invité")}</option>
+                <option value={1}>{t("Bureau d'ordre")}</option>
+                <option value={2}>{t("Chef archaic")}</option>
+                <option value={3}>{t("Le délégué")}</option>
+                <option value={4}>{t("RH")}</option>
+                <option value={20}>{t("Admin")}</option>
               </select>
             </div>
             <div className="add-actions">
               <button onClick={Annuler} className="add-btn-user2">
-                Annuler
-              </button>
+                {t("Annuler")}</button>
               <div
                 className="add-btn-user2"
                 id="add-btn-id"
@@ -513,7 +518,7 @@ function Users() {
                 <MdDelete className="add-btn-delete" />
               </div>
               <button className="add-btn-user" type="submit">
-                Confirmer
+                {t("Confirmer")}
               </button>
             </div>
           </form>

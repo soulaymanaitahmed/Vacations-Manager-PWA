@@ -16,8 +16,10 @@ import PrintComponent3 from "./PrintComponent3";
 import { baseURL } from "../config";
 
 import "../Style/employee.css";
+import {useTranslation} from "react-i18next";
 
 function Employees() {
+  const {t,i18n}=useTranslation('translation', {keyPrefix:"Employees"});
   const printRefs = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -174,41 +176,41 @@ function Employees() {
       setGan("");
       setAddPerson(false);
       fetchEmployees();
-      alert1("Nouvel employé ajouté avec succès!");
+      alert1(t('Nouvel employé ajouté avec succès!'));
     } catch (error) {
       if (error.response && error.response.status === 400) {
         console.error("Validation error:", error.response.data);
         let errorMessage = "";
         switch (error.response.data.code) {
           case 1:
-            errorMessage = "Un employé avec ce nom + prenom existe déjà.";
+            errorMessage = t("Un employé avec ce nom + prenom existe déjà.");
             break;
           case 2:
-            errorMessage = "Un employé avec ce CIN existe déjà.";
+            errorMessage = t("Un employé avec ce CIN existe déjà.");
             break;
           case 3:
-            errorMessage = "Un employé avec ce nom et CIN existe déjà.";
+            errorMessage = t("Un employé avec ce nom et CIN existe déjà.");
             break;
           case 4:
-            errorMessage = "Un employé avec ce PPR existe déjà.";
+            errorMessage = t("Un employé avec ce PPR existe déjà.");
             break;
           case 5:
-            errorMessage = "Un employé avec ce nom et PPR existe déjà.";
+            errorMessage = t("Un employé avec ce nom et PPR existe déjà.");
             break;
           case 6:
-            errorMessage = "Un employé avec ce CIN et PPR existe déjà.";
+            errorMessage = t("Un employé avec ce CIN et PPR existe déjà.");
             break;
           case 7:
-            errorMessage = "Un employé avec ce nom, CIN et PPR existe déjà.";
+            errorMessage = t("Un employé avec ce nom, CIN et PPR existe déjà.");
             break;
           case 8:
-            errorMessage = "Un employé avec ce N° téléphone existe déjà.";
+            errorMessage = t("Un employé avec ce N° téléphone existe déjà.");
             break;
           case 16:
-            errorMessage = "Un employé avec cet email existe déjà.";
+            errorMessage = t("Un employé avec cet email existe déjà.");
             break;
           default:
-            errorMessage = "Une erreur inconnue s'est produite.";
+            errorMessage = t("Une erreur inconnue s'est produite.");
         }
         alert2(errorMessage);
       } else {
@@ -249,37 +251,37 @@ function Employees() {
       setPeronEditor(false);
       setPeronEdit(false);
       fetchEmployees();
-      alert1("Employé mis à jour avec succès!");
+      alert1(t('Employé mis à jour avec succès!'));
     } catch (error) {
       if (error.response && error.response.status === 400) {
         console.error("Validation error:", error.response.data);
         let errorMessage = "";
         switch (error.response.data.code) {
           case 2:
-            errorMessage = "Un employé avec ce CIN existe déjà.";
+            errorMessage = t("Un employé avec ce CIN existe déjà.");
             break;
           case 4:
-            errorMessage = "Un employé avec ce PPR existe déjà.";
+            errorMessage = t("Un employé avec ce PPR existe déjà.");
             break;
           case 6:
-            errorMessage = "Un employé avec ce CIN et PPR existe déjà.";
+            errorMessage = t("Un employé avec ce CIN et PPR existe déjà.");
             break;
           case 7:
-            errorMessage = "Un employé avec ce CIN et PPR existe déjà.";
+            errorMessage = t("Un employé avec ce CIN et PPR existe déjà.");
             break;
           case 8:
-            errorMessage = "Un employé avec ce N° téléphone existe déjà.";
+            errorMessage = t("Un employé avec ce N° téléphone existe déjà.");
             break;
           case 16:
-            errorMessage = "Un employé avec cet email existe déjà.";
+            errorMessage = t("Un employé avec cet email existe déjà.");
             break;
           default:
-            errorMessage = "Une erreur inconnue s'est produite.";
+            errorMessage = t("Une erreur inconnue s'est produite.");
         }
         alert2(errorMessage);
       } else {
         console.error("Error updating data:", error);
-        alert2("Erreur lors de la mise à jour des données.");
+        alert2(t("Erreur lors de la mise à jour des données."));
       }
     }
   };
@@ -304,10 +306,10 @@ function Employees() {
       setPeronEdit(false);
       setConf(false);
       fetchEmployees();
-      alert1("Employé supprimé avec succès");
+      alert1(t('Employé supprimé avec succès'));
     } catch (error) {
       console.error("Error deleting employee:", error);
-      alert2("Erreur lors de la suppression de l'employé");
+      alert2(t("Erreur lors de la suppression de l'employé"));
     }
   };
 
@@ -320,7 +322,7 @@ function Employees() {
             <div className="conf-text">
               <IoAlertCircleOutline className="conf-alert" />
               <p className="conf-message">
-                Êtes-vous sûr de vouloir supprimer cet employé ?
+                {t('Êtes-vous sûr de vouloir supprimer cet employé ?')}
               </p>
             </div>
             <div className="conf-actions">
@@ -331,27 +333,27 @@ function Employees() {
                 className="conf-btn"
                 id="conf-cancel"
               >
-                Annuler
+                {t('Annuler')}
               </button>
               <button
                 onClick={deleteEmployee}
                 className="conf-btn"
                 id="conf-conf"
               >
-                Confirmer la suppression
+                {t('Confirmer la suppression')}
               </button>
             </div>
           </div>
         </div>
       ) : null}
       <div className="user-list-header">
-        <h3 className="user-header">Le personnel</h3>
+        <h3 className="user-header">{t('Le personnel')}</h3>
         <div className="searcher">
           <IoSearchCircle className="search-icon" />
           <input
             type="text"
             id="servh12"
-            placeholder="Rechercher"
+            placeholder={t('Rechercher')}
             className="searcher1"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -363,10 +365,10 @@ function Employees() {
             onChange={(e) => setFilter1(e.target.value)}
             required
           >
-            <option value={"*"}>Tous</option>
-            <option value={"1"}>Adm&Tech</option>
-            <option value={"2"}>Médical</option>
-            <option value={"3"}>Paramédical</option>
+            <option value={"*"}>{t('Tous')}</option>
+            <option value={"1"}>{t('Adm&Tech')}</option>
+            <option value={"2"}>{t('Médical')}</option>
+            <option value={"3"}>{t('Paramédical')}</option>
           </select>
         </div>
         <button
@@ -387,7 +389,7 @@ function Employees() {
             setPeronEdit(false);
           }}
         >
-          Ajouter un employé <MdPersonAdd className="add-icon" />
+          {t('Ajouter un employé')} <MdPersonAdd className="add-icon" />
         </button>
       </div>
       <br />
@@ -399,7 +401,7 @@ function Employees() {
             <div className="line11">
               <div className="input-lab1">
                 <label className="ggv1" for="prenom">
-                  Prénom
+                  {t('Prénom')}
                 </label>
                 <input
                   className="person-input"
@@ -414,8 +416,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="nom">
-                  Nom
-                </label>
+                  {t('Nom')}</label>
                 <input
                   className="person-input"
                   name="nom"
@@ -429,7 +430,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="aff">
-                  Civilité
+                  {t('Civilité')}
                 </label>
                 <select
                   name="aff"
@@ -440,16 +441,15 @@ function Employees() {
                   }}
                   required
                 >
-                  <option>---Civilité---</option>
-                  <option value={1}>Monsieur</option>
-                  <option value={2}>Mademoiselle & Madame</option>
+                  <option>{t('---Civilité---')}</option>
+                  <option value={1}>{t('Monsieur')}</option>
+                  <option value={2}>{t("Mademoiselle")} & {t("Madame")}</option>
                 </select>
               </div>
 
               <div className="input-lab1">
                 <label className="ggv1" for="aff">
-                  Affectation
-                </label>
+                  {t('Affectation')}</label>
                 <select
                   name="aff"
                   className="person-input"
@@ -459,11 +459,11 @@ function Employees() {
                   }}
                   required
                 >
-                  <option value={""}>Sélectionner une formation sanitaire</option>
+                  <option value={""}>{t('Sélectionner une formation sanitaire')}</option>
                   {fSanitaireAll.map((cr) => {
                     return (
                       <option key={cr.id} value={cr.id}>
-                        {cr.formation_sanitaire}
+                        {t(cr.formation_sanitaire)}
                       </option>
                     );
                   })}
@@ -471,7 +471,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="type">
-                  Type
+                 {t('Type')} 
                 </label>
                 <select
                   name="type"
@@ -483,13 +483,13 @@ function Employees() {
                   required
                   disabled={affec ? false : true}
                 >
-                  <option>Sélectionner un type</option>
+                  <option>{t('Sélectionner un type')}</option>
                   {types
                     .filter((cr) => cr.fs_id.toString() === affec.toString())
                     .map((cr) => {
                       return (
                         <option key={cr.id} value={cr.id}>
-                          {cr.type}
+                          {t(cr.type)}
                         </option>
                       );
                     })}
@@ -498,7 +498,7 @@ function Employees() {
 
               <div className="input-lab1">
                 <label className="ggv1" for="nom">
-                  Date de recrutement
+                  {t('Date de recrutement')}
                 </label>
                 <input
                   className="person-input"
@@ -514,8 +514,7 @@ function Employees() {
             </div>
             <div className="line11">
               <div className="input-lab1">
-                <label className="ggv1" for="cin">
-                  CIN
+                <label className="ggv1" for="cin"> {t('CIN')}
                 </label>
                 <input
                   className="person-input"
@@ -530,7 +529,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="ppr">
-                  PPR
+                  {t('PPR')}
                 </label>
                 <input
                   className="person-input"
@@ -545,7 +544,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="phone">
-                  Phone
+                  {t('Phone')}
                 </label>
                 <input
                   className="person-input"
@@ -560,7 +559,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="email">
-                  Email
+                  {t('Email')}
                 </label>
                 <input
                   className="person-input"
@@ -574,7 +573,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="corp">
-                  Corp
+                  {t('Corp')}
                 </label>
                 <select
                   name="corp"
@@ -585,11 +584,11 @@ function Employees() {
                   }}
                   required
                 >
-                  <option value={""}>Sélectionner un corps</option>
+                  <option value={""}>{t('Sélectionner un corps')}</option>
                   {corps.map((cr) => {
                     return (
                       <option key={cr.id} value={cr.id}>
-                        {cr.corp}
+                        {t(cr.corp)}
                       </option>
                     );
                   })}
@@ -597,7 +596,7 @@ function Employees() {
               </div>
               <div className="input-lab1">
                 <label className="ggv1" for="grade">
-                  Grade
+                  {t('Grade')}
                 </label>
                 <select
                   name="grade"
@@ -609,13 +608,13 @@ function Employees() {
                   required
                   disabled={corpSel ? false : true}
                 >
-                  <option>Sélectionner un grade</option>
+                  <option>{t('Sélectionner un grade')}</option>
                   {GradeAll.filter(
                     (cr) => cr.corp_id.toString() === corpSel.toString()
                   ).map((cr) => {
                     return (
                       <option key={cr.id} value={cr.id}>
-                        {cr.grade}
+                        {t(cr.grade)}
                       </option>
                     );
                   })}
@@ -642,11 +641,11 @@ function Employees() {
                   setGan("");
                 }}
               >
-                Annuler
+                {t('Annuler')}
               </button>
               <button type="submit" className="conf22">
                 <FaRegAddressCard className="nnt5" />
-                Ajouter
+                {t('Ajouter')}
               </button>
             </div>
           </form>
@@ -687,12 +686,12 @@ function Employees() {
                       }
                     >
                       {peron.corp_nbr === 1
-                        ? "Adm&Tech"
+                        ? t('Adm&Tech')
                         : peron.corp_nbr === 2
-                        ? "Méd"
+                        ? t("Méd")
                         : peron.corp_nbr === 3
-                        ? "Para"
-                        : "Inconnu"}
+                        ? t("Para")
+                        : t("Inconnu")}
                     </div>
                     <button
                       className="edint-per"
@@ -732,12 +731,14 @@ function Employees() {
                     <p className="grade33" id="kon77">
                       {peron.type_name + " - " + peron.formation_sanitaire}
                     </p>
-                    <div className="ggv449">
-                      <h5 className="cin66">CIN: {peron.cin}</h5>
-                      <h5 className="ppr66">PPR: {peron.ppr}</h5>
+                    <div className="ggv449"
+                       dir= {(i18n.language==="ar" ?'rtl' : 'ltr')}
+                    >
+                      <h5 className="cin66"> {t('CIN')}: {peron.cin}</h5>
+                      <h5 className="ppr66">{t('PPR')}: {peron.ppr}</h5>
                     </div>
                     <button onClick={onPrintClick} className="edint-5">
-                      Attestation de travail
+                      {t('Attestation de travail')}
                     </button>
                     <div style={{ display: "none" }}>
                       <PrintComponent3
@@ -786,7 +787,7 @@ function Employees() {
                 </button>
                 <div className="kklm6">
                   <label className="mmpr22" for="prenom">
-                    Prénom
+                    {t('Prénom')}
                   </label>
                   <input
                     className="hhtb6"
@@ -804,8 +805,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="nom">
-                    Nom
-                  </label>
+                    {t('Nom')}</label>
                   <input
                     className="hhtb6"
                     type="text"
@@ -822,7 +822,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" htmlFor="civi">
-                    Civilité
+                    {t('Civilité')}
                   </label>
                   <select
                     name="civi"
@@ -833,13 +833,12 @@ function Employees() {
                     }}
                     disabled={peronEditor ? false : true}
                   >
-                    <option value={1}>Monsieur</option>
-                    <option value={2}>Mademoiselle & Madame</option>
+                    <option value={1}>{t('Monsieur')}</option>
+                    <option value={2}>{t("Mademoiselle")} & {t("Madame")}</option>
                   </select>
                 </div>
                 <div className="kklm6">
-                  <label className="mmpr22" for="cin">
-                    CIN
+                  <label className="mmpr22" for="cin"> {t('CIN')}
                   </label>
                   <input
                     className="hhtb6"
@@ -857,7 +856,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="ppr">
-                    PPR
+                    {t('PPR')}
                   </label>
                   <input
                     className="hhtb6"
@@ -875,7 +874,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="phone">
-                    N° téléphone
+                    {t('N° téléphone')}
                   </label>
                   <input
                     className="hhtb6"
@@ -893,7 +892,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="email">
-                    Email
+                    {t('Email')}
                   </label>
                   <input
                     className="hhtb6"
@@ -908,7 +907,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="dtrec">
-                    Date de recrutement
+                    {t('Date de recrutement')}
                   </label>
                   <input
                     className="hhtb6"
@@ -924,7 +923,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="type">
-                    Type
+                    {t('Type')}
                   </label>
                   <select
                     name="type"
@@ -939,7 +938,7 @@ function Employees() {
                     {types.map((cr) => {
                       return (
                         <option key={cr.id} value={cr.id}>
-                          {cr.type}
+                          {t(cr.type)}
                         </option>
                       );
                     })}
@@ -947,8 +946,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="affectation">
-                    Affectation
-                  </label>
+                    {t('Affectation')}</label>
                   <select
                     name="affectation"
                     className="hhtb6"
@@ -962,7 +960,7 @@ function Employees() {
                     {fSanitaireAll.map((cr) => {
                       return (
                         <option key={cr.id} value={cr.id}>
-                          {cr.formation_sanitaire}
+                          {t(cr.formation_sanitaire)}
                         </option>
                       );
                     })}
@@ -970,7 +968,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" for="corp">
-                    Corp
+                    {t('Corp')}
                   </label>
                   <select
                     name="corp"
@@ -985,7 +983,7 @@ function Employees() {
                     {corps.map((cr) => {
                       return (
                         <option key={cr.id} value={cr.id}>
-                          {cr.corp}
+                          {t(cr.corp)}
                         </option>
                       );
                     })}
@@ -993,7 +991,7 @@ function Employees() {
                 </div>
                 <div className="kklm6">
                   <label className="mmpr22" htmlFor="grade">
-                    Grade
+                    {t('Grade')}
                   </label>
                   <select
                     name="grade"
@@ -1009,7 +1007,7 @@ function Employees() {
                     ).map((cr) => {
                       return (
                         <option key={cr.id} value={cr.id}>
-                          {cr.grade}
+                          {t(cr.grade)}
                         </option>
                       );
                     })}
@@ -1018,7 +1016,7 @@ function Employees() {
                 <div className="cchk22">
                   {peronEditor ? (
                     <button type="submit" className="llpm1" id="kklo4">
-                      Confirmer
+                      {t('Confirmer')}
                     </button>
                   ) : (
                     <button
@@ -1029,7 +1027,7 @@ function Employees() {
                       className="llpm1"
                       id="kklo5"
                     >
-                      Modifier
+                      {t('Modifier')}
                     </button>
                   )}
                   {peronEditor ? (
@@ -1041,7 +1039,7 @@ function Employees() {
                       className="llpm1"
                       id="kklo7"
                     >
-                      Annuler
+                      {t('Annuler')}
                     </button>
                   ) : (
                     <button
@@ -1052,7 +1050,7 @@ function Employees() {
                       className="llpm1"
                       id="kklo6"
                     >
-                      <MdDelete className="ddt22" /> Supprimer
+                      <MdDelete className="ddt22" /> {t('Supprimer')}
                     </button>
                   )}
                 </div>

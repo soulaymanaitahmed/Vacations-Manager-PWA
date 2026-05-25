@@ -11,6 +11,7 @@ import { FiEdit } from "react-icons/fi";
 import { baseURL } from "../config";
 
 import "../Style/grades.css";
+import {useTranslation} from "react-i18next";
 
 function FormationSanitaire() {
   const [formationSanitaire, setFormationSanitaire] = useState("");
@@ -141,19 +142,20 @@ function FormationSanitaire() {
       console.error("Error deleting type:", error);
     }
   };
+   const {t,i18n}=useTranslation('translation', {keyPrefix:"Fsanitaire"});
 
   return (
     <>
       {confirmDelete.show && (
         <div className="confirm88">
           <div className="conf-card-99">
-            <p className="conf-text5">Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+            <p className="conf-text5">{t("Êtes-vous sûr de vouloir supprimer cet élément ?")}?</p>
             <div className="conf-btn-77">
               <button
                 className="cbtn5 cancel99"
                 onClick={() => setConfirmDelete({ show: false, id: null, type: "" })}
               >
-                Annuler
+                {t("Annuler")}
               </button>
               <button
                 className="cbtn5 conf99"
@@ -163,31 +165,32 @@ function FormationSanitaire() {
                   setConfirmDelete({ show: false, id: null, type: "" });
                 }}
               >
-                Confirmer
+                {t("Confirmer")}
               </button>
             </div>
           </div>
         </div>
       )}
-      <div className="user-list-header">
-        <h3 className="user-header">Formation Sanitaires</h3>
+      <div className="user-list-header"
+        dir={(i18n.language==='ar' ? 'rtl' : 'ltr')}
+      >
+        <h3 className="user-header">{t("Formations Sanitaires")}</h3>
       </div>
       <br />
       <hr />
       <br />
       <p className="allr678">
-        Alerte! supprimer ou modifier l'un de ces éléments affectera directement
-        le profil du membre du personnel.
+        {t("Alerte! supprimer ou modifier l'un de ces éléments affectera directement le profil du membre du personnel.")}
       </p>
       <br />
       <div className="user-show1">
         <div className="grade-list">
-          <h3>Types</h3>
+          <h3>{t("Types")}</h3>
           <form className="grade-add" onSubmit={sendType}>
             <input
               type="text"
               className="grade-input"
-              placeholder="Type"
+              placeholder={t("Type")}
               minLength={2}
               maxLength={50}
               onChange={(e) => {
@@ -203,20 +206,20 @@ function FormationSanitaire() {
               onChange={(e) => setFormationSanitaireSelect(e.target.value)}
               required
             >
-              <option>Sélectionner une formation sanitaire</option>
+              <option>{t("Sélectionner une formation sanitaire")}</option>
               {formationsSanitaires.map((fs) => {
                 return (
                   <option key={fs.id} value={fs.id}>
-                    {fs.formation_sanitaire}
+                    {t(fs.formation_sanitaire)}
                   </option>
                 );
               })}
             </select>
             <button type="submit" className="btn-grade">
-              Ajouter
+              {t("Ajouter")}
             </button>
           </form>
-          {typeExist ? <p className="alert1">Type existe déjà</p> : null}
+          {typeExist ? <p className="alert1">{t("Type existe déjà")}</p> : null}
           <div className="corps-show">
             {typesAll.map((item) => (
               <div key={item.id} className="corp-item">
@@ -266,8 +269,7 @@ function FormationSanitaire() {
                       setFormationSanitaireEdit(false);
                     }}
                   >
-                    <FiEdit className="ft1" />
-                    Modifier
+                    <FiEdit className="ft1" />{t("Modifier")}
                   </button>
                 ) : (
                   <button
@@ -276,7 +278,7 @@ function FormationSanitaire() {
                     onClick={() => updateType(item.id)}
                   >
                     <GiConfirmed className="ft1" />
-                    Confirmer
+                    {t("Confirmer")}
                   </button>
                 )}
                 {item.id === typeEdit ? (
@@ -289,16 +291,15 @@ function FormationSanitaire() {
                     }}
                   >
                     <MdOutlineCancel className="ft1" />
-                    Annuler
+                    {t("Annuler")}
                   </button>
                 ) : (
                   <button
                     className="grade-all-btn"
                     id="delete11"
-                    onClick={() => setConfirmDelete({ show: true, id: item.id, type: "type" })}
+                    onClick={() => setConfirmDelete({ show: true, id: item.id, type: t("type") })}
                   >
-                    <AiFillDelete className="ft1" />
-                    Supprimer
+                    <AiFillDelete className="ft1" />{t("Supprimer")}
                   </button>
                 )}
               </div>
@@ -306,12 +307,12 @@ function FormationSanitaire() {
           </div>
         </div>
         <div className="corps-list">
-          <h3>Formations sanitaires</h3>
+          <h3>{t("Formations Sanitaires")}</h3>
           <form className="grade-add" onSubmit={sendFormationSanitaire}>
             <input
               type="text"
               className="grade-input"
-              placeholder="Formation sanitaire"
+              placeholder={t("Formation Sanitaire")}
               minLength={2}
               maxLength={50}
               required
@@ -321,16 +322,15 @@ function FormationSanitaire() {
               }}
             />
             <button type="submit" className="btn-grade" id="ggm">
-              Ajouter
+              {t("Ajouter")}
             </button>
           </form>
           {formationSanitaireExist ? (
-            <p className="alert1">Formation Sanitaires existe déjà</p>
+            <p className="alert1">{t("Formation Sanitaires existe déjà")} </p>
           ) : null}
           {formationSanitaireDelete ? (
             <p className="alert1">
-              Vous ne pouvez pas supprimer Formation Sanitaire car elle est
-              utilisée par un ou plusieurs types.
+              {t("Vous ne pouvez pas supprimer Formation Sanitaire car elle est utilisée par un ou plusieurs types.")}
             </p>
           ) : null}
           <div className="corps-show">
@@ -376,8 +376,7 @@ function FormationSanitaire() {
                           : null
                       }
                     >
-                      <FiEdit className="ft1" />
-                      Modifier
+                      <FiEdit className="ft1" />{t("Modifier")}
                     </button>
                   ) : (
                     <button
@@ -388,7 +387,7 @@ function FormationSanitaire() {
                       }}
                     >
                       <GiConfirmed className="ft1" />
-                      Confirmer
+                      {t("Confirmer")}
                     </button>
                   )}
                   {item.id === formationSanitaireEdit ? (
@@ -400,7 +399,7 @@ function FormationSanitaire() {
                       }}
                     >
                       <MdOutlineCancel className="ft1" />
-                      Annuler
+                      {t("Annuler")}
                     </button>
                   ) : (
                     <button
@@ -420,8 +419,7 @@ function FormationSanitaire() {
                           : null
                       }
                     >
-                      <AiFillDelete className="ft1" />
-                      Supprimer
+                      <AiFillDelete className="ft1" />{t("Supprimer")}
                     </button>
                   )}
                 </div>

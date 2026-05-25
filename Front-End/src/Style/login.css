@@ -20,6 +20,33 @@
   z-index: 10;
 }
 
+
+/*-----------*/
+
+
+.bt-translation {
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight:bolder;
+  font-size: 18px;
+  background: transparent;
+  color: #334155;
+  transition: all 0.3s ease;
+}
+
+.bt-translation:hover {
+   backdrop-filter: blur(10px);
+}
+
+/*--------------*/
+
+
+
 .login-card {
   width: 1000px;
   max-width: 90%;
