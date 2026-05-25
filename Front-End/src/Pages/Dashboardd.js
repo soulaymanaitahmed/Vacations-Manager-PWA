@@ -5,13 +5,11 @@ import PrintComponent from "./PrintComponent";
 import "../Style/dashboard.css";
 
 import { VscInspect } from "react-icons/vsc";
-
 import { MdMarkEmailUnread } from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { FaCalendarCheck } from "react-icons/fa6";
-
 import { baseURL } from "../config";
-
+import {useTranslation} from "react-i18next";
 function Dashboardd(props) {
   const tpp = props.type;
   const gg = tpp - 1;
@@ -27,7 +25,6 @@ function Dashboardd(props) {
     vacationDetails: [],
     pendingRequests: 0,
   });
-
   const typeLabels = {
     1: "Annuel",
     2: "Exceptionnel",
@@ -50,7 +47,7 @@ function Dashboardd(props) {
   const fetchOutEmployees = async () => {
     try {
       const response = await axios.get(
-        `${baseURL}/filteredVacationsByDecision`,
+        `${baseURL}/filteredVacationsByDecision`
       );
       setOutEpl(response.data);
     } catch (error) {
@@ -58,7 +55,7 @@ function Dashboardd(props) {
     }
   };
 
-  const fetchStats = async () => {
+    const fetchStats = async () => {
     try {
       const response = await axios.get(`${baseURL}/dashboard/stats`, {
         params: { type: tpp },
@@ -77,11 +74,11 @@ function Dashboardd(props) {
 
   useEffect(() => {
     const selectableRequests = requests.filter(
-      (r) => r.decision === tpp && r.cancel !== 2,
+      (r) => r.decision === tpp && r.cancel !== 2
     );
     setSelectAll(
       selectedIds.length === selectableRequests.length &&
-        selectableRequests.length > 0,
+        selectableRequests.length > 0
     );
   }, [selectedIds, requests, tpp]);
 
@@ -102,19 +99,19 @@ function Dashboardd(props) {
       printRefs.current.index = index;
       handlePrint();
     },
-    [handlePrint],
+    [handlePrint]
   );
 
   const handleCheckboxChange = (id) => {
     setSelectedIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((selectedId) => selectedId !== id)
-        : [...prevIds, id],
+        : [...prevIds, id]
     );
   };
   const handleSelectAll = () => {
     const selectableRequests = requests.filter(
-      (r) => r.decision === tpp && r.cancel !== 2,
+      (r) => r.decision === tpp && r.cancel !== 2
     );
     if (selectAll) {
       setSelectedIds([]);
@@ -152,15 +149,18 @@ function Dashboardd(props) {
     }
   };
 
+  const {t, i18n}=useTranslation('translation' , {keyPrefix:"dashboard"})
+
   return (
     <div className="dashboard">
+
       <div className="stats-cards-container">
         <div className="stat-card pending-card">
           <div className="stat-icon pending-icon">
             <MdMarkEmailUnread />
           </div>
           <div className="stat-info">
-            <div className="stat-card-title">Demandes en attente</div>
+            <div className="stat-card-title">{t("Demandes en attente")}</div>
             <div className="stat-card-value">{stats.pendingRequests}</div>
           </div>
         </div>
@@ -169,7 +169,7 @@ function Dashboardd(props) {
             <BsFillPeopleFill />
           </div>
           <div className="stat-info">
-            <div className="stat-card-title">Total Personnel</div>
+            <div className="stat-card-title">{t("Total Personnel")}</div>
             <div className="stat-card-value">{stats.totalEmployees}</div>
           </div>
         </div>
@@ -179,7 +179,7 @@ function Dashboardd(props) {
               <FaCalendarCheck />
             </div>
             <div className="stat-info">
-              <div className="stat-card-title">En vacances actuellement</div>
+              <div className="stat-card-title">{t("En vacances actuellement")}</div>
               <div className="stat-card-value">{stats.currentlyOnVacation}</div>
             </div>
           </div>
@@ -187,9 +187,9 @@ function Dashboardd(props) {
             {stats.vacationDetails && stats.vacationDetails.length > 0 ? (
               <div className="mini-dash-table">
                 <div className="mini-th">
-                  <div className="m-th-name">Nom complet</div>
-                  <div className="m-th-corp">Corps</div>
-                  <div className="m-th-date">Période</div>
+                  <div className="m-th-name">{t("Nom complet")}</div>
+                  <div className="m-th-corp">{t("Corps")}</div>
+                  <div className="m-th-date">{t("Période")}</div>
                 </div>
                 <div className="mini-tb">
                   {stats.vacationDetails.map((v, i) => (
@@ -209,7 +209,7 @@ function Dashboardd(props) {
               </div>
             ) : (
               <p className="no-vacation-text">
-                Aucun employé n'est en vacances actuellement.
+                {t("Aucun employé n'est en vacances actuellement.")}
               </p>
             )}
           </div>
@@ -229,17 +229,17 @@ function Dashboardd(props) {
               <span className="checkmark"></span>
             </label>
           </div>
-          <div className="th-cell th-name">Nom Complet</div>
-          <div className="th-cell th-type">Type</div>
-          <div className="th-cell th-duration">Durée</div>
-          <div className="th-cell th-date">Période</div>
-          <div className="th-cell th-action">Consulter</div>
+          <div className="th-cell th-name">{t("Nom Complet")}</div>
+          <div className="th-cell th-type">{t("Type")}</div>
+          <div className="th-cell th-duration">{t("Durée")}</div>
+          <div className="th-cell th-date">{t("Période")}</div>
+          <div className="th-cell th-action">{t("Consulter")}</div>
         </div>
 
         <div className={expand ? "dash-table-body expand" : "dash-table-body"}>
           {requests.length === 0 ? (
             <div className="no-data-state">
-              Il n'y a aucune demande pour vous en ce moment.
+              {t("Il n'y a aucune demande pour vous en ce moment.")}
             </div>
           ) : (
             requests.map((r, index) => {
@@ -251,16 +251,16 @@ function Dashboardd(props) {
                 >
                   <div className="td-cell td-checkbox">
                     {r.cancel === 2 ? (
-                      <span className="badge badge-cancelled">Annuler</span>
+                      <span className="badge badge-cancelled">{t("Annuler")}</span>
                     ) : r.decision >= tpp && r.decision < 10 ? (
-                      <span className="badge badge-validated">✔ Validé</span>
+                      <span className="badge badge-validated">{t("✔ Validé")}</span>
                     ) : r.decision >= 20 ? (
                       <span
                         className="badge badge-rejected"
                         onClick={() => changeDecision(r.id)}
-                        title="Réinitialiser la décision"
+                        title={t("Réinitialiser la décision")}
                       >
-                        ✖ Rejeté
+                        {t("✖ Rejeté")}
                       </span>
                     ) : r.decision === gg ? (
                       <label className="modern-checkbox">
@@ -282,11 +282,11 @@ function Dashboardd(props) {
                   </div>
                   <div className="td-cell td-type">
                     <span className="type-pill">
-                      {typeLabels[r.type] || "Type"}
+                      {t(typeLabels[r.type]) || t("Type")}
                     </span>
                   </div>
                   <div className="td-cell td-duration">
-                    <strong>{r.total_duration}</strong> Jours
+                    <strong>{r.total_duration}</strong> {t("Jours")}
                   </div>
                   <div className="td-cell td-date">
                     {formatDate(r.start_at)} ➔ {formatDate(r.end_at)}
@@ -298,15 +298,18 @@ function Dashboardd(props) {
                         const oo = r.per_id * 45657;
                         window.location.href = `/personnels/${oo}`;
                       }}
+
                     >
                       <VscInspect />
                     </button>
-                  </div>
+                </div>
                 </div>
               );
             })
           )}
         </div>
+    
+
 
         {requests.length > 0 && (
           <div className="dash-table-footer">
@@ -316,23 +319,26 @@ function Dashboardd(props) {
                 onClick={() => updateSelectedRequests(0)}
                 disabled={selectedIds.length === 0}
               >
-                Rejeter Sélections
+                {t("Rejeter Sélections")}
               </button>
               <button
                 className="btn-validate"
                 onClick={() => updateSelectedRequests(1)}
                 disabled={selectedIds.length === 0}
               >
-                Valider Sélections
+                {t("Valider Sélections")}
               </button>
             </div>
             {requests.length > 5 && (
               <button onClick={() => setExpand(!expand)} className="btn-expand">
-                {expand ? "Réduire la liste" : "Voir plus de demandes"}
+                {expand ? t("Réduire la liste") : t("Voir plus de demandes")}
               </button>
             )}
+
           </div>
+       
         )}
+       
       </div>
     </div>
   );

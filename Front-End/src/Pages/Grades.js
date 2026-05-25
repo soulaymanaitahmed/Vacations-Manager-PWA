@@ -11,6 +11,7 @@ import { FiEdit } from "react-icons/fi";
 import { baseURL } from "../config";
 
 import "../Style/grades.css";
+import { useTranslation } from "react-i18next";
 
 function Grades() {
   const [corp, setCorp] = useState("");
@@ -134,19 +135,20 @@ function Grades() {
       console.error("Error deleting grade:", error);
     }
   };
+  const {t,i18n}=useTranslation('translation' , {keyPrefix:'Grades'});
 
   return (
     <>
       {confirmDelete.show && (
         <div className="confirm88">
           <div className="conf-card-99">
-            <p className="conf-text5">Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+            <p className="conf-text5">{t("Êtes-vous sûr de vouloir supprimer cet élément ?")}?</p>
             <div className="conf-btn-77">
               <button
                 className="cbtn5 cancel99"
                 onClick={() => setConfirmDelete({ show: false, id: null, type: "" })}
               >
-                Annuler
+                {t("Annuler")}
               </button>
               <button
                 className="cbtn5 conf99"
@@ -156,31 +158,32 @@ function Grades() {
                   setConfirmDelete({ show: false, id: null, type: "" });
                 }}
               >
-                Confirmer
+                {t("Confirmer")}
               </button>
             </div>
           </div>
         </div>
       )}
-      <div className="user-list-header">
-        <h3 className="user-header">Notes</h3>
+      <div className="user-list-header"
+        dir={(i18n.language==='ar' ? 'rtl' : 'ltr')}
+      >
+        <h3 className="user-header">{t("Notes")}</h3>
       </div>
       <br />
       <hr />
       <br />
       <p className="allr678">
-        Alerte! supprimer ou modifier l'un de ces éléments affectera directement
-        le profil du membre du personnel.
+        {t("Alerte! supprimer ou modifier l'un de ces éléments affectera directement le profil du membre du personnel.")}
       </p>
       <br />
       <div className="user-show1">
         <div className="grade-list">
-          <h3>Notes</h3>
+          <h3>{t("Notes")}</h3>
           <form className="grade-add" onSubmit={sendGrade}>
             <input
               type="text"
               className="grade-input"
-              placeholder="Grade"
+              placeholder={t("Grade")}
               minLength={2}
               maxLength={50}
               onChange={(e) => {
@@ -196,20 +199,20 @@ function Grades() {
               onChange={(e) => setCorpSelect(e.target.value)}
               required
             >
-              <option>Sélectionner un corps</option>
+              <option>{t("Sélectionner un corps")}</option>
               {corps.map((cr) => {
                 return (
                   <option key={cr.id} value={cr.id}>
-                    {cr.corp}
+                    {t(cr.corp)}
                   </option>
                 );
               })}
             </select>
             <button type="submit" className="btn-grade">
-              Ajouter
+              {t("Ajouter")}
             </button>
           </form>
-          {gradeExist ? <p className="alert1">Grade existe déjà</p> : null}
+          {gradeExist ? <p className="alert1">"{t("Grade existe déjà")}</p> : null}
           <div className="corps-show">
             {GradeAll.map((item) => (
               <div key={item.id} className="corp-item">
@@ -255,8 +258,7 @@ function Grades() {
                       setCorpEdit(false);
                     }}
                   >
-                    <FiEdit className="ft1" />
-                    Modifier
+                    <FiEdit className="ft1" />{t("Modifier")}
                   </button>
                 ) : (
                   <button
@@ -265,7 +267,7 @@ function Grades() {
                     onClick={() => updateGrade(item.id)}
                   >
                     <GiConfirmed className="ft1" />
-                    Confirmer
+                    {t("Confirmer")}
                   </button>
                 )}
                 {item.id === gradeEdit ? (
@@ -278,16 +280,15 @@ function Grades() {
                     }}
                   >
                     <MdOutlineCancel className="ft1" />
-                    Annuler
+                    {t("Annuler")}
                   </button>
                 ) : (
                   <button
                     className="grade-all-btn"
                     id="delete11"
-                    onClick={() => setConfirmDelete({ show: true, id: item.id, type: "grade" })}
+                    onClick={() => setConfirmDelete({ show: true, id: item.id, type: t("grade") })}
                   >
-                    <AiFillDelete className="ft1" />
-                    Supprimer
+                    <AiFillDelete className="ft1" />{t("Supprimer")}
                   </button>
                 )}
               </div>
@@ -295,12 +296,12 @@ function Grades() {
           </div>
         </div>
         <div className="corps-list">
-          <h3>Corps</h3>
+          <h3>{t("Corps")}</h3>
           <form className="grade-add" onSubmit={sendCorp}>
             <input
               type="text"
               className="grade-input"
-              placeholder="Corp"
+              placeholder={t("Corp")}
               minLength={2}
               maxLength={50}
               required
@@ -310,13 +311,13 @@ function Grades() {
               }}
             />
             <button type="submit" className="btn-grade" id="ggm">
-              Ajouter
+              {t("Ajouter")}
             </button>
           </form>
-          {corpExist ? <p className="alert1">Corp existe déjà</p> : null}
+          {corpExist ? <p className="alert1">{t("Corp existe déjà")}</p> : null}
           {corpDelete ? (
             <p className="alert1">
-              Vous ne pouvez pas supprimer un corp utilisé
+              {t("Vous ne pouvez pas supprimer un corp utilisé")}
             </p>
           ) : null}
           <div className="corps-show">
@@ -362,8 +363,7 @@ function Grades() {
                           : null
                       }
                     >
-                      <FiEdit className="ft1" />
-                      Modifier
+                      <FiEdit className="ft1" />{t("Modifier")}
                     </button>
                   ) : (
                     <button
@@ -374,7 +374,7 @@ function Grades() {
                       }}
                     >
                       <GiConfirmed className="ft1" />
-                      Confirmer
+                      {t("Confirmer")}
                     </button>
                   )}
                   {item.id === corpEdit ? (
@@ -386,7 +386,7 @@ function Grades() {
                       }}
                     >
                       <MdOutlineCancel className="ft1" />
-                      Annuler
+                      {t("Annuler")}
                     </button>
                   ) : (
                     <button
@@ -406,8 +406,7 @@ function Grades() {
                           : null
                       }
                     >
-                      <AiFillDelete className="ft1" />
-                      Supprimer
+                      <AiFillDelete className="ft1" />{t("Supprimer")}
                     </button>
                   )}
                 </div>

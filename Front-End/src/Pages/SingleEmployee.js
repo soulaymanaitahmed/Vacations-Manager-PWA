@@ -31,6 +31,7 @@ import VacationsMini from "./VacationsMini";
 import "../Style/employee.css";
 
 import { baseURL } from "../config";
+import {useTranslation} from 'react-i18next';
 
 function SingleEmployee(props) {
   const tp = props.type;
@@ -223,7 +224,7 @@ function SingleEmployee(props) {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setCongExist(
-          "Une période existe déjà pour cet employé. Veuillez choisir une autre date.",
+          t("Une période existe déjà pour cet employé. Veuillez choisir une autre date."),
         );
       }
       console.error("Error inserting conge record:", error);
@@ -516,6 +517,8 @@ function SingleEmployee(props) {
     }
   }, [congsAll, filter2]);
 
+  const {t,i18n}=useTranslation('translation', {keyPrefix:"SingleEmployee"});
+
   return (
     <div className="personel">
       <div className="user-list-header">
@@ -541,9 +544,9 @@ function SingleEmployee(props) {
           <input
             type="text"
             id="servh1255"
-            placeholder="Rechercher"
+            placeholder={t('Rechercher')}
             className="searcher1"
-            value={"Sélectionner l'année"}
+            value={t("Sélectionner l'année")}
             disabled
           />
           <select
@@ -554,7 +557,7 @@ function SingleEmployee(props) {
               setFilter2(Number(e.target.value));
             }}
           >
-            <option value={20}>Toutes</option>
+            <option value={20}>{t("Toutes")}</option>
             {years.map((year) => (
               <option key={year} value={year}>
                 {year}
@@ -569,7 +572,7 @@ function SingleEmployee(props) {
               setAddVc2(true);
             }}
           >
-            Ajouter solde Annuel
+            {t('Ajouter solde Annuel')}
           </button>
         ) : null}
         <button
@@ -579,7 +582,7 @@ function SingleEmployee(props) {
           }}
           disabled={noMore}
         >
-          Demande de congé <BiMessageSquareAdd className="add4564" />
+          {t('Demande de congé')} <BiMessageSquareAdd className="add4564" />
         </button>
       </div>
       <br />
@@ -605,13 +608,13 @@ function SingleEmployee(props) {
             <div className="card-nbr44" id="kkbyr44">
               {exep}
             </div>
-            <p className="stat-year">Exceptionnel</p>
+            <p className="stat-year">{t('de congé')}</p>
           </div>
           <div className="stats-card" id="llkiu444">
             <div className="card-nbr44" id="kkbyr444">
               {abs}
             </div>
-            <p className="stat-year">Autorisation d'absence</p>
+            <p className="stat-year">{t("Autorisation d'absence")}</p>
           </div>
           {sold.map((y) => (
             <div className="stats-card" key={y.year}>
@@ -637,7 +640,7 @@ function SingleEmployee(props) {
               ×
             </div>
             <div className="khgjkfg4">
-              <p className="jkezjf77">Ajouter un congé</p>
+              <p className="jkezjf77">{t('Ajouter un congé')}</p>
             </div>
             <div className="mmpou5">
               <div className="radio-input-wrapper">
@@ -652,7 +655,7 @@ function SingleEmployee(props) {
                     checked={radio1 === "1"}
                   />
                   <div className="radio-design"></div>
-                  <div className="label-text">Congé Administratif</div>
+                  <div className="label-text">{t('Congé Administratif')}</div>
                 </label>
                 {radio1 === "1" ? (
                   <div className="radio-input-wrapper1">
@@ -667,7 +670,7 @@ function SingleEmployee(props) {
                         checked={subRadio1 === "1"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">Annuel (22 max)</div>
+                      <div className="label-text">{t('Annuel')} ({t("(22 max)")})</div>
                     </label>
                     <label className="label">
                       <input
@@ -680,7 +683,7 @@ function SingleEmployee(props) {
                         checked={subRadio1 === "2"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">Exceptionnel (10 max)</div>
+                      <div className="label-text">{t('Exceptionnel')} ({t("(10 max)")})</div>
                     </label>
                     <label className="label">
                       <input
@@ -693,7 +696,7 @@ function SingleEmployee(props) {
                         checked={subRadio1 === "3"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">Autorisation d'absence</div>
+                      <div className="label-text">{t("Autorisation d'absence")}</div>
                     </label>
                   </div>
                 ) : null}
@@ -708,7 +711,7 @@ function SingleEmployee(props) {
                     checked={radio1 === "2"}
                   />
                   <div className="radio-design"></div>
-                  <div className="label-text">Congé de Maladie</div>
+                  <div className="label-text">{t('Congé de Maladie')}</div>
                 </label>
                 {radio1 === "2" ? (
                   <div className="radio-input-wrapper1">
@@ -723,7 +726,7 @@ function SingleEmployee(props) {
                         checked={subRadio2 === "11"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">Court durée (90 max)</div>
+                      <div className="label-text">{t("Court durée")} ({t("(90 max)")})</div>
                     </label>
                     <label className="label">
                       <input
@@ -736,7 +739,7 @@ function SingleEmployee(props) {
                         checked={subRadio2 === "12"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">Moyen durée (3An max)</div>
+                      <div className="label-text">{t("Moyen durée")} ({t("(3An max)")})</div>
                     </label>
                     <label className="label">
                       <input
@@ -749,7 +752,7 @@ function SingleEmployee(props) {
                         checked={subRadio2 === "13"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">Long durée (5An max)</div>
+                      <div className="label-text">{t("Long durée")} ({t("(5An max)")})</div>
                     </label>
                   </div>
                 ) : null}
@@ -765,7 +768,7 @@ function SingleEmployee(props) {
                       checked={radio1 === "3"}
                     />
                     <div className="radio-design"></div>
-                    <div className="label-text">Congé de Maternité</div>
+                    <div className="label-text">{t('Congé de Maladie L')}</div>
                   </label>
                 ) : person.gander === 0 ? (
                   <label className="label">
@@ -779,7 +782,7 @@ function SingleEmployee(props) {
                       checked={radio1 === "4"}
                     />
                     <div className="radio-design"></div>
-                    <div className="label-text">Congé de Paternité</div>
+                    <div className="label-text">{t('Congé de Paternité')}</div>
                   </label>
                 ) : null}
               </div>
@@ -794,7 +797,7 @@ function SingleEmployee(props) {
                       <div className="dfgkjkfdgdkf4">
                         {subRadio1 === "1" ? (
                           <div className="group44">
-                            <label className="lb-hh4">Année</label>
+                            <label className="lb-hh4">{t("Année")}</label>
                             <input
                               type="number"
                               className="input-vc44"
@@ -827,7 +830,7 @@ function SingleEmployee(props) {
                           >
                             -
                           </button>
-                          <label className="lb-hh4">Durée</label>
+                          <label className="lb-hh4">{t("Durée")}</label>
                           <input
                             type="number"
                             className="input-vc44"
@@ -854,7 +857,7 @@ function SingleEmployee(props) {
                     </div>
                   )}
                   <div className="group44">
-                    <label className="lb-hh4">Du</label>
+                    <label className="lb-hh4">{t("Du")}</label>
                     <input
                       required
                       type="date"
@@ -866,7 +869,7 @@ function SingleEmployee(props) {
                     />
                   </div>
                   <div className="group44">
-                    <label className="lb-hh4">Date de demande</label>
+                    <label className="lb-hh4">{t("Date de demande")}</label>
                     <input
                       required
                       type="date"
@@ -878,10 +881,9 @@ function SingleEmployee(props) {
                     />
                   </div>
                   <div className="group44">
-                    <label className="lb-hh4">
-                      Au{" "}
+                    <label className="lb-hh4">{t("Au")}{" "}
                       {subRadio1 === "1" ? (
-                        <span className="kskl44">(Automatique / Manuel)</span>
+                        <span className="kskl44">({t("(Automatique / Manuel)")})</span>
                       ) : null}
                     </label>
 
@@ -918,7 +920,7 @@ function SingleEmployee(props) {
                   ) : (
                     <div className="group44">
                       <label className="lb-hh4">
-                        <label className="lb-hh4">Total</label>
+                        <label className="lb-hh4">{t("Total")}</label>
                       </label>
                       <input
                         id="tot44"
@@ -930,15 +932,15 @@ function SingleEmployee(props) {
                   )}
                   {radio1 === "2" ? (
                     <div className="group44">
-                      <label className="lb-hh4">Justification</label>
+                      <label className="lb-hh4">{t("Justification")}</label>
                       <select
                         type="date"
                         className="input-vc44"
                         value={justification}
                         onChange={(e) => setJustification(e.target.value)}
                       >
-                        <option value={true}>Justifier</option>
-                        <option value={false}>Non justifier</option>
+                        <option value={true}>{t("Justifier")}</option>
+                        <option value={false}>{t("Justifier")}</option>
                       </select>
                     </div>
                   ) : null}
@@ -947,7 +949,7 @@ function SingleEmployee(props) {
                       <div className="group44">
                         <div className="dfgkjkfdgdkf4">
                           <div className="group44">
-                            <label className="lb-hh4">Deuxième année</label>
+                            <label className="lb-hh4">{t("Deuxième année")}</label>
                             <div className="kklfkd5">
                               <label>
                                 <input
@@ -976,7 +978,7 @@ function SingleEmployee(props) {
                             </div>
                           </div>
                           <div className="group44">
-                            <label className="lb-hh4">Durée</label>
+                            <label className="lb-hh4">{t("Durée")}</label>
                             <button
                               className="add-555"
                               id={check1 ? "kkli55" : "kkli555"}
@@ -1035,7 +1037,7 @@ function SingleEmployee(props) {
                             </label>
                           ) : null}
                           <label className="ham55">
-                            Avec autorisation de quitter le territoire
+                            {t("Avec autorisation de quitter le territoire")}
                           </label>
                         </div>
                       </div>
@@ -1051,15 +1053,13 @@ function SingleEmployee(props) {
                         e.preventDefault();
                         setAddVc(false);
                       }}
-                    >
-                      Annuler
+                    >{t("Annuler")}
                     </button>
                     <button
                       className="sub44"
                       type="submit"
                       disabled={total < 1 || total > maxi}
-                    >
-                      Valider
+                    >{t("Valider")}
                     </button>
                   </div>
                   {congExist ? (
@@ -1084,11 +1084,11 @@ function SingleEmployee(props) {
               ×
             </div>
             <div className="khgjkfg4">
-              <p className="jkezjf77">Ajouter sold</p>
+              <p className="jkezjf77">{t("Ajouter sold")}</p>
             </div>
             <div className="insert-cong-new" id="kkurv44">
               <div className="group44">
-                <label className="lb-hh4">Année</label>
+                <label className="lb-hh4">{t("Année")}</label>
                 <input
                   type="number"
                   className="input-vc44"
@@ -1110,7 +1110,7 @@ function SingleEmployee(props) {
                 >
                   -
                 </button>
-                <label className="lb-hh4">Durée</label>
+                <label className="lb-hh4">{t("Durée")}</label>
                 <input
                   type="number"
                   className="input-vc44"
@@ -1143,8 +1143,7 @@ function SingleEmployee(props) {
                 </button>
               </div>
               <div className="group445" id="hhkl44">
-                <button className="sub44" id="annlll446" disabled>
-                  Sold: {"  "}
+                <button className="sub44" id="annlll446" disabled>{t("Solde")}: {"  "}
                   {String(
                     sold.find((y) => y.year === year3)
                       ? 22 - sold.find((y) => y.year === year3).sold
@@ -1158,8 +1157,7 @@ function SingleEmployee(props) {
                     e.preventDefault();
                     setAddVc2(false);
                   }}
-                >
-                  Annuler
+                >{t("Annuler")}
                 </button>
                 <button
                   className="sub44"
@@ -1171,8 +1169,7 @@ function SingleEmployee(props) {
                         ? 22 - sold.find((y) => y.year === year3).sold
                         : 22)
                   }
-                >
-                  Submit
+                >{t("Submit")}
                 </button>
               </div>
             </div>
@@ -1184,19 +1181,18 @@ function SingleEmployee(props) {
               {conf ? (
                 <div className="confirm88">
                   <div className="conf-card-99">
-                    <p className="conf-text5">Êtes-vous sûr ?</p>
+                    <p className="conf-text5">{t("Êtes-vous sûr ?")}</p>
                     <div className="conf-btn-77">
                       <button
                         className="cbtn5 conf99"
                         onClick={() => cancel(singleConj.id)}
                       >
-                        Confirmer
+                        {t("Confirmer")}
                       </button>
                       <button
                         className="cbtn5 cancel99"
                         onClick={() => setConf(false)}
-                      >
-                        Annuler
+                      >{t("Annuler")}
                       </button>
                     </div>
                   </div>
@@ -1216,33 +1212,32 @@ function SingleEmployee(props) {
                     <div className="bbk44">
                       <p className="kjyh5">
                         <MdOutlineCancel className="cllb44" />
-                        &nbsp; Demande annulée !
+                        &nbsp; {t("Demande annulée !")}
                       </p>
                     </div>
                   ) : null}
-                  <button disabled={singleConj.decision !== 5} className="sv1">
-                    Valider
+                  <button disabled={singleConj.decision !== 5} className="sv1">{t("Valider")}
                   </button>
                   <button disabled={singleConj.decision !== 4} className="sv1">
-                    Ressources humaines{" "}
+                    {t("Ressources humaines")}{" "}
                     {singleConj.decision >= 4 || singleConj.decision >= 24 ? (
                       <FaCheck className="nvbhtu55" />
                     ) : null}
                   </button>
                   <button disabled={singleConj.decision !== 3} className="sv1">
-                    Le délégué{" "}
+                    {t("Le délégué")}{" "}
                     {singleConj.decision >= 3 || singleConj.decision >= 23 ? (
                       <FaCheck className="nvbhtu55" />
                     ) : null}
                   </button>
                   <button disabled={singleConj.decision !== 2} className="sv1">
-                    Chef archaic{" "}
+                    {t("Chef archaic")}{" "}
                     {singleConj.decision >= 2 || singleConj.decision >= 22 ? (
                       <FaCheck className="nvbhtu55" />
                     ) : null}
                   </button>
                   <button disabled={singleConj.decision !== 1} className="sv1">
-                    Bureau d'ordre{" "}
+                    {t("Bureau d'ordre")}{" "}
                     {singleConj.decision >= 1 || singleConj.decision >= 21 ? (
                       <FaCheck className="nvbhtu55" />
                     ) : null}
@@ -1260,16 +1255,16 @@ function SingleEmployee(props) {
                     className="sv1"
                     id="kklop55"
                   >
-                    Rejeter
+                    {t("Rejeter")}
                   </button>
                 </div>
                 <div className="wwv55">
                   <div className="vvbu1">
                     <span>
-                      N° Conngé: <span className="fos44">{singleConj.id}</span>
+                      {t("N° Conngé")}: <span className="fos44">{singleConj.id}</span>
                     </span>
                     <span>
-                      Créé:{" "}
+                      {t("Créé")}:{" "}
                       <span className="fos44">
                         {formatDateTime(singleConj.created_at)}
                       </span>
@@ -1300,22 +1295,22 @@ function SingleEmployee(props) {
                         id="vv10"
                       >
                         {singleConj.type === 1
-                          ? "Annuel"
+                          ? t('Annuel')
                           : singleConj.type === 2
-                            ? "Exceptionnel"
+                            ? t('Exceptionnel')
                             : singleConj.type === 3
-                              ? "Autorisation d'absence"
+                              ? t("Autorisation d'absence")
                               : singleConj.type === 11
-                                ? "Congé de Maladie C"
+                                ? t('Congé de Maladie C')
                                 : singleConj.type === 12
-                                  ? "Congé de Maladie M"
+                                  ? t('Congé de Maladie M')
                                   : singleConj.type === 13
-                                    ? "Congé de Maladie L"
+                                    ? t('Congé de Maladie L')
                                     : singleConj.type === 21
-                                      ? "Congé de Maternité"
+                                      ? t('Congé de Maladie L')
                                       : singleConj.type === 22
-                                        ? "Congé de Paternité"
-                                        : "Autre"}
+                                        ? t('Congé de Paternité')
+                                        : t("Autre")}
                       </span>
                     </span>
                     {!singleConj.justification &&
@@ -1333,9 +1328,9 @@ function SingleEmployee(props) {
                         }
                       >
                         {singleConj.justification === 1
-                          ? "Justifier"
+                          ? t("Justifier")
                           : singleConj.justification === 0
-                            ? "Non justifier"
+                            ? t("Justifier")
                             : null}
                       </span>
                     ) : null}
@@ -1351,53 +1346,50 @@ function SingleEmployee(props) {
                         }
                       >
                         {singleConj.quitter === 1
-                          ? "Avec autorisation de quitter le territoire"
+                          ? t("Avec autorisation de quitter le territoire")
                           : singleConj.quitter === 0
-                            ? "Sans autorisation de quitter le territoire"
+                            ? t("Sans autorisation de quitter le territoire")
                             : null}
                       </span>
                     ) : null}
                   </div>
-                  <div className="vvbu1">
-                    <span>
-                      Du:{" "}
+                  <div className="vvbu1" 
+                   dir={(i18n.language==='ar' ? 'rtl' : 'ltr')}
+                  >
+                    <span>{t("Du")}:{" "}
                       <span className="fos44">
                         {formatDate(singleConj.start_at)}
                       </span>
                     </span>
-                    <span>
-                      Au:{" "}
+                    <span>{t("Au")}:{" "}
                       <span className="fos44">
                         {formatDate(singleConj.end_at)}
                       </span>
                     </span>
                   </div>
                   <div className="vvbu1">
-                    <span>
-                      Année: <span className="fos44">{singleConj.year_1}</span>
+                    <span>{t("Année")}: <span className="fos44">{singleConj.year_1}</span>
                     </span>
-                    <span>
-                      Durée:{" "}
+                    <span>{t("Durée")}:{" "}
                       <span className="fos44">{singleConj.duration_1}</span>
                     </span>
                   </div>
                   {singleConj.year_2 ? (
                     <div className="vvbu1">
                       <span>
-                        Deuxième année:{" "}
+                        {t("Deuxième année")}:{" "}
                         <span className="fos44">{singleConj.year_2}</span>
                       </span>
-                      <span>
-                        Durée:{" "}
+                      <span>{t("Durée")}:{" "}
                         <span className="fos44">{singleConj.duration_2}</span>
                       </span>
                     </div>
                   ) : null}
                   {singleConj.cancel === 1 ? (
                     <div className="vvbu1">
-                      <span className="llpmln55">Congé annuler</span>
+                      <span className="llpmln55">{t("Congé annuler")}</span>
                       <span>
-                        Total après l'annulation: {singleConj.duration_after}
+                        {t("Total après l'annulation")}: {singleConj.duration_after}
                       </span>
                     </div>
                   ) : null}
@@ -1407,13 +1399,13 @@ function SingleEmployee(props) {
                         className="ddh-btn99 valdsh29"
                         onClick={() => updateSelectedRequest(0)}
                       >
-                        Rejeter
+                        {t("Rejeter")}
                       </button>
                       <button
                         className="ddh-btn99 valdsh19"
                         onClick={() => updateSelectedRequest(1)}
                       >
-                        Valider
+                        {t("Valider")}
                       </button>
                     </div>
                   ) : null} */}
@@ -1422,8 +1414,7 @@ function SingleEmployee(props) {
                   singleConj.cancel === 0 ? (
                     <>
                       <button onClick={onPrintClick1} className="printi678">
-                        <MdLocalPrintshop className="ptrb567" /> Imprimer la
-                        demande
+                        <MdLocalPrintshop className="ptrb567" /> {t("Imprimer la demande")}
                       </button>
                       <div style={{ display: "none" }}>
                         <PrintComponent2
@@ -1436,8 +1427,7 @@ function SingleEmployee(props) {
                   ) : singleConj.decision === 5 ? (
                     <>
                       <button onClick={onPrintClick} className="printi678">
-                        <MdLocalPrintshop className="ptrb567" /> Imprimer la
-                        décision
+                        <MdLocalPrintshop className="ptrb567" /> {t("Imprimer la décision")}
                       </button>
                       <div style={{ display: "none" }}>
                         <PrintComponent
@@ -1450,7 +1440,7 @@ function SingleEmployee(props) {
                   {singleConj.cancel === 0 && singleConj.decision < 5 ? (
                     <div className="vvbu1" id="llpng55">
                       <button onClick={() => setConf(true)} className="cncl55">
-                        Annuler cette demande
+                        {t("Annuler cette demande")}
                       </button>
                     </div>
                   ) : null}
@@ -1459,29 +1449,22 @@ function SingleEmployee(props) {
             </div>
           ) : null}
           <div className="kknh55" id="booldy">
-            <div className="suv-div44" id="S11">
-              N°
+            <div className="suv-div44" id="S11">{t("N°")}
             </div>
-            <div className="suv-div44" id="S12">
-              Décision
+            <div className="suv-div44" id="S12">{t("Décision")}
             </div>
-            <div className="suv-div44" id="S13">
-              Type
+            <div className="suv-div44" id="S13">{t("Type")}
             </div>
-            <div className="suv-div44" id="S14">
-              Durée
+            <div className="suv-div44" id="S14">{t("Durée")}
             </div>
             <div className="suv-div44" id="S15">
-              Date de demande
+              {t("Date de demande")}
             </div>
-            <div className="suv-div44" id="S16">
-              Du
+            <div className="suv-div44" id="S16">{t("Du")}
             </div>
-            <div className="suv-div44" id="S17">
-              Au
+            <div className="suv-div44" id="S17">{t("Au")}
             </div>
-            <div className="suv-div44" id="S18">
-              Année
+            <div className="suv-div44" id="S18">{t("Année")}
             </div>
           </div>
           {filCongsAll.map((c, index) => {
@@ -1536,21 +1519,21 @@ function SingleEmployee(props) {
                     }
                   >
                     {c.cancel === 2
-                      ? "Annuler"
+                      ? t("Annuler")
                       : c.decision === 0 && c.cancel !== 2
-                        ? "En attente"
+                        ? t("En attente")
                         : c.decision === 1 && c.cancel !== 2
-                          ? "Bureau d'ordre"
+                          ? t("Bureau d'ordre")
                           : c.decision === 2 && c.cancel !== 2
-                            ? "Chef archaic"
+                            ? t("Chef archaic")
                             : c.decision === 3 && c.cancel !== 2
-                              ? "Le délégué"
+                              ? t("Le délégué")
                               : c.decision === 4 && c.cancel !== 2
-                                ? "RH"
+                                ? t("RH")
                                 : c.decision === 5 && c.cancel !== 2
-                                  ? "Valider"
+                                  ? t("Annuler")
                                   : c.decision > 20 && c.cancel !== 2
-                                    ? "Rejeter"
+                                    ? t("Rejeter")
                                     : c.decision}
                   </span>
                 </div>
@@ -1578,22 +1561,22 @@ function SingleEmployee(props) {
                     id="vv10"
                   >
                     {c.type === 1
-                      ? "Annuel"
+                      ? t('Annuel')
                       : c.type === 2
-                        ? "Exceptionnel"
+                        ? t('Exceptionnel')
                         : c.type === 3
-                          ? "Autorisation d'absence"
+                          ? t("Autorisation d'absence")
                           : c.type === 11
-                            ? "Congé de Maladie C"
+                            ? t('Congé de Maladie C')
                             : c.type === 12
-                              ? "Congé de Maladie M"
+                              ? t('Congé de Maladie M')
                               : c.type === 13
-                                ? "Congé de Maladie L"
+                                ? t('Congé de Maladie L')
                                 : c.type === 21
-                                  ? "Congé de Maternité"
+                                  ? t('Congé de Maladie L')
                                   : c.type === 22
-                                    ? "Congé de Paternité"
-                                    : "Autre"}
+                                    ? t('Congé de Paternité')
+                                    : t("Autre")}
                   </span>
                 </div>
                 <div className="suv-div44" id="S14">

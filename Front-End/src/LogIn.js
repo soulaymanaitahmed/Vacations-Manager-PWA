@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,  } from "react";
 import { SlSettings } from "react-icons/sl";
 import { BsPersonCircle } from "react-icons/bs";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
@@ -13,8 +13,11 @@ import sideIllustration from "./Images/vacation_login_illustration.png";
 
 import { baseURL } from "./config";
 import { InstallAppButton } from "./pwaInstall";
+import { useTranslation } from "react-i18next";
+
 
 const LoginPage = () => {
+  const {t, i18n} =useTranslation('translation' , {keyPrefix:'LogIn'});
   const [choi, setChoi] = useState(0);
   const [pass, setPass] = useState(false);
 
@@ -63,13 +66,25 @@ const LoginPage = () => {
       setAlr(true);
     }
   };
+ const changeLang = ()=>{
+  if(i18n.language==='fr'){
+    i18n.changeLanguage("ar")
+  }else{
+     i18n.changeLanguage("fr")
+  }
+ } ;
 
   return (
     <div className="login-wrapper">
       <div className="pwa-install-login-wrap">
         <InstallAppButton variant="login" />
       </div>
-
+        {/* btn translation */}
+      <button className="bt-translation" onClick={changeLang}>
+        {(i18n.language==="fr" ? "ar" : "fr" )}
+      </button>
+           
+      
       <div className="login-card">
         {/* Left Side: Illustration */}
         <div className="login-illustration">
@@ -80,11 +95,11 @@ const LoginPage = () => {
           />
           <div className="illustration-overlay">
             <h2>
-              Bienvenue sur
+              {t('Bienvenue sur')}
               <br />
-              Gestion des Congés
+              {t('Gestion des Congés')}
             </h2>
-            <p>Simplifiez la planification de vos congés et la gestion du personnel.</p>
+            <p>{t('Simplifiez la planification de vos congés et la gestion du personnel.')}</p>
           </div>
         </div>
 
@@ -92,9 +107,9 @@ const LoginPage = () => {
         <div className="login-form-side">
           <div className="login-header">
             <img className="login-logo" alt="Logo" src={logo1} />
-            <h1 className="login-title">Se connecter</h1>
+            <h1 className="login-title">{t('Se connecter')}</h1>
             <p className="login-subtitle">
-              Veuillez sélectionner votre portail pour continuer
+              {t('Veuillez sélectionner votre portail pour continuer')}
             </p>
           </div>
 
@@ -107,8 +122,8 @@ const LoginPage = () => {
                 <div className="portal-icon">
                   <SlSettings />
                 </div>
-                <span>Administration</span>
-                <p>Gérer les demandes et les paramètres</p>
+                <span>{t('Administration')}</span>
+                <p>{t('Gérer les demandes et les paramètres')}</p>
               </button>
 
               <button
@@ -118,8 +133,8 @@ const LoginPage = () => {
                 <div className="portal-icon">
                   <BsPersonCircle />
                 </div>
-                <span>Personnel</span>
-                <p>Accédez à votre espace personnel</p>
+                <span>{t('Personnel')}</span>
+                <p>{t('Accédez à votre espace personnel')}</p>
               </button>
             </div>
           ) : (
@@ -130,28 +145,28 @@ const LoginPage = () => {
                   className="back-btn"
                   onClick={() => setChoi(0)}
                 >
-                  <FaArrowLeft /> Retour
+                  <FaArrowLeft /> {t('Retour')}
                 </button>
                 <span className="portal-indicator">
-                  {choi === 1 ? "Portail Administrateur" : "Portail Personnel"}
+                  {choi === 1 ? t('Portail Administrateur') : t('Portail Personnel')}
                 </span>
               </div>
 
               <div className="input-group">
-                <label>{choi === 1 ? "Nom d'utilisateur" : "PPR"}</label>
+                <label>{choi === 1 ? t("Nom d'utilisateur") : t('PPR')}</label>
                 <input
                   type="text"
                   minLength={4}
                   maxLength={16}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder={`Entrez votre ${choi === 1 ? "nom d'utilisateur" : "PPR"}`}
+                  placeholder={`${t('Entrez votre')} ${choi === 1 ? t("Nom d'utilisateur") : t('PPR')}`}
                   required
                 />
               </div>
 
               <div className="input-group">
-                <label>Mot de passe</label>
+                <label>{t('Mot de passe')}</label>
                 <div className="password-input-wrapper">
                   <input
                     type={pass ? "text" : "password"}
@@ -159,7 +174,7 @@ const LoginPage = () => {
                     maxLength={16}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Entrez votre mot de passe"
+                    placeholder={t('Entrez votre mot de passe')}
                     required
                   />
                   <button
@@ -180,13 +195,13 @@ const LoginPage = () => {
                     onChange={(e) => setRememberMe(e.target.checked)}
                   />
                   <span className="checkmark"></span>
-                  Se souvenir de moi (30 Jours)
+                  {t('Se souvenir de moi (30 Jours)')}
                 </label>
               </div>
 
               {alr && (
                 <div className="error-message">
-                  {choi === 1 ? "Nom d'utilisateur" : "PPR"} ou mot de passe incorrect !
+                  {choi === 1 ? t("Nom d'utilisateur") : t('PPR')} {t('ou mot de passe incorrect !')}
                 </div>
               )}
 
@@ -195,7 +210,7 @@ const LoginPage = () => {
                 className="submit-btn"
                 disabled={!username || !password}
               >
-                Se connecter
+                {t('Se connecter')}
               </button>
             </form>
           )}
