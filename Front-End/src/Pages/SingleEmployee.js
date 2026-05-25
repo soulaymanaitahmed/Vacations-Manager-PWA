@@ -670,7 +670,7 @@ function SingleEmployee(props) {
                         checked={subRadio1 === "1"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">{t('Annuel')} ({t("(22 max)")})</div>
+                      <div className="label-text">{t('Annuel')} {t("(22 max)")}</div>
                     </label>
                     <label className="label">
                       <input
@@ -683,7 +683,7 @@ function SingleEmployee(props) {
                         checked={subRadio1 === "2"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">{t('Exceptionnel')} ({t("(10 max)")})</div>
+                      <div className="label-text">{t('Exceptionnel')} {t("(10 max)")}</div>
                     </label>
                     <label className="label">
                       <input
@@ -726,7 +726,7 @@ function SingleEmployee(props) {
                         checked={subRadio2 === "11"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">{t("Court durée")} ({t("(90 max)")})</div>
+                      <div className="label-text">{t("Court durée")} {t("(90 max)")}</div>
                     </label>
                     <label className="label">
                       <input
@@ -739,7 +739,7 @@ function SingleEmployee(props) {
                         checked={subRadio2 === "12"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">{t("Moyen durée")} ({t("(3An max)")})</div>
+                      <div className="label-text">{t("Moyen durée")} {t("(3An max)")}</div>
                     </label>
                     <label className="label">
                       <input
@@ -752,7 +752,7 @@ function SingleEmployee(props) {
                         checked={subRadio2 === "13"}
                       />
                       <div className="radio-design"></div>
-                      <div className="label-text">{t("Long durée")} ({t("(5An max)")})</div>
+                      <div className="label-text">{t("Long durée")} {t("(5An max)")}</div>
                     </label>
                   </div>
                 ) : null}
@@ -883,7 +883,7 @@ function SingleEmployee(props) {
                   <div className="group44">
                     <label className="lb-hh4">{t("Au")}{" "}
                       {subRadio1 === "1" ? (
-                        <span className="kskl44">({t("(Automatique / Manuel)")})</span>
+                        <span className="kskl44">{t("(Automatique / Manuel)")}</span>
                       ) : null}
                     </label>
 
