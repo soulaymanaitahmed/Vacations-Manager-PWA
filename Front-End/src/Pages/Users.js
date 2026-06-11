@@ -229,13 +229,27 @@ function Users() {
                 <div className="user-card-infos">
                   <span
                     className="nn1"
-                    id={us.username === user?.username ? "active-card1" : ""}
+                    id={us.id === user?.id ? "active-card1" : ""}
                   >
-                    {t('Prénom')} :
+                    User ID :
                   </span>
                   <span
                     className="nn2"
-                    id={us.username === user?.username ? "active-card1" : ""}
+                    id={us.id === user?.id ? "active-card1" : ""}
+                  >
+                    {us.id}
+                  </span>
+                </div>
+                <div className="user-card-infos">
+                  <span
+                    className="nn1"
+                    id={us.prenom === user?.prenom ? "active-card1" : ""}
+                  >
+                    Prenom :
+                  </span>
+                  <span
+                    className="nn2"
+                    id={us.prenom === user?.prenom ? "active-card1" : ""}
                   >
                     {us.prenom}
                   </span>
@@ -243,29 +257,15 @@ function Users() {
                 <div className="user-card-infos">
                   <span
                     className="nn1"
-                    id={us.username === user?.username ? "active-card1" : ""}
+                    id={us.nom === user?.nom ? "active-card1" : ""}
                   >
-                    {t('Nom')} :
+                    Nom :
                   </span>
                   <span
                     className="nn2"
-                    id={us.username === user?.username ? "active-card1" : ""}
+                    id={us.nom === user?.nom ? "active-card1" : ""}
                   >
                     {us.nom}
-                  </span>
-                </div>
-                <div className="user-card-infos">
-                  <span
-                    className="nn1"
-                    id={us.username === user?.username ? "active-card1" : ""}
-                  >
-                    {t("Nom d'utilisateur")} :
-                  </span>
-                  <span
-                    className="nn2"
-                    id={us.username === user?.username ? "active-card1" : ""}
-                  >
-                    {us.username}
                   </span>
                 </div>
                 <div className="user-card-infos">
