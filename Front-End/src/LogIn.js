@@ -1,15 +1,14 @@
 import React, { useState, useEffect,  } from "react";
 import { SlSettings } from "react-icons/sl";
 import { BsPersonCircle } from "react-icons/bs";
-import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { MdVisibility, MdVisibilityOff, MdLanguage } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
 
 import Cookies from "js-cookie";
 import axios from "axios";
 
 import "./Style/login.css";
-import logo1 from "./Images/deleg-logo.png";
-import sideIllustration from "./Images/vacation_login_illustration.png";
+
 
 import { baseURL } from "./config";
 import { InstallAppButton } from "./pwaInstall";
@@ -18,6 +17,8 @@ import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
   const {t, i18n} =useTranslation('translation' , {keyPrefix:'LogIn'});
+  const logo1 = "/Images/deleg-logo.png";
+  const sideIllustration = "/Images/vacation_login_illustration.png";
   const [choi, setChoi] = useState(0);
   const [pass, setPass] = useState(false);
 
@@ -67,11 +68,9 @@ const LoginPage = () => {
     }
   };
  const changeLang = ()=>{
-  if(i18n.language==='fr'){
-    i18n.changeLanguage("ar")
-  }else{
-     i18n.changeLanguage("fr")
-  }
+  const newLang = i18n.language === "fr" ? "ar" : "fr";
+  i18n.changeLanguage(newLang);
+  Cookies.set("i18next", newLang, { expires: 365 });
  } ;
 
   return (
@@ -81,7 +80,8 @@ const LoginPage = () => {
       </div>
         {/* btn translation */}
       <button className="bt-translation" onClick={changeLang}>
-        {(i18n.language==="fr" ? "ar" : "fr" )}
+        <MdLanguage className="lang-icon" />
+        <span>{(i18n.language === "fr" ? "العربية" : "Français")}</span>
       </button>
            
       

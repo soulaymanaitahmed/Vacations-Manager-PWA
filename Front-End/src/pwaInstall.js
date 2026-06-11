@@ -9,7 +9,7 @@ function isStandaloneApp() {
 }
 
 export function registerServiceWorker() {
-  if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) {
+  if (!("serviceWorker" in navigator)) {
     return;
   }
   window.addEventListener("load", () => {

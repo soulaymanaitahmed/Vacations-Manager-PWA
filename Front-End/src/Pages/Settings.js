@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import { BiEdit } from "react-icons/bi";
 import { MdVisibilityOff } from "react-icons/md";
@@ -14,6 +15,11 @@ function Settings(props) {
   const {t ,i18n}=useTranslation('translation',{keyPrefix:'Settings'});
   const id = props.id;
   const type = props.type;
+
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+    Cookies.set("i18next", lang, { expires: 365 });
+  };
 
   const [editor, setEditor] = useState(false);
   const [editor2, setEditor2] = useState(false);
@@ -251,6 +257,30 @@ function Settings(props) {
           </div>
         </div>
       ) : null}
+
+      <div className="main099 mr099">
+        <h4 className="sub-lb099">
+          <span>{t('Langue')}</span>
+        </h4>
+        <div className="lang-section-content">
+          <div className="lang-cards-container">
+            <button 
+              className={`lang-card ${i18n.language === 'fr' ? 'active' : ''}`}
+              onClick={() => handleLanguageChange('fr')}
+            >
+              <span className="lang-flag">🇫🇷</span>
+              <span className="lang-name">Français</span>
+            </button>
+            <button 
+              className={`lang-card ${i18n.language === 'ar' ? 'active' : ''}`}
+              onClick={() => handleLanguageChange('ar')}
+            >
+              <span className="lang-flag">🇲🇦</span>
+              <span className="lang-name">العربية</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

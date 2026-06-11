@@ -22,10 +22,6 @@
   box-sizing: border-box;
   position: fixed;
 }
-.bt-translation:hover {
-  text-decoration:underline;
-}
-
 .logos {
   width: 100%;
   display: flex;
@@ -33,7 +29,6 @@
   gap: 10px;
   border-bottom: 1px solid #373a40;
   padding-bottom: 3vh;
-  margin-top: 50px;
 }
 .img-logo {
   width: 60px;
