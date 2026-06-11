@@ -7,7 +7,7 @@ import axios from "axios";
 import "../Style/vacation.css";
 
 import { baseURL } from "../config";
-
+import {useTranslation} from 'react-i18next';
 const VacationsPersonnel = () => {
   const { id } = useParams();
   const dd = id / 45657;
@@ -104,6 +104,7 @@ const VacationsPersonnel = () => {
     const month = monthNames[date.getMonth()];
     return `${day.toString().padStart(2, "0")} - ${month}`;
   }
+   const {t, i18n} = useTranslation('translation' , {keyPrefix:'VacationsPersonnel'})
 
   return (
     <div className="vacations">
@@ -116,14 +117,14 @@ const VacationsPersonnel = () => {
           .join("\n")}
       </style>
       <div className="user-list-header19">
-        <h3 className="user-header">Vacances</h3>
+        <h3 className="user-header">{t("Vacances")}</h3>
         <div className="searcher">
           <input
             type="text"
             id="servh1255"
             placeholder="Rechercher"
             className="searcher1"
-            value={"Sélectionner l'année"}
+            value={t("Sélectionner l'année")}
             disabled
           />
           <select
@@ -146,11 +147,13 @@ const VacationsPersonnel = () => {
       <br />
       <div className="kklr5">
         <div className="vacations-show">
-          <div className="calendar-grid olpo5">
+          <div className="calendar-grid olpo5"
+            dir={i18n.language==='ar' ? 'rtl' : 'ltr' }
+          >
             {months.map((month, index) => (
               <div key={index} className="calendar-month" id="koiy44">
                 <h4 className="month-name">
-                  {month.toLocaleString("fr-FR", { month: "long" })}
+                  {month.toLocaleString(i18n.language, { month: "long" })}
                 </h4>
                 <Calendar
                   onChange={onChange1}
@@ -161,7 +164,8 @@ const VacationsPersonnel = () => {
                   maxDate={
                     new Date(month.getFullYear(), month.getMonth() + 1, 0)
                   }
-                  locale="fr-FR"
+                  locale={i18n.language}
+                  calendarType="iso8601"
                 />
               </div>
             ))}

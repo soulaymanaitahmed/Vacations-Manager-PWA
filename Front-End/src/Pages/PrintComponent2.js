@@ -5,6 +5,7 @@ import rm from "../Images/rm.png";
 import lg from "../Images/bg1.png";
 
 import { baseURL } from "../config";
+import { useTranslation } from "react-i18next";
 
 const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
   const [settings, setSettings] = useState({
@@ -12,6 +13,7 @@ const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
     delegue: "",
     etablissement: "",
   });
+
   const fetchSettings = async () => {
     try {
       const response = await axios.get(`${baseURL}/settings`);
@@ -24,11 +26,21 @@ const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
       console.error("Error fetching settings:", err);
     }
   };
+
   useEffect(() => {
     fetchSettings();
   }, []);
 
+  const { i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
+
+  // 🛡️ سطر الحماية: إذا لم تكن هناك بيانات للموظف أو الطلب، يختفي المكون تماماً ولا يظهر فارغاً
+  if (!dt || !dt.nom || !data) {
+    return null;
+  }
+
   const formatDate = (isoDate) => {
+    if (!isoDate) return "";
     const date = new Date(isoDate);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -37,33 +49,38 @@ const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
   };
 
   return (
-    <div ref={ref} className="print55">
+    <div ref={ref} className="print55" style={{ direction: isArabic ? "rtl" : "ltr" }}>
       <div className="header-print">
         <div className="print-h1">
           Royaume du Maroc <br /> Ministère de la Santé <br /> et de la
           Protection sociale <br /> Direction Régionale de la Santé <br /> à la
-          Région Dràa-Tafilalet
-          <br />
-          Délégation d'Ouarzazate
+          Région Dràa-Tafilalet <br /> Délégation d'Ouarzazate
         </div>
         <div className="print-h1">
           <img className="print-logo" src={rm} alt="Logo" width="25mm" />
         </div>
         <div className="print-h1">
-          المملكة المغربية <br /> ⵜⴰⴳⵍⴷⵉⵜ ⵏ ⵍⵎⵖⵔⵉⴱ <br /> وزارة الصحة والحماية
-          الإجتماعية <br /> ⵜⴰⵎⴰⵡⴰⵙⵜ ⵏ ⵜⴷⵓⵙⵉ ⴷ ⴰⵏⴰⵎⵓⵏ <br /> المديرية الجهوية
+          المملكة المغربية <br /> ⵜⴰﮕⵍⴷيت ⵏ ⵍⵎⵖⵔⵉⴱ <br /> وزارة الصحة والحماية
+          الإجتماعية <br /> ⵜⴰⵎⴰⵡⴰⵙⵜ ⵏ ⵜⴷⵓⵙⵉ ⴷ ⴰﻨⴰⵎⵓⵏ <br /> المديرية الجهوية
           للصحة <br /> لجهة درعة تافيلالت <br /> مندوبية ورززات
         </div>
       </div>
       <br />
       <span className="n-con661">N° {data.id}</span>
       <h3 className="des-print" id="hhjk88">
-        Demande en vue de bénéficier d'un congé administratif
+        {isArabic ? "طلب الاستفادة من رخصة إدارية" : "Demande en vue de bénéficier d'un congé administratif"}
       </h3>
       <br />
       <p className="dahir" id="silvergray">
-        Vu le <b>Dahir 1.58.008</b> du 04 Chaabane 1377 (27 Février 1958)
-        portant statut de la fonction puplique.
+        {isArabic ? (
+          <>
+            بناءً على الظهير الشريف رقم 1.58.008 الصادر في 4 شعبان 1377 (27 فبراير 1958) بمثابة النظام الأساسي العام للوظيفة العمومية.
+          </>
+        ) : (
+          <>
+            Vu le <b>Dahir 1.58.008</b> du 04 Chaabane 1377 (27 Février 1958) portant statut de la fonction puplique.
+          </>
+        )}
       </p>
       <br />
       <br />
@@ -102,40 +119,53 @@ const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
       <br />
       <br />
       <p className="dahir">
-        {settings.delegue_gender === 1
-          ? "Monsieur le Délégué,"
-          : "Madame la Déléguée,"}
+        {isArabic ? (
+          <>
+            إلى {settings.delegue_gender === 1 ? "السيد المندوب المحترم،" : "السيدة المندوبة المحترمة،"}
+          </>
+        ) : (
+          <>
+            {settings.delegue_gender === 1 ? "Monsieur le Délégué," : "Madame la Déléguée,"}
+          </>
+        )}
         <br />
-        Par le présente, je vous prie de bien vouloir m'acorder{" "}
-        <b>{data.total_duration} jours </b> de congé:
+        {isArabic ? (
+          <>
+            يشرفني أن أتقدم إليكم بطلبي هذا قصد الاستفادة من رخصة مدتها <b>{data.total_duration} أيام </b> من نوع:
+          </>
+        ) : (
+          <>
+            Par le présente, je vous prie de bien vouloir m'acorder <b>{data.total_duration} jours </b> de congé:
+          </>
+        )}
       </p>
       <p className="dahir">
         <u>
           <b>
             {data.type === 1
-              ? "Annuel"
+              ? (isArabic ? "سنوية" : "Annuel")
               : data.type === 2
-              ? "Exceptionnel"
+              ? (isArabic ? "استثنائية" : "Exceptionnel")
               : data.type === 3
-              ? "D'autorisation d'absence"
+              ? (isArabic ? "إذن بالغياب" : "D'autorisation d'absence")
               : data.type === 21
-              ? "De Maternité"
+              ? (isArabic ? "ولادة" : "De Maternité")
               : data.type === 22
-              ? "De Paternité"
+              ? (isArabic ? "أبوة" : "De Paternité")
               : null}
           </b>
         </u>
         <b>
           {data.quitter === 1 && data.type === 1
-            ? " Avec autorisation de quitter le territoire."
+            ? (isArabic ? " مع رخصة مغادرة التراب الوطني." : " Avec autorisation de quitter le territoire.")
             : data.quitter === 0 && data.type === 1
-            ? " Sans autorisation de quitter le territoire."
+            ? (isArabic ? " دون رخصة مغادرة التراب الوطني." : " Sans autorisation de quitter le territoire.")
             : null}
         </b>
       </p>
       <br />
       <p className="dahir">
-        Au titre de l'année : <b>{data.year_1} </b>
+        {isArabic ? "برسم سنة : " : "Au titre de l'année : "} <b>{data.year_1} </b>
         {data.year_2 ? (
           <span className="grt78">
             ({data.duration_1}) <b>/</b> {data.year_2} ({data.duration_2})
@@ -145,40 +175,35 @@ const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
       <br />
       <div className="maininfos78" id="ghj6">
         <div className="line56" id="kkopu6">
-          <p className="hbgu78">Du : </p>
+          <p className="hbgu78">{isArabic ? "من :" : "Du : "}</p>
           <p className="hhfhggt1">{formatDate(data.start_at)}</p>
         </div>
         <div className="line56" id="kkopu6">
-          <p className="hbgu78">Au : </p>
+          <p className="hbgu78">{isArabic ? "إلى :" : "Au : "}</p>
           <p className="hhfhggt1">{formatDate(data.end_at)}</p>
         </div>
       </div>
       <br />
       <p className="dahir" id="silvergray">
-        Veuillez agréer,{" "}
-        {settings.delegue_gender === 1
-          ? "Monsieur le Délégué"
-          : "Madame la Déléguée"}
-        , l'expression de mes salutations distinguées.
+        {isArabic ? "وفي انتظار جوابكم، تقبلوا فائق عبارات التقدير والاحترام." : "Veuillez agréer, l'expression de mes salutations distinguées."}
       </p>
       <br />
       <div className="kknyi5">
         <div className="agentsing">
-          <span className="sintitre">Signature de l'agent</span>
+          <span className="sintitre">{isArabic ? "توقيع الموظف(ة)" : "Signature de l'agent"}</span>
         </div>
         <b className="hhfhggt">
-          Ouarzazate le : {formatDate(data.demand_date)}
+          {isArabic ? "ورززات في : " : "Ouarzazate le : "} {formatDate(data.demand_date)}
         </b>
       </div>
       <br />
       <div className="table55">
-        Avis
+        {isArabic ? "رأي الإدارة" : "Avis"}
         <div className="tbgg">
           <div className="col1">
-            <span className="cds">Chef archaic</span>
+            <span className="cds">{isArabic ? "رئيس المؤسسة الصحية" : "Chef archaic"}</span>
             <span className="cds" id="hhgv55">
-              {settings.delegue_gender === 1 ? "Délégué" : "Déléguée"}{" "}
-              Provincial
+              {isArabic ? "" : (settings.delegue_gender === 1 ? "Délégué" : "Déléguée")} {isArabic ? "المندوب الإقليمي" : "Provincial"}
             </span>
           </div>
           <div className="col2">
@@ -188,8 +213,7 @@ const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {
         </div>
       </div>
       <p className="ft44">
-        Cité des Cadres - OUARZAZATE - Tél: 05 24 88 22 00/ 02 - Fax: 05 24 88
-        23 94
+        Cité des Cadres - OUARZAZATE - Tél: 05 24 88 22 00/ 02 - Fax: 05 24 88 23 94
         <img className="print-logo2" src={lg} alt="Logo" width="40mm" />
       </p>
     </div>

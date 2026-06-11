@@ -8,8 +8,10 @@ import { MdVisibility } from "react-icons/md";
 import { baseURL } from "../config";
 
 import "../Style/settings.css";
+import { useTranslation } from "react-i18next";
 
 function Settings(props) {
+  const {t ,i18n}=useTranslation('translation',{keyPrefix:'Settings'});
   const id = props.id;
   const type = props.type;
 
@@ -89,7 +91,7 @@ function Settings(props) {
 
   useEffect(() => {
     if (editor) {
-      setUse(employee.email);
+      setUse(employee.Email);
       setPas(employee.password);
     }
   }, [editor]);
@@ -98,16 +100,18 @@ function Settings(props) {
     <div className="settings">
       <div className="header88">
         <span className="nom88">{employee.prenom + " - " + employee.nom}</span>
-        <div className="typeacc88">
-          <span className="typecomp88">Type de compte</span>
+        <div className="typeacc88"
+          dir={(i18n.language==='ar'? 'rtl' : 'ltr')}
+        >
+          <span className="typecomp88">{t('Type de compte')}</span>
           <span className="tp89" id={type === 15 ? "type88" : "type89"}>
-            {type === 15 ? "Personnel" : "Administratif"}
+            {type === 15 ? t('Personnel') : t('Administratif')}
           </span>
         </div>
       </div>
       <div className="main099">
         <h4 className="sub-lb099">
-          <span>Compte</span>
+          <span>{t('Compte')}</span>
           <span className="anct-099">
             {editor ? (
               <>
@@ -115,23 +119,23 @@ function Settings(props) {
                   className="act-o099 kl334"
                   onClick={() => setEditor(false)}
                 >
-                  Annuler
+                  {t('Annuler')}
                 </button>
-                <button className="act-o099 rd334">Confirmer</button>
+                <button className="act-o099 rd334">{t('Confirmer')}</button>
               </>
             ) : (
               <button
                 className="act-o099 ed334"
                 onClick={() => setEditor(true)}
               >
-                <BiEdit /> Modifier
+                <BiEdit /> {t('Modifier')}
               </button>
             )}
           </span>
         </h4>
         <div className="h099">
           <div className="lb099">
-            <label>{type === 15 ? "Email" : "Username"}</label>
+            <label>{type === 15 ? t('Email') : t('Username')}</label>
             {editor ? (
               <input
                 type="text"
@@ -143,13 +147,13 @@ function Settings(props) {
               <input
                 type="text"
                 className="inp099"
-                value={type === 15 ? employee.email : employee.username}
+                value={type === 15 ? employee.Email : employee.Username}
                 disabled
               />
             )}
           </div>
           <div className="lb099">
-            <label>Mot de passe</label>
+            <label>{t('Mot de passe')}</label>
             {editor ? (
               <input
                 type={pass ? "text" : "password"}
@@ -182,7 +186,7 @@ function Settings(props) {
       {type === 20 ? (
         <div className="main099 mr099">
           <h4 className="sub-lb099">
-            <span>Informations sur l'établissement</span>
+            <span>{t("Informations sur l'établissement")}</span>
             <span className="anct-099">
               {editor2 ? (
                 <>
@@ -190,10 +194,10 @@ function Settings(props) {
                     className="act-o099 kl334"
                     onClick={() => setEditor2(false)}
                   >
-                    Annuler
+                    {t('Annuler')}
                   </button>
                   <button className="act-o099 rd334" onClick={updateSettings}>
-                    Confirmer
+                    {t('Confirmer')}
                   </button>
                 </>
               ) : (
@@ -201,14 +205,14 @@ function Settings(props) {
                   className="act-o099 ed334"
                   onClick={() => setEditor2(true)}
                 >
-                  <BiEdit /> Modifier
+                  <BiEdit /> {t('Modifier')}
                 </button>
               )}
             </span>
           </h4>
           <div className="h099 mr088">
             <div className="lb099">
-              <label>Directeur / Délégué(e)</label>
+              <label>{t('Directeur / Délégué(e)')}</label>
               <input
                 type="text"
                 className="inp099"
@@ -218,7 +222,7 @@ function Settings(props) {
               />
             </div>
             <div className="lb099">
-              <label>Etablissement</label>
+              <label>{t('Etablissement')}</label>
               <input
                 type="text"
                 className="inp099"
@@ -230,7 +234,7 @@ function Settings(props) {
           </div>
           <div className="h099 mr088">
             <div className="lb099">
-              <label>Directeur / Délégué(e) gender</label>
+              <label>{t('Directeur / Délégué(e) genre')}</label>
               <select
                 type="text"
                 className="inp099"
@@ -239,8 +243,8 @@ function Settings(props) {
                 onChange={(e) => setGen(e.target.value)}
                 id="lb099"
               >
-                <option value={1}>Masculin</option>
-                <option value={2}>Féminin</option>
+                <option value={1}>{t('Masculin')}</option>
+                <option value={2}>{t('Féminin')}</option>
               </select>
             </div>
             <div className="lb099"></div>

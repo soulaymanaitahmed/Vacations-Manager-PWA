@@ -24,6 +24,8 @@ import logo from "./Images/bg1.png";
 import "./Style/app.css";
 import settings from "./Settings.json";
 import { InstallAppButton } from "./pwaInstall";
+import { useTranslation } from "react-i18next";
+
 
 const Users = lazy(() => import("./Pages/Users"));
 const Grades = lazy(() => import("./Pages/Grades"));
@@ -50,6 +52,18 @@ function App() {
   const location = useLocation();
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const {t, i18n} =useTranslation('translation' , {keyPrefix:'App'})
+
+  const changeLang = ()=>{
+  if (i18n.language === "fr") {
+    i18n.changeLanguage("ar");
+    
+  } else {
+    i18n.changeLanguage("fr");
+   
+  }
+}
+
 
   useEffect(() => {
     const token = Cookies.get("gestion-des-conges");
@@ -80,13 +94,19 @@ function App() {
   };
 
   if (loading) {
-    return <div>Chargement...</div>;
+    return <div>{t("Chargement...")}</div>;
   }
 
   if (userInfo) {
     return (
       <div className="App">
         <div className="navigation">
+          <div className="bt-container">
+            <button className="bt-translation" onClick={changeLang}>
+              {(i18n.language==='fr'?'ar' : 'fr')}
+            </button>
+          </div>
+          
           <div className="logos">
             <img src={logo} alt="App-logo" width="60px" className="img-logo" />
             <h4 className="logo-title">{settings.etablissement}</h4>
@@ -99,7 +119,7 @@ function App() {
                 id={isActive("/dashboard")}
               >
                 <MdSpaceDashboard className="nav_icon" />
-                <p className="nav-link">Les demandes</p>
+                <p className="nav-link">{t("Les demandes")}</p>
               </div>
             )}
             {userInfo.type_ac === 15 ? (
@@ -113,7 +133,7 @@ function App() {
                   id={isActive("/personnels")}
                 >
                   <FaUserDoctor className="nav_icon" />
-                  <p className="nav-link">Mes vacances</p>
+                  <p className="nav-link">{t('Mes vacances')}</p>
                 </div>
                 <div
                   onClick={() => {
@@ -124,7 +144,7 @@ function App() {
                   id={isActive("/vacations-personnel")}
                 >
                   <PiCalendarCheckFill className="nav_icon" />
-                  <p className="nav-link">Résumer</p>
+                  <p className="nav-link">{t("Résumer")}</p>
                 </div>
               </>
             ) : (
@@ -134,7 +154,7 @@ function App() {
                 id={isActive("/personnels")}
               >
                 <FaUserDoctor className="nav_icon" />
-                <p className="nav-link">Personnels</p>
+                <p className="nav-link">{t("Personnels")}</p>
               </div>
             )}
             <div
@@ -143,7 +163,7 @@ function App() {
               id={isActive("/vacances")}
             >
               <FaRegCalendarAlt className="nav_icon" />
-              <p className="nav-link">Vacances</p>
+              <p className="nav-link">{t("Vacances")}</p>
             </div>
             {userInfo.type_ac === 20 && (
               <>
@@ -153,7 +173,7 @@ function App() {
                   id={isActive("/utilisateurs")}
                 >
                   <FaUsersGear className="nav_icon" />
-                  <p className="nav-link">Utilisateurs</p>
+                  <p className="nav-link">{t("Utilisateurs")}</p>
                 </div>
                 <div
                   onClick={() => navigate("/formation-sanitaire")}
@@ -161,7 +181,7 @@ function App() {
                   id={isActive("/formation-sanitaire")}
                 >
                   <HiMiniBuildingOffice2 className="nav_icon" />
-                  <p className="nav-link">Formation Sanitaire</p>
+                  <p className="nav-link">{t("Formation Sanitaire")}</p>
                 </div>
                 <div
                   onClick={() => navigate("/grades")}
@@ -169,7 +189,7 @@ function App() {
                   id={isActive("/grades")}
                 >
                   <FaGraduationCap className="nav_icon" />
-                  <p className="nav-link">Grades</p>
+                  <p className="nav-link">{t("Grades")}</p>
                 </div>
               </>
             )}
@@ -180,30 +200,30 @@ function App() {
                 <FaCircleUser className="nav-user-img" />
                 <div className="kknhftb67">
                   <p className="nav-user-name">{userInfo.username}</p>
-                  <p className="nav-user-564">
-                    {userInfo.type_ac === 15
-                      ? "Personnel"
-                      : userInfo.type_ac === 1
-                      ? "Bureau d'ordre"
-                      : userInfo.type_ac === 2
-                      ? "Chef archaique"
-                      : userInfo.type_ac === 3
-                      ? "Délégué"
-                      : userInfo.type_ac === 4
-                      ? "RH"
-                      : userInfo.type_ac === 20
-                      ? "Administrateur"
-                      : userInfo.type_ac === 0
-                      ? "Invité"
-                      : "Inconnu"}
-                  </p>
+                <p className="nav-user-564">
+                  {userInfo.type_ac === 15
+                    ? t("Personnel")
+                    : userInfo.type_ac === 1
+                    ? t("Bureau d'ordre")
+                    : userInfo.type_ac === 2
+                    ? t("Chef archaique")
+                    : userInfo.type_ac === 3
+                    ? t("Délégué")
+                    : userInfo.type_ac === 4
+                    ? t("RH")
+                    : userInfo.type_ac === 20
+                    ? t("Administrateur")
+                    : userInfo.type_ac === 0
+                    ? t("Invité")
+                    : t("Inconnu")}
+                </p>
                 </div>
               </div>
               <div className="nav-user-actions">
                 <InstallAppButton />
                 <div className="links1" id="selected2" onClick={Logout}>
                   <HiOutlineLogout className="nav_icon" />
-                  <p className="nav-link">Se déconnecter</p>
+                  <p className="nav-link">{t("Se déconnecter")}</p>
                 </div>
                 <div
                   onClick={() => navigate("/parametres")}
@@ -211,14 +231,14 @@ function App() {
                   id={isActive("/parametres")}
                 >
                   <MdOutlineSettings className="nav_icon" />
-                  <p className="nav-link">Paramètres</p>
+                  <p className="nav-link">{t("Paramètres")}</p>
                 </div>
               </div>
             </div>
           )}
         </div>
         <div className="main-container">
-          <Suspense fallback={<div>Chargement...</div>}>
+          <Suspense fallback={<div>{t("Chargement...")}</div>}>
             <Routes>
               <Route
                 path="/dashboard"
@@ -329,33 +349,32 @@ function App() {
                 element={
                   <div className="welco33">
                     <div className="welco-card">
-                      <h2 className="wel44">Bonjour {userInfo.username} !</h2>
+                      <h2 className="wel44">{t('Bonjour')} {userInfo.username} !</h2>
                       <br />
                       {userInfo.type_ac === 15 ? (
                         <p className="wel55">
-                          Ce compte est{" "}
-                          <span className="tpact88">Personnel</span>, vous
-                          pouvez demander des congés et vérifier vos demandes.
+                          {t('ce compte est')}{" "}
+                          <span className="tpact88">{t('Personnel')}</span>, {t('vous pouvez demander des congés et vérifier vos demandes.')}
                         </p>
                       ) : (
                         <p className="wel55">
-                          Ce compte est destiné aux
-                          <span className="tpact88"> administrateurs</span>,
-                          vous avez les privilèges de{" "}
+                          {t('Ce compte est destiné aux')}
+                          <span className="tpact88"> {t('administrateurs')}</span>,
+                         {t('vous avez les privilèges de')}{" "}
                           <span className="tpact88">
                             {userInfo.type_ac === 1
-                              ? "Bureau d'ordre"
+                              ? t("Bureau d'ordre")
                               : userInfo.type_ac === 2
-                              ? "Chef archaique"
+                              ? t('Chef archaique')
                               : userInfo.type_ac === 3
-                              ? "Délégué"
+                              ? t('Délégué')
                               : userInfo.type_ac === 4
-                              ? "RH"
+                              ? t("RH")
                               : userInfo.type_ac === 20
-                              ? "Administrateur"
+                              ? t("Administrateur")
                               : userInfo.type_ac === 0
-                              ? "Invité"
-                              : "Inconnu"}
+                              ? t("Invité")
+                              : t("Inconnu")}
                           </span>
                           .
                         </p>

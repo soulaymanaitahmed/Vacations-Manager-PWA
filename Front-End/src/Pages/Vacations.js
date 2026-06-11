@@ -8,6 +8,7 @@ import { FiAlertOctagon } from "react-icons/fi";
 import { VscDiffAdded } from "react-icons/vsc";
 
 import { baseURL } from "../config";
+import {useTranslation} from "react-i18next";
 
 const Vacations = () => {
   const [ho, setHo] = useState([]);
@@ -135,7 +136,7 @@ const Vacations = () => {
     const dd = tt / 86400000 + 1;
     if (dd !== dur) {
       alert(
-        "La durée que vous entrez n'est pas correcte, elle devrait être " + dur1
+        t("La Durée que vous entrez n'est pas correcte, elle devrait être")  + dur1
       );
       return;
     }
@@ -220,6 +221,7 @@ const Vacations = () => {
     const month = monthNames[date.getMonth()];
     return `${day.toString().padStart(2, "0")} - ${month}`;
   }
+  const {t,i18n}=useTranslation('translation' , {keyPrefix:"Vacations"});
 
   return (
     <div className="vacations">
@@ -232,14 +234,14 @@ const Vacations = () => {
           .join("\n")}
       </style>
       <div className="user-list-header">
-        <h3 className="user-header">Vacances</h3>
+        <h3 className="user-header">{t('Vacances')}</h3>
         <div className="searcher">
           <input
             type="text"
             id="servh1255"
-            placeholder="Rechercher"
+            placeholder={t('Rechercher')}
             className="searcher1"
-            value={"Sélectionner l'année"}
+            value={t("Sélectionner l'année")}
             disabled
           />
           <select
@@ -268,7 +270,7 @@ const Vacations = () => {
             setYear(filter1);
           }}
         >
-          Ajouter une Vacance <VscDiffAdded className="add-icon" />
+          {t('Ajouter une Vacance')} <VscDiffAdded className="add-icon" />
         </button>
       </div>
       <br />
@@ -277,9 +279,9 @@ const Vacations = () => {
       <div className="kklr5">
         {addvc ? (
           <form className="add-vac" onSubmit={addVc}>
-            <div className="fgigtg5">Ajouter une vacance</div>
+            <div className="fgigtg5">{t('Ajouter une Vacance')}</div>
             <div className="add-vc33">
-              <label className="vc-lb">Année</label>
+              <label className="vc-lb">{t('Année')}</label>
               <select
                 className="vc-inp"
                 value={year}
@@ -296,7 +298,7 @@ const Vacations = () => {
               </select>
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Nom</label>
+              <label className="vc-lb">{t('Nom')}</label>
               <input
                 className="vc-inp"
                 type="text"
@@ -308,7 +310,7 @@ const Vacations = () => {
               />
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Durée</label>
+              <label className="vc-lb">{t('Durée')}</label>
               <input
                 className="vc-inp"
                 id="jjngh554"
@@ -318,7 +320,7 @@ const Vacations = () => {
               />
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Date début</label>
+              <label className="vc-lb">{t('Date début')}</label>
               <input
                 className="vc-inp"
                 type="date"
@@ -332,7 +334,7 @@ const Vacations = () => {
               />
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Date fin</label>
+              <label className="vc-lb">{t('Date fin')}</label>
               <input
                 className="vc-inp"
                 type="date"
@@ -347,8 +349,7 @@ const Vacations = () => {
               />
             </div>
             <div className="add-vc333">
-              <button className="add-vc" id="add-vc" type="submit">
-                Ajouter
+              <button className="add-vc" id="add-vc" type="submit">{t('Date fin')}
               </button>
               <button
                 className="add-vc"
@@ -358,7 +359,7 @@ const Vacations = () => {
                   setAddvc(false);
                 }}
               >
-                Annuler
+                {t('Annuler')}
               </button>
             </div>
           </form>
@@ -370,7 +371,7 @@ const Vacations = () => {
                 <div className="conf-card12345">
                   <div className="text1234567">
                     <FiAlertOctagon className="ccclm5" />
-                    <p className="llmo4">Confirmation de la suppression</p>
+                    <p className="llmo4">{t('Confirmation de la suppression')}</p>
                   </div>
                   <div className="text12345">
                     <button
@@ -381,7 +382,7 @@ const Vacations = () => {
                         deleteHoliday();
                       }}
                     >
-                      Confirmer
+                      {t('Confirmer')}
                     </button>
                     <button
                       onClick={(e) => {
@@ -391,13 +392,13 @@ const Vacations = () => {
                       className="jjkl4"
                       id="cancel12345"
                     >
-                      Annuler
+                      {t('Annuler')}
                     </button>
                   </div>
                 </div>
               </div>
             ) : null}
-            <div className="fgigtg5">Examiner les vacances</div>
+            <div className="fgigtg5">{t('Examiner les vacances')}</div>
             <button
               className="exit66"
               onClick={(e) => {
@@ -408,7 +409,7 @@ const Vacations = () => {
               ×
             </button>
             <div className="add-vc33">
-              <label className="vc-lb">Année</label>
+              <label className="vc-lb">{t('Année')}</label>
               <select
                 disabled={editorvc ? false : true}
                 className="vc-inp"
@@ -426,7 +427,7 @@ const Vacations = () => {
               </select>
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Nom</label>
+              <label className="vc-lb">{t('Nom')}</label>
               <input
                 disabled={editorvc ? false : true}
                 className="vc-inp"
@@ -439,7 +440,7 @@ const Vacations = () => {
               />
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Durée</label>
+              <label className="vc-lb">{t('Durée')}</label>
               <input
                 className="vc-inp"
                 id="jjngh554"
@@ -449,7 +450,7 @@ const Vacations = () => {
               />
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Date début</label>
+              <label className="vc-lb">{t('Date début')}</label>
               <input
                 disabled={editorvc ? false : true}
                 className="vc-inp"
@@ -464,7 +465,7 @@ const Vacations = () => {
               />
             </div>
             <div className="add-vc33">
-              <label className="vc-lb">Date fin</label>
+              <label className="vc-lb">{t('Date fin')}</label>
               <input
                 className="vc-inp"
                 type="date"
@@ -482,7 +483,7 @@ const Vacations = () => {
               {editorvc ? (
                 <>
                   <button className="add-vc" id="add-vc1233" type="submit">
-                    Confirmer
+                    {t('Confirmer')}
                   </button>
                   <button
                     className="add-vc"
@@ -497,7 +498,7 @@ const Vacations = () => {
                       setEditorvc(false);
                     }}
                   >
-                    Annuler
+                    {t('Annuler')}
                   </button>
                 </>
               ) : (
@@ -510,7 +511,7 @@ const Vacations = () => {
                     className="add-vc"
                     id="add-vc654"
                   >
-                    Modifier
+                    {t('Modifier')}
                   </button>
                   <button
                     className="add-vc"
@@ -520,7 +521,7 @@ const Vacations = () => {
                       setConf(true);
                     }}
                   >
-                    Supprimer
+                    {t('Supprimer')}
                   </button>
                 </>
               )}
@@ -567,15 +568,18 @@ const Vacations = () => {
               })
             ) : (
               <p className="bdkhu5">
-                Il n'y a pas de jours fériés ajoutés cette année
+                {t("Il n'y a pas de jours fériés ajoutés cette année")}
               </p>
             )}
           </div>
-          <div className="calendar-grid">
+          <div className="calendar-grid" 
+            dir={i18n.language==='ar' ? 'rtl' : 'ltr'}
+          >
+            
             {months.map((month, index) => (
               <div key={index} className="calendar-month">
                 <h4 className="month-name">
-                  {month.toLocaleString("fr-FR", { month: "long" })}
+                  {month.toLocaleString(i18n.language, { month: "long" })}
                 </h4>
                 <Calendar
                   onChange={onChange1}
@@ -586,7 +590,8 @@ const Vacations = () => {
                   maxDate={
                     new Date(month.getFullYear(), month.getMonth() + 1, 0)
                   }
-                  locale="fr-FR"
+                  locale={i18n.language}
+                 calendarType="iso8601"
                 />
               </div>
             ))}

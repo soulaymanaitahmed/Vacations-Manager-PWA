@@ -5,6 +5,7 @@ import axios from "axios";
 import "../Style/vacation.css";
 
 import { baseURL } from "../config";
+import {useTranslation} from 'react-i18next';
 
 const Vacations = () => {
   const [ho, setHo] = useState([]);
@@ -142,7 +143,7 @@ const Vacations = () => {
     const month = monthNames[date.getMonth()];
     return `${day.toString().padStart(2, "0")} - ${month}`;
   }
-
+    const {t, i18n} = useTranslation('translation' , {keyPrefix:'VacationsMini'})
   return (
     <div className="vacations">
       <style>
@@ -154,14 +155,14 @@ const Vacations = () => {
           .join("\n")}
       </style>
       <div className="user-list-header19">
-        <h3 className="user-header">Vacances</h3>
+        <h3 className="user-header">{t("Vacances")}</h3>
         <div className="searcher">
           <input
             type="text"
             id="servh1255"
             placeholder="Rechercher"
             className="searcher1"
-            value={"Sélectionner l'année"}
+            value={t("Sélectionner l'année")}
             disabled
           />
           <select
@@ -212,15 +213,17 @@ const Vacations = () => {
               })
             ) : (
               <p className="bdkhu5">
-                Il n'y a pas de jours fériés ajoutés cette année
+                {t("Il n'y a pas de jours fériés ajoutés cette année")}
               </p>
             )}
           </div>
-          <div className="calendar-grid">
+          <div className="calendar-grid"
+            dir={i18n.language==='ar' ? 'rtl' : 'ltr'}
+          >
             {months.map((month, index) => (
               <div key={index} className="calendar-month">
                 <h4 className="month-name">
-                  {month.toLocaleString("fr-FR", { month: "long" })}
+                  {month.toLocaleString(i18n.language, { month: "long" })}
                 </h4>
                 <Calendar
                   onChange={onChange1}
@@ -231,7 +234,8 @@ const Vacations = () => {
                   maxDate={
                     new Date(month.getFullYear(), month.getMonth() + 1, 0)
                   }
-                  locale="fr-FR"
+                  locale={i18n.language}
+                  calendarType="iso8601"
                 />
               </div>
             ))}
