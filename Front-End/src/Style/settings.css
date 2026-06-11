@@ -144,3 +144,70 @@
   color: #fff;
   border: none;
 }
+
+/* Language Switcher Section */
+.lang-section-content {
+  width: 100%;
+  padding: 1.5rem 0 0.5rem 0;
+  box-sizing: border-box;
+}
+
+.lang-cards-container {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.lang-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 28px;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 180px;
+  font-family: inherit;
+  outline: none;
+}
+
+.lang-card:hover {
+  border-color: #005c78;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 92, 120, 0.08);
+}
+
+.lang-card.active {
+  background-color: rgba(0, 92, 120, 0.05);
+  border: 2px solid #005c78;
+  padding: 15px 27px; /* Adjust padding to compensate for 2px border */
+  box-shadow: 0 4px 12px rgba(0, 92, 120, 0.1);
+}
+
+.lang-card.active:hover {
+  transform: none; /* Don't hover animate active card */
+}
+
+.lang-flag {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.lang-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #334155;
+  transition: color 0.3s ease;
+}
+
+.lang-card.active .lang-name {
+  color: #005c78;
+}
+
+/* RTL adjustment for language cards container */
+.lang-section-content[dir="rtl"] .lang-cards-container {
+  flex-direction: row-reverse;
+}

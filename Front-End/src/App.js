@@ -20,25 +20,25 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaUsersGear } from "react-icons/fa6";
 
-import logo from "./Images/bg1.png";
+
 import "./Style/app.css";
 import settings from "./Settings.json";
 import { InstallAppButton } from "./pwaInstall";
 import { useTranslation } from "react-i18next";
 
 
-const Users = lazy(() => import("./Pages/Users"));
-const Grades = lazy(() => import("./Pages/Grades"));
-const Employees = lazy(() => import("./Pages/Employees"));
-const SingleEmployee = lazy(() => import("./Pages/SingleEmployee"));
-const Fsanitaire = lazy(() => import("./Pages/Fsanitaire"));
-const Vacations = lazy(() => import("./Pages/Vacations"));
-const VacationsMini = lazy(() => import("./Pages/VacationsMini"));
-const Settings = lazy(() => import("./Pages/Settings"));
-const NotAuth = lazy(() => import("./Pages/NotAuth"));
-const NotFound = lazy(() => import("./Pages/NotFound"));
-const Dashboardd = lazy(() => import("./Pages/Dashboardd"));
-const VacationsPersonnel = lazy(() => import("./Pages/VacationsPersonnel"));
+import Users from "./Pages/Users";
+import Grades from "./Pages/Grades";
+import Employees from "./Pages/Employees";
+import SingleEmployee from "./Pages/SingleEmployee";
+import Fsanitaire from "./Pages/Fsanitaire";
+import Vacations from "./Pages/Vacations";
+import VacationsMini from "./Pages/VacationsMini";
+import Settings from "./Pages/Settings";
+import NotAuth from "./Pages/NotAuth";
+import NotFound from "./Pages/NotFound";
+import Dashboardd from "./Pages/Dashboardd";
+import VacationsPersonnel from "./Pages/VacationsPersonnel";
 
 const ProtectedRoute = ({ children, allowedTypes, userType }) => {
   if (!allowedTypes.includes(userType)) {
@@ -52,17 +52,8 @@ function App() {
   const location = useLocation();
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const logo = "/Images/bg1.png";
   const {t, i18n} =useTranslation('translation' , {keyPrefix:'App'})
-
-  const changeLang = ()=>{
-  if (i18n.language === "fr") {
-    i18n.changeLanguage("ar");
-    
-  } else {
-    i18n.changeLanguage("fr");
-   
-  }
-}
 
 
   useEffect(() => {
@@ -101,12 +92,6 @@ function App() {
     return (
       <div className="App">
         <div className="navigation">
-          <div className="bt-container">
-            <button className="bt-translation" onClick={changeLang}>
-              {(i18n.language==='fr'?'ar' : 'fr')}
-            </button>
-          </div>
-          
           <div className="logos">
             <img src={logo} alt="App-logo" width="60px" className="img-logo" />
             <h4 className="logo-title">{settings.etablissement}</h4>

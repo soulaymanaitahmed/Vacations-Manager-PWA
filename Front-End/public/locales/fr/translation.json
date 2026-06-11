@@ -69,7 +69,8 @@
     "Etablissement": "Établissement",
     "Directeur / Délégué(e) genre": "Genre du Directeur / Délégué(e)",
     "Masculin": "Masculin",
-    "Féminin": "Féminin"
+    "Féminin": "Féminin",
+    "Langue": "Langue"
   },
   "Users": {
     "Êtes-vous sûr ?": "Êtes-vous sûr ?",
@@ -254,8 +255,8 @@
     "RH": "RH",
     "Autre": "Autre",
     "N°": "N°",
-    "Une période existe déjà pour cet employé. Veuillez choisir une autre date.": "Une période existe déjà pour cet employé. Veuillez choisir une autre date."
-    
+    "Une période existe déjà pour cet employé. Veuillez choisir une autre date.": "Une période existe déjà pour cet employé. Veuillez choisir une autre date.",
+    "Actualiser": "Actualiser"
   },
   "Vacations": {
     "Vacances": "Vacances",

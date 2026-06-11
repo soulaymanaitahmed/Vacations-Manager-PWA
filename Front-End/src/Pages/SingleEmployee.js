@@ -19,8 +19,7 @@ import {
 } from "date-fns";
 
 import { BiMessageSquareAdd } from "react-icons/bi";
-import { MdLocalPrintshop } from "react-icons/md";
-import { MdOutlineCancel } from "react-icons/md";
+import { MdLocalPrintshop, MdOutlineCancel, MdRefresh } from "react-icons/md";
 import { FaCalendarAlt } from "react-icons/fa";
 import { HiBellAlert } from "react-icons/hi2";
 import { FaCheck } from "react-icons/fa";
@@ -529,10 +528,23 @@ function SingleEmployee(props) {
               onClick={() => {
                 window.location.href = `/personnels`;
               }}
+              title="Retour"
             >
               ◀
             </button>
           ) : null}
+          <button
+            className="refresh-btn"
+            onClick={() => {
+              fetchEmployee();
+              fetchHolids();
+              fetchCongeData();
+            }}
+            type="button"
+            title={t('Actualiser')}
+          >
+            <MdRefresh />
+          </button>
           <div className="jvghvj5">
             <h3 className="user-header" id="pers44">
               {person.prenom + " - " + person.nom}

@@ -25,22 +25,46 @@
 
 
 .bt-translation {
-  border: none;
+  border: 1px solid rgba(15, 23, 42, 0.1);
   position: absolute;
-  top: 0;
-  left: 0;
-  padding: 8px 16px;
+  top: 24px;
+  left: 24px;
+  padding: 10px 20px;
   border-radius: 50px;
   cursor: pointer;
-  font-weight:bolder;
-  font-size: 18px;
-  background: transparent;
-  color: #334155;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.4);
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
 }
 
 .bt-translation:hover {
-   backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(15, 23, 42, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+}
+
+.bt-translation:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.bt-translation .lang-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.bt-translation:hover .lang-icon {
+  transform: rotate(15deg);
 }
 
 /*--------------*/

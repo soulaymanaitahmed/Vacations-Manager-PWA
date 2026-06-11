@@ -70,7 +70,8 @@
     "Etablissement": "المؤسسة الصحية",
     "Directeur / Délégué(e) genre": "جنس المدير / المندوب(ة)",
     "Masculin": "ذكر",
-    "Féminin": "أنثى"
+    "Féminin": "أنثى",
+    "Langue": "اللغة"
   },
   "Users": {
    "Êtes-vous sûr ?": "هل أنت متأكد؟",
@@ -262,8 +263,8 @@
     "RH": "الموارد البشرية",
     "Autre": "أخرى",
     "N°": "رقم",
-    "Une période existe déjà pour cet employé. Veuillez choisir une autre date.": "توجد بالفعل فترة مسجلة لهذا الموظف. يرجى اختيار تاريخ آخر."
-    
+    "Une période existe déjà pour cet employé. Veuillez choisir une autre date.": "توجد بالفعل فترة مسجلة لهذا الموظف. يرجى اختيار تاريخ آخر.",
+    "Actualiser": "تحديث"
   },
   "Vacations": {
     "Vacances": "الإجازات",
