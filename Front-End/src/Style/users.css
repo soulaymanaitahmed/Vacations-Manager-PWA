@@ -219,3 +219,35 @@
     opacity: 1;
   }
 }
+
+/* Responsive Users Styles */
+@media (max-width: 900px) {
+  .user-card {
+    min-width: unset;
+    width: 100%;
+  }
+  .add-user {
+    width: 95%;
+    max-width: 100%;
+    padding: 20px;
+    height: auto;
+    min-height: 500px;
+  }
+  .add-selection {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .select-lab, .privl {
+    width: 100%;
+    border-radius: 10px;
+    border: 0.5px solid rgba(0, 0, 0, 0.345);
+  }
+  .add-actions {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  .add-btn-user, .add-btn-user2 {
+    width: 100%;
+  }
+}

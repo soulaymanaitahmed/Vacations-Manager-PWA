@@ -282,3 +282,51 @@ abbr {
 #jjngh554 {
   width: 75%;
 }
+
+/* Responsive Vacation Styles */
+@media (max-width: 900px) {
+  .vacations-show {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .vac-list {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .calendar-grid {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .add-vac {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .add-vc33, .add-vc333 {
+    width: 100%;
+  }
+  .add-vc333 {
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .user-list-header19 {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .fgigtg5 {
+    width: auto;
+    position: static;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: none;
+    text-align: left;
+    padding: 0;
+    text-decoration: none;
+  }
+  .add-vc {
+    width: 48%;
+  }
+}

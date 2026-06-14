@@ -196,3 +196,38 @@
   background-color: #093450;
   color: #fff;
 }
+
+/* Responsive Dashboard Styles */
+@media (max-width: 900px) {
+  .stats-cards-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .stat-card.pending-card,
+  .stat-card.team-card,
+  .stat-card.vacation-card {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .dash-table-header, .dash-table-row {
+    min-width: 700px;
+  }
+  .modern-dash-table {
+    overflow-x: auto;
+  }
+  .dash-table-footer {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  .bulk-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .mini-th, .mini-tr {
+    min-width: 300px;
+  }
+  .mini-dash-table {
+    overflow-x: auto;
+  }
+}

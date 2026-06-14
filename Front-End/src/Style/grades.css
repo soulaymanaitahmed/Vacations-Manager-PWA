@@ -157,3 +157,37 @@
 #kkiuyb236 {
   border-left: 1px solid #142850;
 }
+
+/* Responsive Grades Styles */
+@media (max-width: 900px) {
+  .user-show1 {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .grade-list, .corps-list {
+    width: 100%;
+  }
+  .grade-add {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .corp-select, .grade-input, .btn-grade {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid silver !important;
+  }
+  .corp-item {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+    gap: 10px;
+  }
+  .corp-dd, .corp-dd1, #ggll1 {
+    width: 100%;
+  }
+  .grade-all-btn {
+    width: 48%;
+    display: inline-flex;
+  }
+}

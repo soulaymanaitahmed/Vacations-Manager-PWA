@@ -21,6 +21,8 @@ import { FaCircleUser } from "react-icons/fa6";
 import { FaUsersGear } from "react-icons/fa6";
 
 import logo from "./Images/bg1.png";
+import { FiMenu } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 import "./Style/app.css";
 import settings from "./Settings.json";
 import { InstallAppButton } from "./pwaInstall";
@@ -51,6 +53,7 @@ function App() {
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   useEffect(() => {
     const token = Cookies.get("gestion-des-conges");
     if (token) {
@@ -79,6 +82,12 @@ function App() {
     return location.pathname.startsWith(path) ? "selected" : null;
   };
 
+  const closeMobileMenu = () => {
+    if (window.innerWidth <= 768) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   if (loading) {
     return <div>Chargement...</div>;
   }
@@ -86,7 +95,22 @@ function App() {
   if (userInfo) {
     return (
       <div className="App">
-        <div className="navigation">
+        {/* Mobile Header with Hamburger */}
+        <div className="mobile-header">
+          <div className="logos mobile-only-logo">
+            <img src={logo} alt="App-logo" width="40px" className="img-logo" />
+            <h4 className="logo-title">{settings.etablissement}</h4>
+          </div>
+          <button 
+            className="mobile-menu-toggle" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <IoClose /> : <FiMenu />}
+          </button>
+        </div>
+
+        <div className={`navigation ${mobileMenuOpen ? "mobile-open" : ""}`}>
           <div className="logos">
             <img src={logo} alt="App-logo" width="60px" className="img-logo" />
             <h4 className="logo-title">{settings.etablissement}</h4>
@@ -94,7 +118,7 @@ function App() {
           <div className="navs">
             {userInfo.type_ac !== 15 && (
               <div
-                onClick={() => navigate("/dashboard")}
+                onClick={() => { navigate("/dashboard"); closeMobileMenu(); }}
                 className="links1"
                 id={isActive("/dashboard")}
               >
@@ -108,6 +132,7 @@ function App() {
                   onClick={() => {
                     const gg = userInfo.id * 45657;
                     navigate(`/personnels/${gg}`);
+                    closeMobileMenu();
                   }}
                   className="links1"
                   id={isActive("/personnels")}
@@ -119,6 +144,7 @@ function App() {
                   onClick={() => {
                     const gg = userInfo.id * 45657;
                     navigate(`/vacations-personnel/${gg}`);
+                    closeMobileMenu();
                   }}
                   className="links1"
                   id={isActive("/vacations-personnel")}
@@ -129,7 +155,7 @@ function App() {
               </>
             ) : (
               <div
-                onClick={() => navigate("/personnels")}
+                onClick={() => { navigate("/personnels"); closeMobileMenu(); }}
                 className="links1"
                 id={isActive("/personnels")}
               >
@@ -138,7 +164,7 @@ function App() {
               </div>
             )}
             <div
-              onClick={() => navigate("/vacances")}
+              onClick={() => { navigate("/vacances"); closeMobileMenu(); }}
               className="links1"
               id={isActive("/vacances")}
             >
@@ -148,7 +174,7 @@ function App() {
             {userInfo.type_ac === 20 && (
               <>
                 <div
-                  onClick={() => navigate("/utilisateurs")}
+                  onClick={() => { navigate("/utilisateurs"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/utilisateurs")}
                 >
@@ -156,7 +182,7 @@ function App() {
                   <p className="nav-link">Utilisateurs</p>
                 </div>
                 <div
-                  onClick={() => navigate("/formation-sanitaire")}
+                  onClick={() => { navigate("/formation-sanitaire"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/formation-sanitaire")}
                 >
@@ -164,7 +190,7 @@ function App() {
                   <p className="nav-link">Formation Sanitaire</p>
                 </div>
                 <div
-                  onClick={() => navigate("/grades")}
+                  onClick={() => { navigate("/grades"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/grades")}
                 >
@@ -206,7 +232,7 @@ function App() {
                   <p className="nav-link">Se déconnecter</p>
                 </div>
                 <div
-                  onClick={() => navigate("/parametres")}
+                  onClick={() => { navigate("/parametres"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/parametres")}
                 >
@@ -217,7 +243,11 @@ function App() {
             </div>
           )}
         </div>
-        <div className="main-container">
+        <div className={`main-container ${mobileMenuOpen ? "menu-open" : ""}`}>
+          {/* Overlay to close menu on mobile */}
+          {mobileMenuOpen && (
+            <div className="mobile-overlay" onClick={closeMobileMenu}></div>
+          )}
           <Suspense fallback={<div>Chargement...</div>}>
             <Routes>
               <Route
