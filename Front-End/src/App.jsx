@@ -21,12 +21,10 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaUsersGear } from "react-icons/fa6";
 
-
 import "./Style/app.css";
 import "./Style/responsive.css";
 import settings from "./Settings.json";
 import { useTranslation } from "react-i18next";
-
 
 const Users = lazy(() => import("./Pages/Users"));
 const Grades = lazy(() => import("./Pages/Grades"));
@@ -55,10 +53,9 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const logo = "/Images/bg1.png";
-  const {t, i18n} =useTranslation('translation' , {keyPrefix:'App'})
+  const { t, i18n } = useTranslation("translation", { keyPrefix: "App" });
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
-
 
   useEffect(() => {
     const token = Cookies.get("gestion-des-conges");
@@ -95,10 +92,16 @@ function App() {
   if (userInfo) {
     return (
       <div className="App">
-        <button className="hamburger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <button
+          className="hamburger-btn"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
           {mobileMenuOpen ? "✕" : "☰"}
         </button>
-        <div className={`nav-overlay ${mobileMenuOpen ? "show" : ""}`} onClick={closeMobileMenu}></div>
+        <div
+          className={`nav-overlay ${mobileMenuOpen ? "show" : ""}`}
+          onClick={closeMobileMenu}
+        ></div>
         <div className={`navigation ${mobileMenuOpen ? "open" : ""}`}>
           <div className="logos">
             <img src={logo} alt="App-logo" width="60px" className="img-logo" />
@@ -107,7 +110,10 @@ function App() {
           <div className="navs">
             {userInfo.type_ac !== 15 && (
               <div
-                onClick={() => { navigate("/dashboard"); closeMobileMenu(); }}
+                onClick={() => {
+                  navigate("/dashboard");
+                  closeMobileMenu();
+                }}
                 className="links1"
                 id={isActive("/dashboard")}
               >
@@ -127,9 +133,9 @@ function App() {
                   id={isActive("/personnels")}
                 >
                   <FaUserDoctor className="nav_icon" />
-                  <p className="nav-link">{t('Mes vacances')}</p>
+                  <p className="nav-link">{t("Mes vacances")}</p>
                 </div>
-                <div
+                {/* <div
                   onClick={() => {
                     const gg = userInfo.id * 45657;
                     navigate(`/vacations-personnel/${gg}`);
@@ -140,11 +146,14 @@ function App() {
                 >
                   <PiCalendarCheckFill className="nav_icon" />
                   <p className="nav-link">{t("Résumer")}</p>
-                </div>
+                </div> */}
               </>
             ) : (
               <div
-                onClick={() => { navigate("/personnels"); closeMobileMenu(); }}
+                onClick={() => {
+                  navigate("/personnels");
+                  closeMobileMenu();
+                }}
                 className="links1"
                 id={isActive("/personnels")}
               >
@@ -153,7 +162,10 @@ function App() {
               </div>
             )}
             <div
-              onClick={() => { navigate("/vacances"); closeMobileMenu(); }}
+              onClick={() => {
+                navigate("/vacances");
+                closeMobileMenu();
+              }}
               className="links1"
               id={isActive("/vacances")}
             >
@@ -163,7 +175,10 @@ function App() {
             {userInfo.type_ac === 20 && (
               <>
                 <div
-                  onClick={() => { navigate("/utilisateurs"); closeMobileMenu(); }}
+                  onClick={() => {
+                    navigate("/utilisateurs");
+                    closeMobileMenu();
+                  }}
                   className="links1"
                   id={isActive("/utilisateurs")}
                 >
@@ -171,7 +186,10 @@ function App() {
                   <p className="nav-link">{t("Utilisateurs")}</p>
                 </div>
                 <div
-                  onClick={() => { navigate("/formation-sanitaire"); closeMobileMenu(); }}
+                  onClick={() => {
+                    navigate("/formation-sanitaire");
+                    closeMobileMenu();
+                  }}
                   className="links1"
                   id={isActive("/formation-sanitaire")}
                 >
@@ -179,7 +197,10 @@ function App() {
                   <p className="nav-link">{t("Formation Sanitaire")}</p>
                 </div>
                 <div
-                  onClick={() => { navigate("/grades"); closeMobileMenu(); }}
+                  onClick={() => {
+                    navigate("/grades");
+                    closeMobileMenu();
+                  }}
                   className="links1"
                   id={isActive("/grades")}
                 >
@@ -195,41 +216,51 @@ function App() {
                 <FaCircleUser className="nav-user-img" />
                 <div className="kknhftb67">
                   <p className="nav-user-name">{userInfo.username}</p>
-                <p className="nav-user-564">
-                  {userInfo.type_ac === 15
-                    ? t("Personnel")
-                    : userInfo.type_ac === 1
-                    ? t("Bureau d'ordre")
-                    : userInfo.type_ac === 2
-                    ? t("Chef archaique")
-                    : userInfo.type_ac === 3
-                    ? t("Délégué")
-                    : userInfo.type_ac === 4
-                    ? t("RH")
-                    : userInfo.type_ac === 20
-                    ? t("Administrateur")
-                    : userInfo.type_ac === 0
-                    ? t("Invité")
-                    : t("Inconnu")}
-                </p>
+                  <p className="nav-user-564">
+                    {userInfo.type_ac === 15
+                      ? t("Personnel")
+                      : userInfo.type_ac === 1
+                        ? t("Bureau d'ordre")
+                        : userInfo.type_ac === 2
+                          ? t("Chef archaique")
+                          : userInfo.type_ac === 3
+                            ? t("Délégué")
+                            : userInfo.type_ac === 4
+                              ? t("RH")
+                              : userInfo.type_ac === 20
+                                ? t("Administrateur")
+                                : userInfo.type_ac === 0
+                                  ? t("Invité")
+                                  : t("Inconnu")}
+                  </p>
                 </div>
               </div>
               <div className="nav-user-actions">
-                <div className="links1" id="selected2" onClick={() => { Logout(); closeMobileMenu(); }}>
+                <div
+                  className="links1"
+                  id="selected2"
+                  onClick={() => {
+                    Logout();
+                    closeMobileMenu();
+                  }}
+                >
                   <HiOutlineLogout className="nav_icon" />
                   <p className="nav-link">{t("Se déconnecter")}</p>
                 </div>
                 <div
-                  onClick={() => { navigate("/parametres"); closeMobileMenu(); }}
+                  onClick={() => {
+                    navigate("/parametres");
+                    closeMobileMenu();
+                  }}
                   className="links1"
                   id={isActive("/parametres")}
                 >
                   <MdOutlineSettings className="nav_icon" />
                   <p className="nav-link">{t("Paramètres")}</p>
                 </div>
-          </div>
-          <InstallPWA />
-        </div>
+              </div>
+              <InstallPWA />
+            </div>
           )}
         </div>
         <div className="main-container">
@@ -344,32 +375,40 @@ function App() {
                 element={
                   <div className="welco33">
                     <div className="welco-card">
-                      <h2 className="wel44">{t('Bonjour')} {userInfo.username} !</h2>
+                      <h2 className="wel44">
+                        {t("Bonjour")} {userInfo.username} !
+                      </h2>
                       <br />
                       {userInfo.type_ac === 15 ? (
                         <p className="wel55">
-                          {t('ce compte est')}{" "}
-                          <span className="tpact88">{t('Personnel')}</span>, {t('vous pouvez demander des congés et vérifier vos demandes.')}
+                          {t("ce compte est")}{" "}
+                          <span className="tpact88">{t("Personnel")}</span>,{" "}
+                          {t(
+                            "vous pouvez demander des congés et vérifier vos demandes.",
+                          )}
                         </p>
                       ) : (
                         <p className="wel55">
-                          {t('Ce compte est destiné aux')}
-                          <span className="tpact88"> {t('administrateurs')}</span>,
-                         {t('vous avez les privilèges de')}{" "}
+                          {t("Ce compte est destiné aux")}
+                          <span className="tpact88">
+                            {" "}
+                            {t("administrateurs")}
+                          </span>
+                          ,{t("vous avez les privilèges de")}{" "}
                           <span className="tpact88">
                             {userInfo.type_ac === 1
                               ? t("Bureau d'ordre")
                               : userInfo.type_ac === 2
-                              ? t('Chef archaique')
-                              : userInfo.type_ac === 3
-                              ? t('Délégué')
-                              : userInfo.type_ac === 4
-                              ? t("RH")
-                              : userInfo.type_ac === 20
-                              ? t("Administrateur")
-                              : userInfo.type_ac === 0
-                              ? t("Invité")
-                              : t("Inconnu")}
+                                ? t("Chef archaique")
+                                : userInfo.type_ac === 3
+                                  ? t("Délégué")
+                                  : userInfo.type_ac === 4
+                                    ? t("RH")
+                                    : userInfo.type_ac === 20
+                                      ? t("Administrateur")
+                                      : userInfo.type_ac === 0
+                                        ? t("Invité")
+                                        : t("Inconnu")}
                           </span>
                           .
                         </p>
