@@ -13,14 +13,6 @@
   position: relative;
 }
 
-.pwa-install-login-wrap {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  z-index: 10;
-}
-
-
 /*-----------*/
 
 
@@ -490,4 +482,25 @@
   .login-form-side {
     padding: 32px 24px;
   }
+}
+
+.login-footer {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.login-footer a {
+  color: #526d82;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 200ms;
+}
+
+.login-footer a:hover {
+  color: #0b314a;
 }

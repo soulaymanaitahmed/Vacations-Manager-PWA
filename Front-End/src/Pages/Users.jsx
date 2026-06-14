@@ -4,11 +4,9 @@ import { MdVisibility } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 
 import "../Style/users.css";
-
-import { baseURL } from "../config";
 import {useTranslation} from "react-i18next";
 
 function Users() {

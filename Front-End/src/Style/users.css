@@ -219,3 +219,47 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 768px) {
+  .user-list {
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+  }
+  .user-card {
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    padding: 5%;
+  }
+  .add-user {
+    width: 100%;
+    height: auto;
+    padding: 5%;
+    gap: 15px;
+  }
+  .input-lab {
+    width: 100%;
+  }
+  .addInput {
+    width: 100%;
+  }
+  .add-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .add-selection {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .select-lab {
+    width: 100%;
+    border-radius: 10px;
+    border-right: 0.5px solid rgba(0, 0, 0, 0.345);
+  }
+  .privl {
+    width: 100%;
+    border-radius: 10px;
+  }
+}
