@@ -5,13 +5,9 @@ import { MdVisibility, MdVisibilityOff, MdLanguage } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
 
 import Cookies from "js-cookie";
-import axios from "axios";
+import axios, { baseURL } from "./config";
 
 import "./Style/login.css";
-
-
-import { baseURL } from "./config";
-import { InstallAppButton } from "./pwaInstall";
 import { useTranslation } from "react-i18next";
 
 
@@ -75,9 +71,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-wrapper">
-      <div className="pwa-install-login-wrap">
-        <InstallAppButton variant="login" />
-      </div>
         {/* btn translation */}
       <button className="bt-translation" onClick={changeLang}>
         <MdLanguage className="lang-icon" />

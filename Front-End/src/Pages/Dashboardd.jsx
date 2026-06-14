@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 import { useReactToPrint } from "react-to-print";
 import PrintComponent from "./PrintComponent";
 import "../Style/dashboard.css";
@@ -8,7 +8,6 @@ import { VscInspect } from "react-icons/vsc";
 import { MdMarkEmailUnread } from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { FaCalendarCheck } from "react-icons/fa6";
-import { baseURL } from "../config";
 import {useTranslation} from "react-i18next";
 function Dashboardd(props) {
   const tpp = props.type;
@@ -91,13 +90,10 @@ function Dashboardd(props) {
   };
 
   const printRefs = useRef([]);
-  const handlePrint = useReactToPrint({
-    content: () => printRefs.current[printRefs.current.index],
-  });
+      const handlePrint = useReactToPrint({});
   const onPrintClick = useCallback(
     (index) => {
-      printRefs.current.index = index;
-      handlePrint();
+      handlePrint(() => printRefs.current[index]);
     },
     [handlePrint]
   );

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 import "../Style/vacation.css";
 
 import { FiAlertOctagon } from "react-icons/fi";
 import { VscDiffAdded } from "react-icons/vsc";
-
-import { baseURL } from "../config";
 import {useTranslation} from "react-i18next";
 
 const Vacations = () => {

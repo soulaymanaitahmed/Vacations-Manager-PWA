@@ -3,10 +3,8 @@ import { useParams } from "react-router-dom";
 import Calendar from "react-calendar";
 
 import "react-calendar/dist/Calendar.css";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 import "../Style/vacation.css";
-
-import { baseURL } from "../config";
 import {useTranslation} from 'react-i18next';
 const VacationsPersonnel = () => {
   const { id } = useParams();

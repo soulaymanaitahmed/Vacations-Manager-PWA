@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 import Cookies from "js-cookie";
 
 import { BiEdit } from "react-icons/bi";
 import { MdVisibilityOff } from "react-icons/md";
 import { MdVisibility } from "react-icons/md";
-
-import { baseURL } from "../config";
 
 import "../Style/settings.css";
 import { useTranslation } from "react-i18next";

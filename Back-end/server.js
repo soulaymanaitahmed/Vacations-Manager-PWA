@@ -227,7 +227,7 @@ app.put("/updateRequests", (req, res) => {
     queryParams = [20 + parseInt(type), ids];
   } else if (acc === 1) {
     query = `UPDATE conges SET decision = ? WHERE id IN (?)`;
-    queryParams = [1, ids]; // Always set to 1 regardless of type
+    queryParams = [type, ids];
   } else {
     return res.status(400).json({ error: "Invalid acc value" });
   }
@@ -237,6 +237,32 @@ app.put("/updateRequests", (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json({ message: "Requests updated successfully" });
+  });
+});
+app.put("/updateRequest", (req, res) => {
+  const { id, type, acc } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+  let query = "";
+  let queryParams = [];
+
+  if (acc === 0) {
+    query = `UPDATE conges SET decision = ? WHERE id = ?`;
+    queryParams = [20 + parseInt(type), id];
+  } else if (acc === 1) {
+    query = `UPDATE conges SET decision = ? WHERE id = ?`;
+    queryParams = [type, id];
+  } else {
+    return res.status(400).json({ error: "Invalid acc value" });
+  }
+  db.query(query, queryParams, (err, results) => {
+    if (err) {
+      console.error("Error updating request:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    res.status(200).json({ message: "Request updated successfully" });
   });
 });
 app.put("/changeDecision", (req, res) => {

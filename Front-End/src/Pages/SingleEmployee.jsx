@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 import {
   parseISO,
   addDays,
@@ -28,8 +28,6 @@ import PrintComponent from "./PrintComponent";
 import PrintComponent2 from "./PrintComponent2";
 import VacationsMini from "./VacationsMini";
 import "../Style/employee.css";
-
-import { baseURL } from "../config";
 import {useTranslation} from 'react-i18next';
 
 function SingleEmployee(props) {
@@ -348,7 +346,7 @@ function SingleEmployee(props) {
   const printRefs = useRef(null);
 
   const handlePrint = useReactToPrint({
-    content: () => printRefs.current,
+    contentRef: printRefs,
   });
   const onPrintClick = useCallback(() => {
     handlePrint();
@@ -357,7 +355,7 @@ function SingleEmployee(props) {
   const printRefs1 = useRef(null);
 
   const handlePrint1 = useReactToPrint({
-    content: () => printRefs1.current,
+    contentRef: printRefs1,
   });
   const onPrintClick1 = useCallback(() => {
     handlePrint1();
@@ -1543,7 +1541,7 @@ function SingleEmployee(props) {
                               : c.decision === 4 && c.cancel !== 2
                                 ? t("RH")
                                 : c.decision === 5 && c.cancel !== 2
-                                  ? t("Annuler")
+                                  ? t("Validé")
                                   : c.decision > 20 && c.cancel !== 2
                                     ? t("Rejeter")
                                     : c.decision}

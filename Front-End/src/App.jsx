@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 import { PiCalendarCheckFill } from "react-icons/pi";
 import { MdOutlineSettings } from "react-icons/md";
+import InstallPWA from "./components/InstallPWA";
 import { FaGraduationCap } from "react-icons/fa6";
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaRegCalendarAlt } from "react-icons/fa";
@@ -22,23 +23,23 @@ import { FaUsersGear } from "react-icons/fa6";
 
 
 import "./Style/app.css";
+import "./Style/responsive.css";
 import settings from "./Settings.json";
-import { InstallAppButton } from "./pwaInstall";
 import { useTranslation } from "react-i18next";
 
 
-import Users from "./Pages/Users";
-import Grades from "./Pages/Grades";
-import Employees from "./Pages/Employees";
-import SingleEmployee from "./Pages/SingleEmployee";
-import Fsanitaire from "./Pages/Fsanitaire";
-import Vacations from "./Pages/Vacations";
-import VacationsMini from "./Pages/VacationsMini";
-import Settings from "./Pages/Settings";
-import NotAuth from "./Pages/NotAuth";
-import NotFound from "./Pages/NotFound";
-import Dashboardd from "./Pages/Dashboardd";
-import VacationsPersonnel from "./Pages/VacationsPersonnel";
+const Users = lazy(() => import("./Pages/Users"));
+const Grades = lazy(() => import("./Pages/Grades"));
+const Employees = lazy(() => import("./Pages/Employees"));
+const SingleEmployee = lazy(() => import("./Pages/SingleEmployee"));
+const Fsanitaire = lazy(() => import("./Pages/Fsanitaire"));
+const Vacations = lazy(() => import("./Pages/Vacations"));
+const VacationsMini = lazy(() => import("./Pages/VacationsMini"));
+const Settings = lazy(() => import("./Pages/Settings"));
+const NotAuth = lazy(() => import("./Pages/NotAuth"));
+const NotFound = lazy(() => import("./Pages/NotFound"));
+const Dashboardd = lazy(() => import("./Pages/Dashboardd"));
+const VacationsPersonnel = lazy(() => import("./Pages/VacationsPersonnel"));
 
 const ProtectedRoute = ({ children, allowedTypes, userType }) => {
   if (!allowedTypes.includes(userType)) {
@@ -52,8 +53,11 @@ function App() {
   const location = useLocation();
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const logo = "/Images/bg1.png";
   const {t, i18n} =useTranslation('translation' , {keyPrefix:'App'})
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
 
   useEffect(() => {
@@ -91,7 +95,11 @@ function App() {
   if (userInfo) {
     return (
       <div className="App">
-        <div className="navigation">
+        <button className="hamburger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? "✕" : "☰"}
+        </button>
+        <div className={`nav-overlay ${mobileMenuOpen ? "show" : ""}`} onClick={closeMobileMenu}></div>
+        <div className={`navigation ${mobileMenuOpen ? "open" : ""}`}>
           <div className="logos">
             <img src={logo} alt="App-logo" width="60px" className="img-logo" />
             <h4 className="logo-title">{settings.etablissement}</h4>
@@ -99,7 +107,7 @@ function App() {
           <div className="navs">
             {userInfo.type_ac !== 15 && (
               <div
-                onClick={() => navigate("/dashboard")}
+                onClick={() => { navigate("/dashboard"); closeMobileMenu(); }}
                 className="links1"
                 id={isActive("/dashboard")}
               >
@@ -113,6 +121,7 @@ function App() {
                   onClick={() => {
                     const gg = userInfo.id * 45657;
                     navigate(`/personnels/${gg}`);
+                    closeMobileMenu();
                   }}
                   className="links1"
                   id={isActive("/personnels")}
@@ -124,6 +133,7 @@ function App() {
                   onClick={() => {
                     const gg = userInfo.id * 45657;
                     navigate(`/vacations-personnel/${gg}`);
+                    closeMobileMenu();
                   }}
                   className="links1"
                   id={isActive("/vacations-personnel")}
@@ -134,7 +144,7 @@ function App() {
               </>
             ) : (
               <div
-                onClick={() => navigate("/personnels")}
+                onClick={() => { navigate("/personnels"); closeMobileMenu(); }}
                 className="links1"
                 id={isActive("/personnels")}
               >
@@ -143,7 +153,7 @@ function App() {
               </div>
             )}
             <div
-              onClick={() => navigate("/vacances")}
+              onClick={() => { navigate("/vacances"); closeMobileMenu(); }}
               className="links1"
               id={isActive("/vacances")}
             >
@@ -153,7 +163,7 @@ function App() {
             {userInfo.type_ac === 20 && (
               <>
                 <div
-                  onClick={() => navigate("/utilisateurs")}
+                  onClick={() => { navigate("/utilisateurs"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/utilisateurs")}
                 >
@@ -161,7 +171,7 @@ function App() {
                   <p className="nav-link">{t("Utilisateurs")}</p>
                 </div>
                 <div
-                  onClick={() => navigate("/formation-sanitaire")}
+                  onClick={() => { navigate("/formation-sanitaire"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/formation-sanitaire")}
                 >
@@ -169,7 +179,7 @@ function App() {
                   <p className="nav-link">{t("Formation Sanitaire")}</p>
                 </div>
                 <div
-                  onClick={() => navigate("/grades")}
+                  onClick={() => { navigate("/grades"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/grades")}
                 >
@@ -205,21 +215,21 @@ function App() {
                 </div>
               </div>
               <div className="nav-user-actions">
-                <InstallAppButton />
-                <div className="links1" id="selected2" onClick={Logout}>
+                <div className="links1" id="selected2" onClick={() => { Logout(); closeMobileMenu(); }}>
                   <HiOutlineLogout className="nav_icon" />
                   <p className="nav-link">{t("Se déconnecter")}</p>
                 </div>
                 <div
-                  onClick={() => navigate("/parametres")}
+                  onClick={() => { navigate("/parametres"); closeMobileMenu(); }}
                   className="links1"
                   id={isActive("/parametres")}
                 >
                   <MdOutlineSettings className="nav_icon" />
                   <p className="nav-link">{t("Paramètres")}</p>
                 </div>
-              </div>
-            </div>
+          </div>
+          <InstallPWA />
+        </div>
           )}
         </div>
         <div className="main-container">

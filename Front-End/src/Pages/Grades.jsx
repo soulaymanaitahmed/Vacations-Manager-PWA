@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 
 import { MdOutlineCancel } from "react-icons/md";
 
@@ -7,8 +7,6 @@ import { AiFillDelete } from "react-icons/ai";
 
 import { GiConfirmed } from "react-icons/gi";
 import { FiEdit } from "react-icons/fi";
-
-import { baseURL } from "../config";
 
 import "../Style/grades.css";
 import { useTranslation } from "react-i18next";

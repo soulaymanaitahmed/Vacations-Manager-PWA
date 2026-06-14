@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 
 import toast, { Toaster } from "react-hot-toast";
 
@@ -13,17 +14,16 @@ import { MdDelete } from "react-icons/md";
 
 import PrintComponent3 from "./PrintComponent3";
 
-import { baseURL } from "../config";
-
 import "../Style/employee.css";
 import {useTranslation} from "react-i18next";
 
 function Employees() {
+  const navigate = useNavigate();
   const {t,i18n}=useTranslation('translation', {keyPrefix:"Employees"});
   const printRefs = useRef(null);
 
-  const handlePrint = useReactToPrint({
-    content: () => printRefs.current,
+      const handlePrint = useReactToPrint({
+    contentRef: printRefs,
   });
   const onPrintClick = useCallback(() => {
     handlePrint();
@@ -657,10 +657,9 @@ function Employees() {
                 return (
                   <div
                     key={peron.id}
-                    onDoubleClick={() => {
-                      const oo = peron.id;
-                      const kk = oo * 45657;
-                      window.location.href = `/personnels/${kk}`;
+                    onClick={() => {
+                      const kk = peron.id * 45657;
+                      navigate(`/personnels/${kk}`);
                     }}
                     className="person-card"
                     id={
@@ -704,7 +703,8 @@ function Employees() {
                           ? "par"
                           : "nj8"
                       }
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setPeronEdit(peron);
                         setAddPerson(false);
                         setPeronEditor(false);
@@ -737,7 +737,7 @@ function Employees() {
                       <h5 className="cin66"> {t('CIN')}: {peron.cin}</h5>
                       <h5 className="ppr66">{t('PPR')}: {peron.ppr}</h5>
                     </div>
-                    <button onClick={onPrintClick} className="edint-5">
+                    <button onClick={(e) => { e.stopPropagation(); onPrintClick(); }} className="edint-5">
                       {t('Attestation de travail')}
                     </button>
                     <div style={{ display: "none" }}>

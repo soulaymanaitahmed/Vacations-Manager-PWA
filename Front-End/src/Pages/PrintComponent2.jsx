@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { baseURL } from "../config";
 import "../Style/print.css";
 import rm from "../Images/rm.png";
 import lg from "../Images/bg1.png";
-
-import { baseURL } from "../config";
 import { useTranslation } from "react-i18next";
 
 const PrintComponent2 = React.forwardRef(({ data, dt }, ref) => {

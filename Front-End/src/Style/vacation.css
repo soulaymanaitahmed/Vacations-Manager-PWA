@@ -51,7 +51,7 @@ abbr {
   color: #fff;
 }
 .react-calendar__tile--now:hover {
-  background-color: #532100 !;
+  background-color: #532100 !important;
 }
 .vacations-show {
   width: 100%;
@@ -281,4 +281,67 @@ abbr {
 }
 #jjngh554 {
   width: 75%;
+}
+
+@media (max-width: 768px) {
+  .vacations-show {
+    flex-direction: column;
+    align-items: center;
+  }
+  .vac-list {
+    display: none;
+  }
+  .calendar-grid {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #koiy44 {
+    width: 100% !important;
+  }
+  .add-vac {
+    flex-direction: column;
+    align-items: center;
+  }
+  .add-vc33 {
+    width: 100%;
+  }
+  .add-vc333 {
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+  }
+  .vc-inp {
+    max-width: 100%;
+    width: 100%;
+  }
+  .fgigtg5 {
+    width: 100%;
+    left: 0;
+    position: relative;
+    top: 0;
+    border-radius: 10px;
+    border-bottom: 1px solid silver;
+    box-sizing: border-box;
+  }
+  .user-list-header19 {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  #jjngh554 {
+    width: 100%;
+  }
+  .react-calendar__tile {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-grid {
+    grid-template-columns: 1fr;
+  }
+  .calendar-month {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
